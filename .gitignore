@@ -5,7 +5,7 @@
 Debug/
 Release/
 x64/
-*/obj/
+obj/
 *.obj
 *.ilk
 */*/Debug
@@ -26,3 +26,4 @@ Lunity.dir/
 *.exe
 *.dll
 Output/
+*.csproj

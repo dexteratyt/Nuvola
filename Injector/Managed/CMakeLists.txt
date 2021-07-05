@@ -9,7 +9,7 @@ endif()
 add_executable(Injector)
 
 target_sources(Injector PRIVATE 
-	"main.cpp"
+	"Injector.cs"
 )
 
 message("${CMAKE_CURRENT_LIST_DIR}")

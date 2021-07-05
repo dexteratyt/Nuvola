@@ -40,7 +40,7 @@ cmake .
 cmake --build . --config Release
 :: Put everything in an output folder
 mkdir Output
-copy /y Injector\Native\Release\Injector.exe Output\Injector.exe
+copy /y Injector\Managed\Release\Injector.exe Output\Injector.exe
 copy /y Lunity\Release\Lunity.dll Output\Lunity.dll
 goto end
 
@@ -63,8 +63,9 @@ del /q /s "CMakeCache.txt"
 FOR /d /r . %%d IN (CMakeFiles) DO @IF EXIST "%%d" rd /s /q "%%d"
 rmdir /s /q "Lunity\Lunity.dir"
 rmdir /s /q "Lunity\Release"
-rmdir /s /q "Injector\Native\Injector.dir"
-rmdir /s /q "Injector\Native\Release"
+rmdir /s /q "Injector\Managed\Injector.dir"
+rmdir /s /q "Injector\Managed\Release"
+rmdir /s /q "Injector\Managed\obj"
 rmdir /s /q "Output"
 rmdir /s /q "build"
 goto end
