@@ -12,6 +12,7 @@ if '%choice%' == '2' goto clean
 echo "%choice%" is not valid, try again...
 goto main
 :build
+git submodule update --init --recursive
 cmake .
 cmake --build . --config Release
 goto end

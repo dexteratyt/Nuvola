@@ -14,6 +14,8 @@ target_sources(Lunity PRIVATE
 	"main.cpp"
 )
 
+add_subdirectory(Client)
+
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/PolyHook_2_0/_install/include")
 
 message("${CMAKE_CURRENT_LIST_DIR}")
