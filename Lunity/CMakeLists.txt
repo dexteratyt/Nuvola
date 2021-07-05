@@ -15,6 +15,8 @@ target_sources(Lunity PRIVATE
 )
 
 add_subdirectory(Client)
+add_subdirectory(Utils)
+add_subdirectory(Mem)
 
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/PolyHook_2_0/_install/include")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/cpp-httplib/")
