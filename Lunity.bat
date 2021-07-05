@@ -47,7 +47,7 @@ goto end
 :: Call the injector program
 :inject
 cd Output
-Injector.exe -i Lunity.dll
+Injector.exe -i Lunity.dll -n Minecraft.Windows
 cd ..
 goto end
 
