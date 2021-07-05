@@ -16,6 +16,17 @@ cmake .
 cmake --build . --config Release
 goto end
 :clean
-rmdir /s /q CMakeFiles
-rmdir /s /q Lunity/CMakeFiles
+rmdir /s /q "CMakeFiles"
+rmdir /s /q "x64"
+del /q "*.vcxproj"
+del /q "*.vcxproj.*"
+del /q "*.sln"
+del /q "cmake_install.cmake"
+del /q "CMakeCache.txt"
+rmdir /s /q "Lunity\CMakeFiles"
+rmdir /s /q "Lunity\Lunity.dir"
+rmdir /s /q "Lunity\Release"
+del /q "Lunity\cmake_install.cmake"
+del /q "Lunity\*.vcxproj"
+del /q "Lunity\*.vcxproj.*"
 :end
