@@ -27,17 +27,14 @@ goto end
 :clean
 rmdir /s /q "CMakeFiles"
 rmdir /s /q "x64"
-del /q "*.vcxproj"
-del /q "*.vcxproj.*"
+del /q /s "*.vcxproj"
+del /q /s "*.vcxproj.*"
 del /q "*.sln"
-del /q "cmake_install.cmake"
-del /q "CMakeCache.txt"
-rmdir /s /q "Lunity\CMakeFiles"
+del /q /s "cmake_install.cmake"
+del /q /s "CMakeCache.txt"
+FOR /d /r . %%d IN (CMakeFiles) DO @IF EXIST "%%d" rd /s /q "%%d"
 rmdir /s /q "Lunity\Lunity.dir"
 rmdir /s /q "Lunity\Release"
-del /q "Lunity\cmake_install.cmake"
-del /q "Lunity\*.vcxproj"
-del /q "Lunity\*.vcxproj.*"
 goto end
 :end
 echo Task completed! (or failed, I don't know)
