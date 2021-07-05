@@ -1,3 +1,6 @@
 [submodule "Lunity/Lib/PolyHook_2_0"]
 	path = Lunity/Lib/PolyHook_2_0
 	url = https://github.com/stevemk14ebr/PolyHook_2_0.git
+[submodule "Lunity/Lib/cpp-httplib"]
+	path = Lunity/Lib/cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib.git

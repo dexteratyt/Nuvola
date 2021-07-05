@@ -1,9 +1,23 @@
+#include <httplib.h>
+#include <iostream>
 #include <Windows.h>
 #include <string>
-#include <iostream>
 
 auto initialize() -> int {
-	//TODO make the fukin client
+
+	// HTTP server (no ssl)
+	httplib::Server svr;
+
+	svr.Get("/", [](const httplib::Request &, httplib::Response &res) {
+		res.set_content("Hello World!", "text/plain");
+	});
+
+	svr.listen("localhost", 420);
+
+	if (!svr.is_valid()) {
+		return -1;
+	}
+
     return 0;
 }
 
