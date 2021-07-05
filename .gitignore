@@ -2,8 +2,8 @@
 /.vs/
 .vs/*
 /.vs/*
-*/Debug/
-*/Release/
+Debug/
+Release/
 */x64
 */obj/
 *.obj
@@ -21,3 +21,4 @@ glm.0.9.9.800/
 Win32/
 CMakeCache.txt
 CMakeFiles/
+Lunity.dir/
