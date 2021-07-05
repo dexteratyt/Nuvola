@@ -13,6 +13,14 @@ echo "%choice%" is not valid, try again...
 goto main
 :build
 git submodule update --init --recursive
+cd Lunity
+cd Lib
+cd PolyHook_2_0
+cmake -B"./_build" -DCMAKE_INSTALL_PREFIX="./_install/" -DPOLYHOOK_BUILD_SHARED_LIB=OFF
+cmake --build "./_build" --config Release --target INSTALL
+cd ..
+cd ..
+cd ..
 cmake .
 cmake --build . --config Release
 goto end
