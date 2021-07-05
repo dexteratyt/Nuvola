@@ -29,4 +29,6 @@ rmdir /s /q "Lunity\Release"
 del /q "Lunity\cmake_install.cmake"
 del /q "Lunity\*.vcxproj"
 del /q "Lunity\*.vcxproj.*"
+goto end
 :end
+echo Task completed! (or failed, I don't know)
