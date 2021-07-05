@@ -14,3 +14,10 @@ Debug/
 Release/
 *.lib
 glm.0.9.9.800/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.cmake
+Win32/
+CMakeCache.txt
+CMakeFiles/
