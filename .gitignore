@@ -22,3 +22,7 @@ Win32/
 CMakeCache.txt
 CMakeFiles/
 Lunity.dir/
+.vscode/
+*.exe
+*.dll
+Output/
