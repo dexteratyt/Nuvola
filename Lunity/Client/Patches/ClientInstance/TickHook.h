@@ -1,0 +1,10 @@
+#ifndef LUNITY_CLIENT_PATCHES_CLIENTINSTANCE_TICKHOOK
+#define LUNITY_CLIENT_PATCHES_CLIENTINSTANCE_TICKHOOK
+#include "../IPatch.h"
+
+class TickHook : public IPatch {
+public:
+	TickHook();
+};
+
+#endif /* LUNITY_CLIENT_PATCHES_CLIENTINSTANCE_TICKHOOK */

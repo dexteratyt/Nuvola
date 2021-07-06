@@ -9,5 +9,5 @@ auto __stdcall DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpReserved) -
 	if(fdwReason == DLL_PROCESS_ATTACH) {
 		std::thread(init).detach();
 	}
-    return true;  // Successful DLL_PROCESS_ATTACH.
+    return true;  // Successful DLL_PROCESS_ATTACH
 }

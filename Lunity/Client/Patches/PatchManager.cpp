@@ -2,9 +2,11 @@
 #include "IPatch.h"
 #include <iostream>
 
+#include "ClientInstance/TickHook.h"
+
 void PatchManager::ApplyAll()
 {
-	//PatchManager::ApplyPatch(new );
+	PatchManager::ApplyPatch(new TickHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)
