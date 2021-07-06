@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 
-#include "Mem/Mem.h"
-#include "Utils/Utils.h"
+#include "../Mem/Mem.h"
+#include "../Utils/Utils.h"
 
-#include "Client/Modules/Module.h"
+#include "Features/Module.h"
 
 class Client {
 public:
