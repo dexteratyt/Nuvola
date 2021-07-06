@@ -1,5 +1,7 @@
 #ifndef LUNITY_CLIENT_CLIENT
 #define LUNITY_CLIENT_CLIENT
+#include "Panel/WebPanel.h"
+
 #include <string>
 #include <vector>
 
@@ -26,6 +28,10 @@ public:
 		for(auto module : *allMods) {
 			Utils::DebugF(module->getName());
 		}
+
+		//Web panel gui
+		//Doesnt work & idk why
+		//WebPanel::getInstance()->start(420);
     };
 };
 
