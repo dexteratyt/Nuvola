@@ -1,12 +1,16 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 
 function createWindow() {
 	const win = new BrowserWindow({
 		width: 800,
-		height: 600
+		height: 600,
+		//frame: false
+		webPreferences: {
+			nodeIntegration: true
+		}
 	});
 
-	win.loadFile('index.html');
+	win.loadFile('Main/index.html');
 }
 
 app.whenReady().then(() => {
