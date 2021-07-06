@@ -9,3 +9,5 @@ target_sources(Lunity PRIVATE
 	"ModuleMgr.cpp"
 	"Setting.cpp"
 )
+
+add_subdirectory(Modules)

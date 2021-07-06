@@ -1,5 +1,7 @@
 #include "ModuleMgr.h"
 
+#include "Modules/Test.h"
+
 ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Set instance
     instance = this;
@@ -17,6 +19,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Player
     //Misc
     //misc->addItem(new unload());
+	misc->addItem(new Test());
 
     //Register categories
     this->addItem(combat);
@@ -31,6 +34,9 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 ModuleMgr *ModuleMgr::instance = nullptr;
 
 ModuleMgr *ModuleMgr::getInstance() {
+	if(instance == nullptr) {
+		instance = new ModuleMgr();
+	}
     return instance;
 }
 
