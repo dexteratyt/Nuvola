@@ -27,3 +27,5 @@ Lunity.dir/
 *.dll
 Output/
 *.csproj
+node_modules/
+package-lock.json
