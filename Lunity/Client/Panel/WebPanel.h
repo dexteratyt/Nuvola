@@ -1,15 +1,16 @@
 #ifndef LUNITY_CLIENT_PANEL_WEBPANEL
 #define LUNITY_CLIENT_PANEL_WEBPANEL
 
-#include <httplib.h>
+//#include <httplib.h>
+#include <HTTPRequest.hpp>
 
 class WebPanel {
 	static inline WebPanel* instance;
 	WebPanel();
-	httplib::Server* svr;
+	//httplib::Server* svr;
 public:
 	static WebPanel* getInstance();
-	auto getSvr() -> httplib::Server*;
+	//auto getSvr() -> httplib::Server*;
 	void start(short port);
 	void stop();
 };

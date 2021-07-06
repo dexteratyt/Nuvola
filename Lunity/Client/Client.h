@@ -31,7 +31,7 @@ public:
 
 		//Web panel gui
 		//Doesnt work & idk why
-		//WebPanel::getInstance()->start(420);
+		WebPanel::getInstance()->start(420);
     };
 };
 
