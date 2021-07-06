@@ -1,3 +1,5 @@
+#ifndef LUNITY_CLIENT_MODULES_MODULE
+#define LUNITY_CLIENT_MODULES_MODULE
 #include <string>
 
 class Module {
@@ -12,3 +14,6 @@ public:
 
     void setState(bool, bool);
 };
+
+
+#endif /* LUNITY_CLIENT_MODULES_MODULE */

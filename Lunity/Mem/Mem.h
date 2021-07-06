@@ -1,3 +1,5 @@
+#ifndef LUNITY_MEM_MEM
+#define LUNITY_MEM_MEM
 #include <Windows.h>
 #include <Psapi.h>
 #include <vector>
@@ -13,3 +15,6 @@ public:
     static uintptr_t FindMLvlPtr(uintptr_t, std::vector<unsigned int>);
     static uintptr_t FindSig(const char*);
 };
+
+
+#endif /* LUNITY_MEM_MEM */

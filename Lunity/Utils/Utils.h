@@ -1,3 +1,5 @@
+#ifndef LUNITY_UTILS_UTILS
+#define LUNITY_UTILS_UTILS
 #include <Windows.h>
 #include <fstream>
 #include <string>
@@ -7,3 +9,6 @@ public:
     static void DebugF(const char*);
     static void DebugF(std::string);
 };
+
+
+#endif /* LUNITY_UTILS_UTILS */

@@ -1,3 +1,5 @@
+#ifndef LUNITY_CLIENT_CLIENT
+#define LUNITY_CLIENT_CLIENT
 #include <string>
 #include <vector>
 
@@ -16,3 +18,6 @@ public:
         Utils::DebugF(std::string("Initialized " + std::string(this->name)));
     };
 };
+
+
+#endif /* LUNITY_CLIENT_CLIENT */
