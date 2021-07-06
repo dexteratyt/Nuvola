@@ -35,5 +35,4 @@ public:
     };
 };
 
-
 #endif /* LUNITY_CLIENT_CLIENT */

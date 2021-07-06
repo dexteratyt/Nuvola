@@ -4,3 +4,6 @@
 [submodule "Lunity/Lib/cpp-httplib"]
 	path = Lunity/Lib/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
+[submodule "Lunity/Lib/HTTPRequest"]
+	path = Lunity/Lib/HTTPRequest
+	url = https://github.com/elnormous/HTTPRequest.git
