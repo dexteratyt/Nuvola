@@ -21,9 +21,12 @@ namespace Lunity.Injector {
 			Uninject
 		}
 
-		public static Process game;
+		public static Process targetProc;
+		public static IntPtr pHandle;
 
 		public static void Main(string[] args) {
+
+			Console.WriteLine("Hello from Lunity injector backend process");
 
 			//Important values for what the program should do
 			ArgState currentState = ArgState.None;
@@ -68,7 +71,11 @@ namespace Lunity.Injector {
 			if(task == Task.Inject) {
 				Console.WriteLine("Waiting for \""+processName+"\"...");
 				awaitProcess(processName);
-				Console.WriteLine("Process found, injecting...");
+				Console.WriteLine("Process found");
+				Console.WriteLine("Applying ALL_APPLICATION_PACKAGES");
+				applyAppPackages(moduleName);
+				Console.WriteLine("Permissions applied");
+				Console.WriteLine("Injecting...");
 				InjectDll(moduleName);
 				Console.WriteLine("Injection complete");
 			}
@@ -76,17 +83,25 @@ namespace Lunity.Injector {
 
 		public static void awaitProcess(string procName)
         {
+			int tries = 0;
             while (true)
             {
                 Thread.Sleep(100);
                 Process[] possiblilties = Process.GetProcessesByName(procName);
                 if (possiblilties.Length < 1)
                 {
+					if(tries > 30)  {
+						//Couldnt find process, let user know and crash
+						Console.WriteLine("Failed to find process \""+procName+"\"!");
+						throw new Exception("Failed to find target!");
+					}
+					tries++;
+					Console.WriteLine("FAIL #"+tries);
                     continue;
                 }
-                Process tempGame = possiblilties[0];
-                game = tempGame;
-                pHandle = Win32.OpenProcess(0x1F0FFF, true, game.Id);
+                Process temptargetProc = possiblilties[0];
+                targetProc = temptargetProc;
+                pHandle = Win32.OpenProcess(0x1F0FFF, true, targetProc.Id);
                 break;
             }
         }
@@ -104,13 +119,16 @@ namespace Lunity.Injector {
         {
             IntPtr bytesout;
 
-            foreach (ProcessModule pm in game.Modules)
+			FileInfo f = new FileInfo(strDllName);
+			strDllName = f.FullName;
+
+            foreach (ProcessModule pm in targetProc.Modules)
             {
                 if (pm.ModuleName.StartsWith("inject", StringComparison.InvariantCultureIgnoreCase))
                     return;
             }
 
-            if (!game.Responding)
+            if (!targetProc.Responding)
                 return;
 
             int lenWrite = strDllName.Length + 1;
