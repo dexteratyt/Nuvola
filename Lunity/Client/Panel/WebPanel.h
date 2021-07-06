@@ -3,6 +3,9 @@
 
 //#include <httplib.h>
 #include <HTTPRequest.hpp>
+#include <string>
+
+using namespace std;
 
 class WebPanel {
 	static inline WebPanel* instance;
@@ -11,6 +14,7 @@ class WebPanel {
 public:
 	static WebPanel* getInstance();
 	//auto getSvr() -> httplib::Server*;
+	auto makeRequest(string url) -> string;
 	void start(short port);
 	void stop();
 };
