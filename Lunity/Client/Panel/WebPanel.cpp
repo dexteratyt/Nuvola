@@ -1,11 +1,6 @@
 #include "WebPanel.h"
 #include "../../../Utils/Utils.h"
 
-WebPanel::WebPanel() {
-	instance = this;
-	//this->svr = this->getSvr();
-}
-
 auto WebPanel::getInstance() -> WebPanel* {
 	if(instance == nullptr) {
 		instance = new WebPanel();
@@ -13,12 +8,12 @@ auto WebPanel::getInstance() -> WebPanel* {
 	return instance;
 }
 
-// auto WebPanel::getSvr() -> httplib::Server* {
-// 	if(this->svr == nullptr) {
-// 		this->svr = new httplib::Server();
-// 	}
-// 	return this->svr;
-// }
+auto WebPanel::getSvr() -> httplib::Server* {
+	if(this->svr == nullptr) {
+		this->svr = new httplib::Server();
+	}
+	return this->svr;
+}
 
 auto WebPanel::makeRequest(string url) -> string {
 	try
@@ -40,16 +35,16 @@ auto WebPanel::makeRequest(string url) -> string {
 }
 
 void WebPanel::start(short port) {
-	// this->getSvr()->Get("/panel", [](const httplib::Request& req, httplib::Response& res) {
-	// 	res.set_content("Hello World!", "text/plain");
-	// });
+	this->getSvr()->Get("/panel", [](const httplib::Request& req, httplib::Response& res) {
+		res.set_content("Hello World!", "text/plain");
+	});
 
-	// this->getSvr()->listen("localhost", port);
+	this->getSvr()->listen("localhost", port);
 
-	//Utils::DebugF(this->makeRequest("http://wtfismyip.com/test"));
+	Utils::DebugF(this->makeRequest("http://wtfismyip.com/test"));
 }
 
 void WebPanel::stop() {
-	// this->getSvr()->stop();
-	// delete this->svr;
+	this->getSvr()->stop();
+	delete this->svr;
 }
