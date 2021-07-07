@@ -70,6 +70,7 @@ rmdir /s /q "Injector\Managed\obj"
 del /q "Injector\Managed\*.csproj"
 rmdir /s /q "Output"
 rmdir /s /q "build"
+rmdir /s /q ".vscode"
 goto end
 :end
 echo Task completed! (or failed, I don't know)
