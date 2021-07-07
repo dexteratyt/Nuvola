@@ -35,11 +35,18 @@ auto WebPanel::makeRequest(string url) -> string {
 }
 
 void WebPanel::start(short port) {
-	this->getSvr()->Get("/panel", [](const httplib::Request& req, httplib::Response& res) {
-		res.set_content("Hello World!", "text/plain");
-	});
+	try {
+		this->getSvr()->Get("/panel", [](const httplib::Request& req, httplib::Response& res) {
+			res.set_content("Hello World!", "text/plain");
+		});
 
-	this->getSvr()->listen("localhost", port);
+		this->getSvr()->listen("localhost", port);
+	}
+	catch (const std::exception& e)
+	{
+		Utils::DebugF("Server start failed: ");
+		Utils::DebugF(e.what());
+	}
 
 	Utils::DebugF(this->makeRequest("http://wtfismyip.com/test"));
 }
