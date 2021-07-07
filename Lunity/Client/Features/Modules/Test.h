@@ -7,6 +7,7 @@ public:
 	Test() : Module("Test") {};
 	void onEnable() override;
 	void onDisable() override;
+	void onTick() override;
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_MODULES_TEST */

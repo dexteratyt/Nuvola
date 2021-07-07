@@ -2,11 +2,11 @@
 #include "IPatch.h"
 #include <iostream>
 
-#include "ClientInstance/TickHook.h"
+#include "ClientInstance/UpdateHook.h"
 
 void PatchManager::ApplyAll()
 {
-	PatchManager::ApplyPatch(new TickHook());
+	PatchManager::ApplyPatch(new UpdateHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)
@@ -14,10 +14,10 @@ void PatchManager::ApplyPatch(IPatch* toAdd)
     if(toAdd->Apply())
     {
         PatchManager::patches->push_back(toAdd);
-        std::cout << "Successfully applied \'" << toAdd->GetName() << "\' patch!" << std::endl;
+        Utils::DebugF("Successfully applied \'" + toAdd->GetName() + "\' patch!");
     }
     else
     {
-        std::cout << "Failed to apply patch: " << toAdd->GetName() << std::endl;
+        Utils::DebugF("Failed to apply patch: " + toAdd->GetName());
     }
 }

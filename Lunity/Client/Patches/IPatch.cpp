@@ -44,6 +44,5 @@ auto IPatch::GetDis() -> PLH::CapstoneDisassembler&
 }
 auto IPatch::Apply() -> bool
 {
-	PLH::CapstoneDisassembler dis = this->GetDis();
     return false;
 }

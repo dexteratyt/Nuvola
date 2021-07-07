@@ -2,7 +2,7 @@
 #define LUNITY_CLIENT_PATCHES_IPATCH
 
 #include <string>
-#include <polyhook2/Detour/x86Detour.hpp>
+#include <polyhook2/Detour/x64Detour.hpp>
 #include <polyhook2/CapstoneDisassembler.hpp>
 
 #include "../../Mem/SigInfo.h"
@@ -11,7 +11,7 @@
 
 class IPatch
 {
-	static inline PLH::CapstoneDisassembler* dis = new PLH::CapstoneDisassembler(PLH::Mode::x86);
+	static inline PLH::CapstoneDisassembler* dis = new PLH::CapstoneDisassembler(PLH::Mode::x64);
 	std::string name;
 	std::vector<SigInfo*>* signatures;
 public:

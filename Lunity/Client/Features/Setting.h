@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_Setting
-#define LUNITY_CLIENT_FEATURES_Setting
+#ifndef LUNITY_CLIENT_FEATURES_SETTING
+#define LUNITY_CLIENT_FEATURES_SETTING
 #include "ManagedItem.h"
 
 enum class SettingType{
@@ -18,4 +18,4 @@ public:
     void* getMaximum();
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_Setting */
+#endif /* LUNITY_CLIENT_FEATURES_SETTING */

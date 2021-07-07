@@ -11,6 +11,8 @@
 #include "Features/Module.h"
 #include "Features/ModuleMgr.h"
 
+#include "Patches/PatchManager.h"
+
 class Client {
 public:
     std::string name;
@@ -18,6 +20,9 @@ public:
     Client(std::string name){
         this->name = name;
         Utils::DebugF(std::string("Initialized " + std::string(this->name)));
+
+		//Apply all patches
+		PatchManager::ApplyAll();
 
 		//Get Module Manager instance;
 		ModuleMgr* moduleManager = ModuleMgr::getInstance();

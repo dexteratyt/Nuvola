@@ -1,6 +1,6 @@
 #include "Utils.h"
 
-void Utils::DebugF(const char* out){
+void Utils::DebugF(const char* out) {
     std::string fPath = std::string("Lunity_Output.txt");
 	std::string dirP = getenv("APPDATA") + std::string("\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\" + std::string(fPath));
 
@@ -12,6 +12,16 @@ void Utils::DebugF(const char* out){
 	fileOutput.close();
 };
 
-void Utils::DebugF(std::string out){
+void Utils::DebugF(std::string out) {
     DebugF(out.c_str());
+}
+
+void Utils::SetClientInstance(uintptr_t address) {
+	if(clientInstance == nullptr) {
+		clientInstance = new ClientInstance(address);
+	}
+	clientInstance->setAddress(address);
+}
+auto Utils::GetClientInstance() -> ClientInstance* {
+	return clientInstance;
 }
