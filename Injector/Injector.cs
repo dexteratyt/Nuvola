@@ -24,7 +24,7 @@ namespace Lunity.Injector {
 		public static Process targetProc;
 		public static IntPtr pHandle;
 
-		public static void Main(string[] args) {
+		public static void RunBackend(string[] args) {
 
 			Console.WriteLine("Hello from Lunity injector backend process");
 
