@@ -7,3 +7,6 @@
 [submodule "Lunity/Lib/HTTPRequest"]
 	path = Lunity/Lib/HTTPRequest
 	url = https://github.com/elnormous/HTTPRequest.git
+[submodule "Lunity/Lib/kiero"]
+	path = Lunity/Lib/kiero
+	url = https://github.com/Rebzzel/kiero.git
