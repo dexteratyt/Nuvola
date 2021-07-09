@@ -24,4 +24,4 @@ target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/HTTPReq
 
 message("${CMAKE_CURRENT_LIST_DIR}")
 
-target_link_libraries(Lunity PRIVATE PolyHook_2 capstone ws2_32 version)
+target_link_libraries(Lunity PRIVATE PolyHook_2 capstone version)
