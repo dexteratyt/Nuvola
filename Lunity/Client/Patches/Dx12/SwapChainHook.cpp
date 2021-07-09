@@ -17,7 +17,7 @@ void __fastcall hookDrawInstancedD3D12(ID3D12GraphicsCommandList* dCommandList, 
 
 uintptr_t oDrawIndexedInstancedD3D12 = 0;
 void __fastcall hookDrawIndexedInstancedD3D12(ID3D12GraphicsCommandList* dCommandList, UINT IndexCount, UINT InstanceCount, UINT StartIndex, INT BaseVertex) {
-	PLH::FnCast(oPresentD3D12, hookDrawIndexedInstancedD3D12)(dCommandList, IndexCount, InstanceCount, StartIndex, BaseVertex);
+	PLH::FnCast(oDrawIndexedInstancedD3D12, hookDrawIndexedInstancedD3D12)(dCommandList, IndexCount, InstanceCount, StartIndex, BaseVertex);
 }
 
 uintptr_t oExecuteCommandListsD3D12 = 0;
@@ -39,11 +39,11 @@ auto SwapChainHook::Apply() -> bool {
 
 
 	if (kiero::init(kiero::RenderType::D3D12) == kiero::Status::Success){
-		kiero::bind(54, (void**)oExecuteCommandListsD3D12, hookExecuteCommandListsD3D12);
-		kiero::bind(58, (void**)oSignalD3D12, hookSignalD3D12);
-		kiero::bind(140, (void**)oPresentD3D12, hookPresentD3D12);
-		kiero::bind(84, (void**)oDrawInstancedD3D12, hookDrawInstancedD3D12);
-		kiero::bind(85, (void**)oDrawIndexedInstancedD3D12, hookDrawIndexedInstancedD3D12);
+		kiero::bind(54, (void**)&oExecuteCommandListsD3D12, hookExecuteCommandListsD3D12);
+		kiero::bind(58, (void**)&oSignalD3D12, hookSignalD3D12);
+		kiero::bind(140, (void**)&oPresentD3D12, hookPresentD3D12);
+		kiero::bind(84, (void**)&oDrawInstancedD3D12, hookDrawInstancedD3D12);
+		kiero::bind(85, (void**)&oDrawIndexedInstancedD3D12, hookDrawIndexedInstancedD3D12);
 	}
 
 
