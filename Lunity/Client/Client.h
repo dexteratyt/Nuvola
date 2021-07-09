@@ -1,6 +1,6 @@
 #ifndef LUNITY_CLIENT_CLIENT
 #define LUNITY_CLIENT_CLIENT
-#include "Panel/WebPanel.h"
+//#include "Panel/WebPanel.h"
 
 #include <string>
 #include <vector>
@@ -36,7 +36,7 @@ public:
 
 		//Web panel gui
 		//Doesnt work & idk why
-		WebPanel::getInstance()->start(420);
+		//WebPanel::getInstance()->start(420);
     };
 };
 

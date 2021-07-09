@@ -6,19 +6,7 @@
 
 #include <d3d12.h>
 #include <dxgi.h>
-
-typedef long(__fastcall* PresentD3D12) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
-extern PresentD3D12 oPresentD3D12;
-
-typedef void(__fastcall* DrawInstancedD3D12)(ID3D12GraphicsCommandList* dCommandList, UINT VertexCountPerInstance, UINT InstanceCount, UINT StartVertexLocation, UINT StartInstanceLocation);
-extern DrawInstancedD3D12 oDrawInstancedD3D12;
-
-typedef void(__fastcall* DrawIndexedInstancedD3D12)(ID3D12GraphicsCommandList* dCommandList, UINT IndexCount, UINT InstanceCount, UINT StartIndex, INT BaseVertex);
-extern DrawIndexedInstancedD3D12 oDrawIndexedInstancedD3D12;
-
-extern void(*oExecuteCommandListsD3D12)(ID3D12CommandQueue*, UINT, ID3D12CommandList*);
-extern HRESULT(*oSignalD3D12)(ID3D12CommandQueue*, ID3D12Fence*, UINT64);
-
+#include <Kiero.h>
 
 class SwapChainHook : public IPatch {
 public:

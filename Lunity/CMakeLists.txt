@@ -7,6 +7,7 @@ add_compile_options(
 endif()
 
 link_directories("${CMAKE_CURRENT_LIST_DIR}/Lib/PolyHook_2_0/_install/lib/")
+link_directories("${CMAKE_CURRENT_LIST_DIR}/Lib/minhook/Release/")
 
 add_library(Lunity SHARED)
 
@@ -23,7 +24,8 @@ target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/PolyHoo
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/cpp-httplib/")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/HTTPRequest/include/")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/kiero/")
+target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/minhook/include/")
 
 message("${CMAKE_CURRENT_LIST_DIR}")
 
-target_link_libraries(Lunity PRIVATE PolyHook_2 capstone ws2_32 version)
+target_link_libraries(Lunity PRIVATE PolyHook_2 capstone version minhook.x64)

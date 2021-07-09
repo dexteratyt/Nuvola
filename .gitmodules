@@ -10,3 +10,6 @@
 [submodule "Lunity/Lib/kiero"]
 	path = Lunity/Lib/kiero
 	url = https://github.com/Rebzzel/kiero.git
+[submodule "Lunity/Lib/minhook"]
+	path = Lunity/Lib/minhook
+	url = https://github.com/TsudaKageyu/minhook.git
