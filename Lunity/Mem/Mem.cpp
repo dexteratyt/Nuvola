@@ -11,6 +11,46 @@ uintptr_t Mem::FindMLvlPtr(uintptr_t baseAddr, std::vector<unsigned int> offsets
 	return addr;
 }
 
+auto Mem::getModuleBase() -> long long {
+    return (long long)GetModuleHandleA(nullptr);
+}
+
+auto Mem::getModuleBaseHandle() -> HMODULE {
+    return GetModuleHandleA(nullptr);
+}
+
+auto Mem::getBaseModuleSize() -> long long {
+    MODULEINFO info;
+    GetModuleInformation(GetCurrentProcess(), getModuleBaseHandle(), &info, sizeof(info));
+    return info.SizeOfImage;
+}
+
+auto Mem::getBaseModuleEnd() -> long long {
+    return getModuleBase() + getBaseModuleSize();
+}
+
+auto Mem::FindSig(const char* pattern) -> uintptr_t {
+    return FindSig(getModuleBase(), getBaseModuleEnd(), pattern);
+}
+auto Mem::FindSig(long long rangeStart, long long rangeEnd, const char* pattern) -> uintptr_t {
+    const char* pat = pattern;
+    long long firstMatch = 0;
+    for (long long pCur = rangeStart; pCur < rangeEnd; pCur++) {
+        if (!*pat) return firstMatch;
+        if (*(PBYTE)pat == '\?' || *(BYTE*)pCur == getByte(pat)) {
+            if (!firstMatch) firstMatch = pCur;
+            if (!pat[2]) return firstMatch;
+            if (*(PWORD)pat == '\?\?' || *(PBYTE)pat != '\?') pat += 3;
+            else pat += 2;
+        } else {
+            pat = pattern;
+            firstMatch = 0;
+        }
+    }
+    return 0;
+}
+
+/*
 uintptr_t Mem::FindSig(const char* sig){
     const char* pattern = sig;
 	uintptr_t firstMatch = 0;
@@ -61,3 +101,4 @@ uintptr_t Mem::FindSig(const char* sig){
 	}
     return NULL;
 }
+*/
