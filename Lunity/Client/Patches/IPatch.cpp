@@ -13,11 +13,13 @@ auto IPatch::ScanSigs() -> uintptr_t {
 	uintptr_t reqAddr = 0;
 	int sigIndex = 0;
 	while(reqAddr == 0) {
-		if(sigIndex > this->signatures->size()) {
+		if(sigIndex >= this->signatures->size()) {
 			Utils::DebugF("Failed to find signature for Patch \""+name+"\"!");
 			//Remember to handle this!
 			return 0;
 		};
+		
+		Utils::DebugF("Searching sig #"+std::to_string(sigIndex)+" on signature "+this->name);
 
 		SigInfo* info = signatures->at(sigIndex);
 		std::string* sig = info->signature;
