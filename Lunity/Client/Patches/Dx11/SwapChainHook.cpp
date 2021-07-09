@@ -1,32 +1,11 @@
 #include "SwapChainHook.h"
-//extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-HWND window = NULL;
-WNDPROC oWndProc;
-ID3D11Device* pDevice = NULL;
-ID3D11DeviceContext* pContext = NULL;
-ID3D11RenderTargetView* mainRenderTargetView;
+auto SwapChainHook::hookPresent(IDXGISwapChain* pChain, UINT syncInterval, UINT flags) -> long {
 
-void InitImGui()
-{
-	//ImGui::CreateContext();
-	//ImGuiIO& io = ImGui::GetIO();
-	//io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-	//ImGui_ImplWin32_Init(window);
-	//ImGui_ImplDX11_Init(pDevice, pContext);
-}
-
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-
-	/*if (true && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
-		return true;*/
-
-	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
-}
-
-auto SwapChainHook::hookPresent(IDXGISwapChain* pChain, UINT syncInterval, UINT flags) -> long {	
-
-	return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
+	//Simple fps throttle to show it works
+	Sleep(1000/10); // Should limit game to 10 fps
+	
+    return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
 }
 
 SwapChainHook::SwapChainHook()  : IPatch::IPatch("Dx11::Present") {
