@@ -2,7 +2,7 @@
 
 auto SwapChainHook::hookPresent(IDXGISwapChain* pChain, UINT syncInterval, UINT flags) -> long {
 
-	Sleep(100);
+	Utils::DebugF("PRESENT!");
 
     return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
 }

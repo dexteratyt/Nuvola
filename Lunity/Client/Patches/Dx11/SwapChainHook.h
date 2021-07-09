@@ -8,8 +8,8 @@
 #include <d2d1_1.h>
 #include <dwrite_1.h>
 
+#define KIERO_INCLUDE_D3D11 1
 #include <kiero.h>
-#include "d3d11_impl.h"
 
 class SwapChainHook : public IPatch {
     static inline uint64_t presentOriginal = 0;

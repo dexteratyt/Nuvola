@@ -10,6 +10,3 @@
 [submodule "Lunity/Lib/minhook"]
 	path = Lunity/Lib/minhook
 	url = https://github.com/TsudaKageyu/minhook.git
-[submodule "Lunity/Lib/imgui"]
-	path = Lunity/Lib/imgui
-	url = https://github.com/ocornut/imgui.git
