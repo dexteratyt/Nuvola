@@ -21,15 +21,15 @@ public:
         this->name = name;
         Utils::DebugF(std::string("Initialized " + std::string(this->name)));
 
+		//Apply all patches
+		PatchManager::ApplyAll();
+        Utils::DebugF("All patches applied");
+
 		//Get Module Manager instance;
 		ModuleMgr* moduleManager = ModuleMgr::getInstance();
 		//Get all modules
 		std::vector<Module*>* allMods = moduleManager->getAllModules();
         Utils::DebugF("All modules loaded");
-
-		//Apply all patches
-		PatchManager::ApplyAll();
-        Utils::DebugF("All patches applied");
 
 		//Loop through
 		for(auto module : *allMods) {

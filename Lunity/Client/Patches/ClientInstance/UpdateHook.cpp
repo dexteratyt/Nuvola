@@ -1,6 +1,7 @@
 #include "UpdateHook.h"
 
 auto UpdateHook::clientInstanceCallback_1_17_2_1(uintptr_t theInstance, char param_2) -> int {
+	Utils::DebugF("Ciao");
     Utils::SetClientInstance(theInstance);
 
 	std::vector<Module*>* modules = ModuleMgr::getInstance()->getAllModules();

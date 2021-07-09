@@ -11,6 +11,10 @@ void Test::onDisable() {
 void Test::onTick() {
 	//Tick code
 	ClientInstance* client = Utils::GetClientInstance();
+	if(!client)
+		return;
+	if(client->getAddress() != 0)
+		return;
 	LocalPlayer* lPlayer = client->getLocalPlayer();
 	if(lPlayer)
 		if(lPlayer->getAddress() != 0)

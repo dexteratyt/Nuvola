@@ -44,7 +44,6 @@ auto SwapChainHook::Apply() -> bool {
 		kiero::bind(140, (void**)oPresentD3D12, hookPresentD3D12);
 		kiero::bind(84, (void**)oDrawInstancedD3D12, hookDrawInstancedD3D12);
 		kiero::bind(85, (void**)oDrawIndexedInstancedD3D12, hookDrawIndexedInstancedD3D12);
-
 	}
 
 
