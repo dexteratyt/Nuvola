@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_PATCHES_DX12_UPDATEHOOK
-#define LUNITY_CLIENT_PATCHES_DX12_UPDATEHOOK
+#ifndef LUNITY_CLIENT_PATCHES_DX12_SWAPCHAINHOOK
+#define LUNITY_CLIENT_PATCHES_DX12_SWAPCHAINHOOK
 #include "../IPatch.h"
 #include "../../../Utils/Utils.h"
 #include "../../Features/ModuleMgr.h"
@@ -21,4 +21,5 @@ public:
 	auto Apply() -> bool override;
 };
 
-#endif /* LUNITY_CLIENT_PATCHES_DX12_UPDATEHOOK */
+
+#endif /* LUNITY_CLIENT_PATCHES_DX12_SWAPCHAINHOOK */

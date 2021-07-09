@@ -15,7 +15,9 @@ void PatchManager::ApplyPatch(IPatch* toAdd)
 {
     if(toAdd->Apply())
     {
+		Utils::DebugF("PRE PUSH BACK");
         PatchManager::patches->push_back(toAdd);
+		Utils::DebugF("POST PUSH BACK");
         Utils::DebugF("Successfully applied \'" + toAdd->GetName() + "\' patch!");
     }
     else

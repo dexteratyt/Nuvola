@@ -11,7 +11,7 @@ auto SwapChainHook::presentCallback(IDXGISwapChain* pChain, UINT syncInterval, U
     return PLH::FnCast(presentOriginal, &presentCallback)(pChain, syncInterval, flags);
 }
 
-SwapChainHook::SwapChainHook()  : IPatch::IPatch("ClientInstance::Update") {
+SwapChainHook::SwapChainHook()  : IPatch::IPatch("Dx12::SwapChain") {
 	//
 }
 
@@ -22,6 +22,8 @@ auto SwapChainHook::Apply() -> bool {
     wc.cbSize = sizeof(wc);
     wc.lpfnWndProc = DefWindowProc;
     wc.lpszClassName = TEXT("TemporaryWindow");
+	//This call is related to crash!!!
+	//TODO: READ THIS SHIT MF
     RegisterClassEx(&wc);
 
     HWND hWnd = CreateWindow(wc.lpszClassName, TEXT(""), WS_DISABLED, 0, 0, 0, 0, nullptr, nullptr, nullptr, nullptr);
@@ -41,9 +43,7 @@ auto SwapChainHook::Apply() -> bool {
         sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
     }
 
-    HRESULT hrD3D11CreateDeviceAndSwapChain = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr,
-        0, &featureLevel, 1, D3D11_SDK_VERSION, &sd,
-        &pSwapChain, &pDevice, nullptr, &pContext);
+    HRESULT hrD3D11CreateDeviceAndSwapChain = D3D11CreateDeviceAndSwapChain(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, &featureLevel, 1, D3D11_SDK_VERSION, &sd, &pSwapChain, &pDevice, nullptr, &pContext);
 
     if (FAILED(hrD3D11CreateDeviceAndSwapChain)) {
         DestroyWindow(sd.OutputWindow);
@@ -53,26 +53,32 @@ auto SwapChainHook::Apply() -> bool {
 
     pSwapChainVTable = *reinterpret_cast<uintptr_t***>(pSwapChain);
 
-    /* Log */
-
     std::ostringstream o;
     o << std::hex << pSwapChainVTable[8] << std::endl;
     Utils::DebugF(o.str().c_str());
 
-    /* */
+	PLH::x64Detour* detourHook = new PLH::x64Detour((char*)pSwapChainVTable[8], (char*)presentCallback, &presentOriginal, dis);
 
-	//PLH::x64Detour* detourHook = new PLH::x64Detour((char*)pSwapChainVTable[8], (char*)presentCallback, &presentOriginal, dis);
+	Utils::DebugF("CREATED DETOUR INSTANCE");
 
-	/*if(!detourHook->hook()) {
+	if(!detourHook->hook()) {
+		Utils::DebugF("FAILED HOOK DETOUR INSTANCE");
 		return false;
-	}*/
+	}
 
-    /*pDevice->Release();
+	Utils::DebugF("YES CREATED DETOUR INSTANCE");
+
+    pDevice->Release();
     pContext->Release();
     pSwapChain->Release();
 
+	Utils::DebugF("RELEASED");
+
     DestroyWindow(sd.OutputWindow);
-    UnregisterClass(wc.lpszClassName, GetModuleHandle(nullptr));*/
+    UnregisterClass(wc.lpszClassName, GetModuleHandle(nullptr));
+	
+	Utils::DebugF("DESTROY & UNREGISTER");
+
 
 	return true;
 }
