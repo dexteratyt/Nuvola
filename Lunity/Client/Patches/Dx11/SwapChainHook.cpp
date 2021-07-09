@@ -2,8 +2,9 @@
 
 auto SwapChainHook::hookPresent(IDXGISwapChain* pChain, UINT syncInterval, UINT flags) -> long {
 
-	Utils::DebugF("PRESENT!");
-
+	//Simple fps throttle to show it works
+	Sleep(1000/10); // Should limit game to 10 fps
+	
     return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
 }
 
