@@ -1,3 +1,4 @@
 target_sources(Lunity PRIVATE
-	"UpdateHook.cpp"
+	"SwapChainHook.cpp"
+	"Kiero.cpp"
 )
