@@ -12,6 +12,7 @@ add_library(Lunity SHARED)
 
 target_sources(Lunity PRIVATE 
 	"main.cpp"
+	"Lib/kiero/kiero.cpp"
 )
 
 add_subdirectory(Client)
@@ -21,6 +22,7 @@ add_subdirectory(Mem)
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/PolyHook_2_0/_install/include/")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/cpp-httplib/")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/HTTPRequest/include/")
+target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/kiero/")
 
 message("${CMAKE_CURRENT_LIST_DIR}")
 
