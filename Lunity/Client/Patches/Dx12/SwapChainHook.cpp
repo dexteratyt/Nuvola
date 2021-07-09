@@ -37,7 +37,7 @@ HRESULT hookSignalD3D12(ID3D12CommandQueue* queue, ID3D12Fence* fence, UINT64 va
 auto SwapChainHook::Apply() -> bool {
 	PLH::CapstoneDisassembler dis = this->GetDis();
 
-/*
+
 	if (kiero::init(kiero::RenderType::D3D12) == kiero::Status::Success){
 		kiero::bind(54, (void**)oExecuteCommandListsD3D12, hookExecuteCommandListsD3D12);
 		kiero::bind(58, (void**)oSignalD3D12, hookSignalD3D12);
@@ -46,7 +46,7 @@ auto SwapChainHook::Apply() -> bool {
 		kiero::bind(85, (void**)oDrawIndexedInstancedD3D12, hookDrawIndexedInstancedD3D12);
 
 	}
-*/
+
 
 	Utils::DebugF("Done with Kiero shit?");
 
