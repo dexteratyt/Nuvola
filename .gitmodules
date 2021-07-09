@@ -7,3 +7,6 @@
 [submodule "Lunity/Lib/HTTPRequest"]
 	path = Lunity/Lib/HTTPRequest
 	url = https://github.com/elnormous/HTTPRequest.git
+[submodule "Lunity/Lib/minhook"]
+	path = Lunity/Lib/minhook
+	url = https://github.com/TsudaKageyu/minhook.git

@@ -3,3 +3,4 @@ target_sources(Lunity PRIVATE
 	"PatchManager.cpp"
 )
 add_subdirectory(ClientInstance)
+add_subdirectory(Dx11)
