@@ -14,7 +14,7 @@ struct Event
     }
     auto add(const std::function<T> subscriber) -> void {
         Subscribers.push_back(subscriber);
-    }
+    };
     auto remove(const std::function<T> subscriber) -> void {
         int index = 0;
         for (int i = 0; i < Subscribers.size(); i++) {
@@ -26,29 +26,29 @@ struct Event
         return;
         Remove:
         Subscribers.erase(index);
-    }
+    };
     auto addUnique(const std::function<T> subscriber) -> void {
         for (auto& s : Subscribers) {
             if (s == subscriber) return;
         }
         Add(subscriber);
-    }
+    };
     auto removeAll(const std::function<T> subscriber) -> void {
         for (auto& s : Subscribers) {
             if (s == subscriber) Subscribers.erase(s);
         }
-    }
+    };
     auto contains(const std::function<T> subscriber) -> bool const {
         for (auto& s : Subscribers) {
             if (s == subscriber) return true;
         }
         return false;
-    }
+    };
     template<class... TArgs> auto invoke(TArgs&&... args) -> void const {
         for (auto& s : Subscribers) {
             s(std::forward<TArgs>(args)...);
         }
-    }
+    };
 };
 
 
