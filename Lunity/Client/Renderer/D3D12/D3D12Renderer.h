@@ -3,6 +3,7 @@
 
 #include <exception>
 #include "../../../Utils/Event.h"
+#include "../Renderer.h"
 
 struct D3D12InitializingEventArgs
 {
@@ -15,7 +16,7 @@ struct D3D12RenderEventArgs
     bool handled;
 };
 
-class D3D12Renderer
+class D3D12Renderer : Renderer
 {
 private:
     bool isInitialized = false;
