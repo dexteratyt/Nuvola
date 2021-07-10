@@ -1,21 +1,21 @@
-#ifndef LUNITY_CLIENT_RENDERER_D3D12_D3D12RENDERER_H
-#define LUNITY_CLIENT_RENDERER_D3D12_D3D12RENDERER_H
+#ifndef LUNITY_CLIENT_RENDERER_D3D11_D3D11RENDERER_H
+#define LUNITY_CLIENT_RENDERER_D3D11_D3D11RENDERER_H
 
 #include <exception>
 #include "../../../Utils/Event.h"
 
-struct D3D12InitializingEventArgs
+struct D3D11InitializingEventArgs
 {
     bool handled;
     bool cancel;
 };
 
-struct D3D12RenderEventArgs
+struct D3D11RenderEventArgs
 {
     bool handled;
 };
 
-class D3D12Renderer
+class D3D11Renderer
 {
 private:
     bool isInitialized = false;
@@ -32,9 +32,9 @@ public:
     auto release() -> void;
 public:
     // TODO: Add EventArgs
-    Event<void(D3D12InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
-    Event<void(D3D12RenderEventArgs&)> render; // Is being invoked when everything is being rendered
+    Event<void(D3D11InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
+    Event<void(D3D11RenderEventArgs&)> render; // Is being invoked when everything is being rendered
 };
 
 
-#endif //LUNITY_CLIENT_RENDERER_D3D12_D3D12RENDERER_H
+#endif //LUNITY_CLIENT_RENDERER_D3D12_D3D11RENDERER_H

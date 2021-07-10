@@ -1,10 +1,10 @@
-#include "D3D12Renderer.h"
+#include "D3D11Renderer.h"
 
-auto D3D12Renderer::isHooked() -> bool {
+auto D3D11Renderer::isHooked() -> bool {
     return hooked;
 }
 
-auto D3D12Renderer::hookUnsafely() -> void {
+auto D3D11Renderer::hookUnsafely() -> void {
     if (hooked) return;
 
     // TODO: D3D12Renderer::hookUnsafely
@@ -12,7 +12,7 @@ auto D3D12Renderer::hookUnsafely() -> void {
     hooked = true;
 }
 
-auto D3D12Renderer::hook() -> void {
+auto D3D11Renderer::hook() -> void {
     if (hooked) return;
     if (isAlreadyHooked) throw std::exception("A hook has already been initialized.");
 
@@ -21,7 +21,7 @@ auto D3D12Renderer::hook() -> void {
     isAlreadyHooked = true;
 }
 
-auto D3D12Renderer::unhook() -> void {
+auto D3D11Renderer::unhook() -> void {
     if (!hooked) return;
 
     // TODO: D3D12Renderer::unhook
@@ -30,7 +30,7 @@ auto D3D12Renderer::unhook() -> void {
     hooked = false;
 }
 
-auto D3D12Renderer::release() -> void {
+auto D3D11Renderer::release() -> void {
     if (!hooked) return;
 
     // TODO: D3D12Renderer::release
@@ -38,7 +38,7 @@ auto D3D12Renderer::release() -> void {
     hooked = false;
 }
 
-auto D3D12Renderer::reload() -> void {
+auto D3D11Renderer::reload() -> void {
     unhook();
     hook();
 }
