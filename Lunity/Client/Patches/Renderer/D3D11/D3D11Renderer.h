@@ -5,11 +5,11 @@
 #include <dxgi.h>
 #include <d3d11.h>
 
-// kiero.h
+// kiero
 #include "../../../../Lib/kiero/kiero.h"
 #define KIERO_INCLUDE_D3D11  1 // 1 if you need D3D11 hook
 #define KIERO_USE_MINHOOK    1 // 1 if you will use kiero::bind function
-// kiero.h end
+// kiero end
 
 #include "../../../../Utils/Event.h"
 #include "../Renderer.h"

@@ -11,29 +11,34 @@
 #define KIERO_USE_MINHOOK    1 // 1 if you will use kiero::bind function
 // kiero end
 
+// imgui
+#include "../../../../Lib/imgui/imgui.h"
+#include "../../../../Lib/imgui/imgui_demo.h"
+// imgui end
+
 #include "../../../../Utils/Event.h"
 #include "../Renderer.h"
 
-struct D3D12InitializingEventArgs
+struct ImGuiD3D12InitializingEventArgs
 {
     bool handled;
     bool cancel;
 };
 
-struct D3D12RenderEventArgs
+struct ImGuiD3D12RenderEventArgs
 {
     bool handled;
 };
 
-class D3D12Renderer : Renderer
+class ImGuiD3D12Renderer : Renderer
 {
 private:
     bool isInitialized = false;
     bool hooked = false;
     static bool isAlreadyHooked = false;
 public:
-    D3D12Renderer() : Renderer("Renderer::D3D12") { }
-    ~D3D12Renderer() { }
+    ImGuiD3D12Renderer() : Renderer("Renderer::D3D12") { }
+    ~ImGuiD3D12Renderer() { }
     auto isHooked() -> bool;
     auto hookUnsafely() -> void;
     auto hook() -> void;
@@ -42,8 +47,8 @@ public:
     auto release() -> void;
 public:
     // TODO: Add EventArgs
-    Event<void(D3D12InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
-    Event<void(D3D12RenderEventArgs&)> render; // Is being invoked when everything is being rendered
+    Event<void(ImGuiD3D12InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
+    Event<void(ImGuiD3D12RenderEventArgs&)> render; // Is being invoked when everything is being rendered
 };
 
 
