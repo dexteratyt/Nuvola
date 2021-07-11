@@ -1,5 +1,26 @@
 #include "ImGuiD3D12Renderer.h"
 
+ImGuiD3D12Renderer* currentRenderer = nullptr;
+
+long __fastcall _Present(IDXGISwapChain3* SwapChainPtr,
+                         unsigned int SyncInterval,
+                         unsigned int Flags) {
+    // TODO: currentRenderer.D3D12Present
+
+    return D3D12Present(SwapChainPtr, SyncInterval, Flags);
+}
+
+long __fastcall _ResizeBuffers(IDXGISwapChain3* SwapChainPtr,
+                               unsigned int BufferCount,
+                               unsigned int Width,
+                               unsigned int Height,
+                               DXGI_FORMAT NewFormat,
+                               unsigned int SwapChainFlags) {
+    // TODO: currentRenderer._ResizeBuffers
+
+    return D3D12ResizeBuffers(SwapChainPtr, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+}
+
 auto ImGuiD3D12Renderer::isHooked() -> bool {
     return hooked;
 }

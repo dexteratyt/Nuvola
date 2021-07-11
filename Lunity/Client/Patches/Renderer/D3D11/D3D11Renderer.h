@@ -31,6 +31,7 @@ private:
     bool isInitialized = false;
     bool hooked = false;
     static bool isAlreadyHooked = false;
+
 public:
     D3D12Renderer() : Renderer("Renderer::D3D12") { }
     ~D3D12Renderer() { }
@@ -40,6 +41,7 @@ public:
     auto unhook() -> void;
     auto reload() -> void;
     auto release() -> void;
+
 public:
     // TODO: Add EventArgs
     Event<void(D3D11InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources

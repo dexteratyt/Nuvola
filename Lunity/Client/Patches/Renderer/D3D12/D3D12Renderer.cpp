@@ -7,7 +7,13 @@ auto D3D12Renderer::isHooked() -> bool {
 auto D3D12Renderer::hookUnsafely() -> void {
     if (hooked) return;
 
-    // TODO: D3D12Renderer::hookUnsafely
+    if (kiero::init(kiero::RenderType::D3D12) != kiero::Status::Success)
+        throw std::exception("Could not initialize kiero in D3D12Renderer.cpp");
+
+    // TODO: set initializeOnnextCall to true
+
+    //kiero::bind(140, (void**)&D3D12Present, _Present);
+    //kiero::bind(145, (void**)&D3D12ResizeBuffers, _ResizeBuffers); // 13
 
     hooked = true;
 }
@@ -24,7 +30,9 @@ auto D3D12Renderer::hook() -> void {
 auto D3D12Renderer::unhook() -> void {
     if (!hooked) return;
 
-    // TODO: D3D12Renderer::unhook
+    // TODO: set disposeOnNextCall to true
+
+    // TODO: release resources
 
     isAlreadyHooked = false;
     hooked = false;
