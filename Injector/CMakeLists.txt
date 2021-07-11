@@ -15,7 +15,6 @@ set_property(TARGET Injector PROPERTY VS_DOTNET_REFERENCES "System")
 # Add sources
 target_sources(Injector PRIVATE
 	"App.cs"
-	"IMCAGUI.cs"
 	"Injector.cs"
 	"Win32.cs"
 )
