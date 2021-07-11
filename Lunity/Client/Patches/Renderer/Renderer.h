@@ -1,10 +1,12 @@
 #ifndef LUNITY_CLIENT_RENDERER_RENDERER_H
 #define LUNITY_CLIENT_RENDERER_RENDERER_H
 
+#include "../IPatch.h"
 
-class Renderer
+class Renderer : IPatch
 {
-
+public:
+    Renderer(std::string name) : IPatch(name) { }
 };
 
 

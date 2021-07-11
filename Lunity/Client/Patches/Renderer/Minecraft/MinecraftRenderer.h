@@ -5,7 +5,8 @@
 
 class MinecraftRenderer : Renderer
 {
-
+public:
+    MinecraftRenderer() : Renderer("Renderer::Minecraft") { }
 };
 
 

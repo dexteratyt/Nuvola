@@ -2,7 +2,7 @@
 #define LUNITY_CLIENT_RENDERER_D3D11_D3D11RENDERER_H
 
 #include <exception>
-#include "../../../Utils/Event.h"
+#include "../../../../Utils/Event.h"
 #include "../Renderer.h"
 
 struct D3D11InitializingEventArgs
@@ -23,7 +23,7 @@ private:
     bool hooked = false;
     static bool isAlreadyHooked = false;
 public:
-    D3D12Renderer() { }
+    D3D12Renderer() : Renderer("Renderer::D3D12") { }
     ~D3D12Renderer() { }
     auto isHooked() -> bool;
     auto hookUnsafely() -> void;
