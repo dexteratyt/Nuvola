@@ -2,6 +2,15 @@
 #define LUNITY_CLIENT_RENDERER_D3D12_D3D12RENDERER_H
 
 #include <exception>
+#include <dxgi.h>
+#include <d3d12.h>
+
+// kiero.h
+#include "../../../../Lib/kiero/kiero.h"
+#define KIERO_INCLUDE_D3D12  1 // 1 if you need D3D12 hook
+#define KIERO_USE_MINHOOK    1 // 1 if you will use kiero::bind function
+// kiero.h end
+
 #include "../../../../Utils/Event.h"
 #include "../Renderer.h"
 
