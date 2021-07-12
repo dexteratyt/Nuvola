@@ -8,52 +8,78 @@
 // This will help with updating classes and structures.
 struct DynamicStruct;
 
+// Basic dynamic object. 
 struct DynamicObject {
+	// Dynamic objects should be named by type
+	// Dynamic fields & methods should be named by their respective names
     std::string name;
+	// Address is the location of the resource (the pointer)
     uintptr_t address;
+	// Offset is the offset of a resource from its relative parent
+	// for example, a vtable offset or field offset
     uintptr_t offset;
 
+	// Construct a DynamicObject
     DynamicObject(std::string name, uintptr_t offset) {
         this->name = name;
         this->offset = offset;
     };
+	// Retrieve the name
     auto getName() -> std::string {
         return this->name;
     };
+	// Retrieve the resource as a void*
     auto asVoid() -> void* {
         return (void*)this->getAddress();
     }
+	// Change the wrapper's read location
     auto setAddress(uintptr_t address) -> void {
         this->address = address;
     }
+	// Get the wrapper's read location
     auto getAddress() -> uintptr_t {
         return this->address;
     }
+	// Set the offset of the resource
+	// (Still relative to a parent)
     auto setOffset(uintptr_t offset) -> void {
         this->offset = offset;
     }
+	// Retrieve the offset
     auto getOffset() -> uintptr_t {
         return this->offset;
     }
 };
 
+// A field for a dynamic struct
 struct DynamicField : DynamicObject {
+	// The constructor
     DynamicField(std::string fieldName, uintptr_t offset) : DynamicObject(fieldName, offset) {
     };
+	// If the field was a struct, this can be used to get it.
     auto asStruct() -> DynamicStruct* {
         return (DynamicStruct*)this;
     };
 };
 
+// A method object
 struct DynamicMethod : DynamicObject {
+	// Le constructor
     DynamicMethod(std::string methodName, uintptr_t offset) : DynamicObject(methodName, offset) {
     }
+	//Generate a call wrapper using PLH::FnCast
+	template<typename T>
+	auto Cast(T pFunc) -> T {
+		return PLH::FnCast(this->asVoid(), pFunc);
+	}
 };
 
+// The big boy struct.
 struct DynamicStruct : DynamicObject {
+	// Vectors for all attributes of the struct
     std::vector<DynamicField*>* fields;
-    std::vector<DynamicMethod*>* virtualFunctions;
-    std::vector<DynamicMethod*>* functions;
+    std::vector<DynamicMethod*>* virtualFunctions; //VTable funcs
+    std::vector<DynamicMethod*>* functions; //All other funcs
     DynamicStruct(std::string structName, uintptr_t offset) : DynamicObject(structName, offset) {
         fields = new std::vector<DynamicField*>();
         virtualFunctions = new std::vector<DynamicMethod*>();
@@ -74,6 +100,7 @@ struct DynamicStruct : DynamicObject {
         this->functions->push_back(theMethod);
     };
 
+	//Retrieve the DynamicObject by name
     auto get(std::string name) -> DynamicObject* {
         for(auto field : *fields) {
             if(field->getName()==name) {
