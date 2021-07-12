@@ -68,6 +68,7 @@ struct DynamicMethod : DynamicObject {
     DynamicMethod(std::string methodName, uintptr_t offset) : DynamicObject(methodName, offset) {
     }
 	//Generate a call wrapper using PLH::FnCast
+	//TODO: Make it work properly :)
 	template<typename T>
 	auto Cast(T pFunc) -> T {
 		return PLH::FnCast(this->asVoid(), pFunc);
@@ -86,15 +87,19 @@ struct DynamicStruct : DynamicObject {
         functions = new std::vector<DynamicMethod*>();
     };
 
+	//Add a field to the struct
     auto addField(DynamicField* theField) -> void {
         theField->setAddress(this->getAddress()+offset);
         this->fields->push_back(theField);
     };
+	//Add a virtual function/vtable function to the struct
     auto addVirtual(DynamicMethod* theMethod) -> void {
         uintptr_t newAddr = (*((uintptr_t*)this->getAddress()))+(8*offset);
         theMethod->setAddress(newAddr);
         this->virtualFunctions->push_back(theMethod);
     };
+	//Add a non-virtual function to the struct
+	//These are the functions typically found with signatures
     auto addFunction(DynamicMethod* theMethod) -> void {
         theMethod->setAddress(address);
         this->functions->push_back(theMethod);
@@ -102,24 +107,35 @@ struct DynamicStruct : DynamicObject {
 
 	//Retrieve the DynamicObject by name
     auto get(std::string name) -> DynamicObject* {
+		//Search fields
         for(auto field : *fields) {
+			//If name matches
             if(field->getName()==name) {
+				//Adjust the address properly & return
                 field->setAddress(this->getAddress()+field->getOffset());
                 return field;
             }
         }
+		//Search added virtual functions
         for(auto function : *virtualFunctions) {
+			//If name matches
             if(function->getName()==name) {
+				//Get cool address & return
                 uintptr_t newAddr = (*((uintptr_t*)this->getAddress()))+(8*function->getOffset());
                 function->setAddress(newAddr);
                 return function;
             }
         }
+		//Search non-virtual functions
         for(auto function : *functions) {
+			//Match name
             if(function->getName()==name) {
+				//Return, no address math needs to be added. The address is static.
                 return function;
             }
         }
+		//Everything failed? return null
+		//PLEASE CHECK THIS IN CODE!!
         return nullptr;
     };
 };
