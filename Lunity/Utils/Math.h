@@ -27,11 +27,4 @@ struct Vector2 {
     }
 };
 
-struct Vector2F : public Vector2<float> {
-    
-};
-struct Vector2S : public Vector2<short> {
-    Vector2S(short x, short y) : Vector2<short>(x, y) {};
-};
-
 #endif /* LUNITY_UTILS_MATH */
