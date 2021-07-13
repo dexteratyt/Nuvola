@@ -93,6 +93,8 @@ struct DynamicStruct : DynamicObject {
                 return function;
             }
         }
+		//Everything failed? return null
+		//PLEASE CHECK THIS!!
         return nullptr;
     };
 };
