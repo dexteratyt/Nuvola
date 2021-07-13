@@ -5,49 +5,49 @@
 
 struct GuiData : DynamicStruct {
     GuiData() : DynamicStruct("GuiData", 0) {
-        this->addField(new DynamicField("resolution", 0x18));
-        this->addField(new DynamicField("scaledResolution", 0x28));
-        this->addField(new DynamicField("guiSize", 0x30));
-        this->addField(new DynamicField("guiScale", 0x38));
-        this->addField(new DynamicField("mouseX", 0x52));
-        this->addField(new DynamicField("mouseY", 0x54));
-        this->addField(new DynamicField("isWorldLoaded", 0x56));
-        this->addField(new DynamicField("heldItemSlot", 0x58));
-        this->addField(new DynamicField("heldItemName", 0x94));
+        this->AddField(new DynamicField("Resolution", 0x18));
+        this->AddField(new DynamicField("ScaledResolution", 0x28));
+        this->AddField(new DynamicField("GuiSize", 0x30));
+        this->AddField(new DynamicField("GuiScale", 0x38));
+        this->AddField(new DynamicField("MouseX", 0x52));
+        this->AddField(new DynamicField("MouseY", 0x54));
+        this->AddField(new DynamicField("IsWorldLoaded", 0x56));
+        this->AddField(new DynamicField("HeldItemSlot", 0x58));
+        this->AddField(new DynamicField("HeldItemName", 0x94));
     };
 
-    auto getResolution() -> Vector2<float> {
-        DynamicField* theField = (DynamicField*)this->get("resolution");
-        Vector2<float>* theVec = (Vector2<float>*)theField->asVoid();
+    auto GetResolution() -> Vector2<float> {
+        DynamicField* theField = (DynamicField*)this->Get("Resolution");
+        Vector2<float>* theVec = (Vector2<float>*)theField->AsVoid();
         return *theVec;
     };
-    auto getScaledResolution() -> Vector2<float> {
-        DynamicField* theField = (DynamicField*)this->get("scaledResolution");
-        Vector2<float> theVec = *((Vector2<float>*)theField->asVoid());
+    auto GetScaledResolution() -> Vector2<float> {
+        DynamicField* theField = (DynamicField*)this->Get("ScaledResolution");
+        Vector2<float> theVec = *((Vector2<float>*)theField->AsVoid());
         return theVec;
     };
-	auto getGuiSize() -> double {
-        DynamicField* theField = (DynamicField*)this->get("guiSize");
-        double* theVal = (double*)theField->asVoid();
+	auto GetGuiSize() -> double {
+        DynamicField* theField = (DynamicField*)this->Get("GuiSize");
+        double* theVal = (double*)theField->AsVoid();
         return *theVal;
     };
-    auto getGuiScale() -> float {
-        DynamicField* theField = (DynamicField*)this->get("guiScale");
-        float* theVal = (float*)theField->asVoid();
+    auto GetGuiScale() -> float {
+        DynamicField* theField = (DynamicField*)this->Get("GuiScale");
+        float* theVal = (float*)theField->AsVoid();
         return *theVal;
     };
-	auto getMouseX() -> short {
-		DynamicField* theField = (DynamicField*)this->get("mouseX");
-        short* theVal = (short*)theField->asVoid();
+	auto GetMouseX() -> short {
+		DynamicField* theField = (DynamicField*)this->Get("MouseX");
+        short* theVal = (short*)theField->AsVoid();
         return *theVal;
 	}
-	auto getMouseY() -> short {
-		DynamicField* theField = (DynamicField*)this->get("mouseY");
-        short* theVal = (short*)theField->asVoid();
+	auto GetMouseY() -> short {
+		DynamicField* theField = (DynamicField*)this->Get("MouseY");
+        short* theVal = (short*)theField->AsVoid();
         return *theVal;
 	}
-	auto getMouseLoc() -> Vector2<short> {
-		return Vector2<short>(this->getMouseX(), this->getMouseY());
+	auto GetMouseLoc() -> Vector2<short> {
+		return Vector2<short>(this->GetMouseX(), this->GetMouseY());
 	}
 };
 
