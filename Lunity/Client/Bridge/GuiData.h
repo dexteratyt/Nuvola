@@ -16,14 +16,14 @@ struct GuiData : DynamicStruct {
         this->addField(new DynamicField("heldItemName", 0x94));
     };
 
-    auto getResolution() -> Vector2F {
+    auto getResolution() -> Vector2<float> {
         DynamicField* theField = (DynamicField*)this->get("resolution");
-        Vector2F* theVec = (Vector2F*)theField->asVoid();
+        Vector2<float>* theVec = (Vector2<float>*)theField->asVoid();
         return *theVec;
     };
-    auto getScaledResolution() -> Vector2F {
+    auto getScaledResolution() -> Vector2<float> {
         DynamicField* theField = (DynamicField*)this->get("scaledResolution");
-        Vector2F theVec = *((Vector2F*)theField->asVoid());
+        Vector2<float> theVec = *((Vector2<float>*)theField->asVoid());
         return theVec;
     };
 	auto getGuiSize() -> double {
@@ -46,8 +46,8 @@ struct GuiData : DynamicStruct {
         short* theVal = (short*)theField->asVoid();
         return *theVal;
 	}
-	auto getMouseLoc() -> Vector2S {
-		return Vector2S(this->getMouseX(), this->getMouseY());
+	auto getMouseLoc() -> Vector2<short> {
+		return Vector2<short>(this->getMouseX(), this->getMouseY());
 	}
 };
 
