@@ -67,11 +67,11 @@ struct DynamicMethod : DynamicObject {
 	// Le constructor
     DynamicMethod(std::string methodName, uintptr_t offset) : DynamicObject(methodName, offset) {
     }
-	//Generate a call wrapper using PLH::FnCast
+	//Generate a call wrapper just like PLH::FnCast does
 	//TODO: Make it work properly :)
 	template<typename T>
 	auto Cast(T pFunc) -> T {
-		return PLH::FnCast(this->asVoid(), pFunc);
+		return (T)this->asVoid();
 	}
 };
 
