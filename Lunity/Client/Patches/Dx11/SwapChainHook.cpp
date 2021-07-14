@@ -1,11 +1,22 @@
 #include "SwapChainHook.h"
 
-auto SwapChainHook::hookPresent(IDXGISwapChain* pChain, UINT syncInterval, UINT flags) -> long {
+#include <d3d12.h>
+#include <gl/GL.h>
 
-	//Simple fps throttle to show it works
-	Sleep(1000/10); // Should limit game to 10 fps
-	
-    return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
+auto SwapChainHook::hookPresent(IDXGISwapChain3* pChain, UINT syncInterval, UINT flags) -> long {
+	HRESULT res = pChain->GetDevice(__uuidof(ID3D12Device), (void**)&pDevice);
+
+	if(res != S_OK) {
+		Utils::DebugF("Shit went horribly wrong!");
+		Utils::DebugF("Error: "+std::to_string(res));
+		Sleep(2000);
+		goto returnPoint;
+	}
+
+	//pDevice->CreateCommandQueue(D3D12CommandQueue(), __uuidof(ID3D12CommandQueue), (void**)&pCommandQueue)
+
+returnPoint:
+	return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
 }
 
 SwapChainHook::SwapChainHook()  : IPatch::IPatch("Dx11::Present") {
