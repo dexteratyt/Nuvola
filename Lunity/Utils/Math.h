@@ -1,5 +1,139 @@
+#include <stdexcept>
+
 #ifndef LUNITY_UTILS_MATH
 #define LUNITY_UTILS_MATH
+
+template<typename T>
+struct Vector1
+{
+    T X = 0;
+    Vector1() = default;
+    Vector1(T x) : X(x) { }
+    Vector1 operator+(Vector1& other) const { return Vector1(X + other.X); }
+    Vector1 operator-(Vector1& other) const { return Vector1(X - other.X); }
+    Vector1 operator*(Vector1& other) const { return Vector1(X * other.X); }
+    Vector1 operator/(Vector1& other) const { return Vector1(X / other.X); }
+    Vector1& operator+=(Vector1& other) { X += other.X; return *this; }
+    Vector1& operator-=(Vector1& other) { X -= other.X; return *this; }
+    Vector1& operator*=(Vector1& other) { X *= other.X; return *this; }
+    Vector1& operator/=(Vector1& other) { X /= other.X; return *this; }
+    Vector1 operator+(T other) const { return Vector1(X + other); }
+    Vector1 operator-(T other) const { return Vector1(X - other); }
+    Vector1 operator*(T other) const { return Vector1(X * other); }
+    Vector1 operator/(T other) const { return Vector1(X / other); }
+    Vector1& operator+=(T other) { X += other; return *this; }
+    Vector1& operator-=(T other) { X -= other; return *this; }
+    Vector1& operator*=(T other) { X *= other; return *this; }
+    Vector1& operator/=(T other) { X /= other; return *this; }
+    T& operator[](int index) {
+        switch (index)
+        {
+            case 0: return X;
+            default: throw std::out_of_range();
+        }
+    }
+};
+
+template<typename T>
+struct Vector2 : public Vector1<T>
+{
+    T Y = 0;
+    Vector2() = default;
+    Vector2(T x, T y) : Vector1(x), Y(y) { }
+    Vector2 operator+(Vector2& other) const { return Vector2(X + other.X, Y + other.Y); }
+    Vector2 operator-(Vector2& other) const { return Vector2(X - other.X, Y - other.Y); }
+    Vector2 operator*(Vector2& other) const { return Vector2(X * other.X, Y * other.Y); }
+    Vector2 operator/(Vector2& other) const { return Vector2(X / other.X, Y / other.Y); }
+    Vector2& operator+=(Vector2& other) { X += other.X; Y += other.Y; return *this; }
+    Vector2& operator-=(Vector2& other) { X -= other.X; Y -= other.Y; return *this; }
+    Vector2& operator*=(Vector2& other) { X *= other.X; Y *= other.Y; return *this; }
+    Vector2& operator/=(Vector2& other) { X /= other.X; Y /= other.Y; return *this; }
+    Vector2 operator+(T other) const { return Vector2(X + other, Y + other); }
+    Vector2 operator-(T other) const { return Vector2(X - other, Y - other); }
+    Vector2 operator*(T other) const { return Vector2(X * other, Y * other); }
+    Vector2 operator/(T other) const { return Vector2(X / other, Y / other); }
+    Vector2& operator+=(T other) { X += other; Y += other; return *this; }
+    Vector2& operator-=(T other) { X -= other; Y -= other; return *this; }
+    Vector2& operator*=(T other) { X *= other; Y *= other; return *this; }
+    Vector2& operator/=(T other) { X /= other; Y /= other; return *this; }
+    T& operator[](int index) {
+        switch (index)
+        {
+            case 0: return X;
+            case 1: return Y;
+            default: throw std::out_of_range();
+        }
+    }
+};
+
+template<typename T>
+struct Vector3 : public Vector2<T>
+{
+    T Z = 0;
+    Vector3() = default;
+    Vector3(T x, T y, T z) : Vector2(x, y), Z(z) { }
+    Vector3 operator+(Vector3& other) const { return Vector3(X + other.X, Y + other.Y, Z + other.Z); }
+    Vector3 operator-(Vector3& other) const { return Vector3(X - other.X, Y - other.Y, Z - other.Z); }
+    Vector3 operator*(Vector3& other) const { return Vector3(X * other.X, Y * other.Y, Z * other.Z); }
+    Vector3 operator/(Vector3& other) const { return Vector3(X / other.X, Y / other.Y, Z / other.Z); }
+    Vector3& operator+=(Vector3& other) { X += other.X; Y += other.Y; Z += other.Z; return *this; }
+    Vector3& operator-=(Vector3& other) { X -= other.X; Y -= other.Y; Z -= other.Z; return *this; }
+    Vector3& operator*=(Vector3& other) { X *= other.X; Y *= other.Y; Z *= other.Z; return *this; }
+    Vector3& operator/=(Vector3& other) { X /= other.X; Y /= other.Y; Z /= other.Z; return *this; }
+    Vector3 operator+(T other) const { return Vector3(X + other, Y + other, Z + other); }
+    Vector3 operator-(T other) const { return Vector3(X - other, Y - other, Z - other); }
+    Vector3 operator*(T other) const { return Vector3(X * other, Y * other, Z * other); }
+    Vector3 operator/(T other) const { return Vector3(X / other, Y / other, Z / other); }
+    Vector3& operator+=(T other) { X += other; Y += other; Z += other; return *this; }
+    Vector3& operator-=(T other) { X -= other; Y -= other; Z -= other; return *this; }
+    Vector3& operator*=(T other) { X *= other; Y *= other; Z *= other; return *this; }
+    Vector3& operator/=(T other) { X /= other; Y /= other; Z /= other; return *this; }
+    T& operator[](int index) {
+        switch (index)
+        {
+            case 0: return X;
+            case 1: return Y;
+            case 2: return Z;
+            default: throw std::out_of_range();
+        }
+    }
+};
+
+template<typename T>
+struct Vector4 : public Vector3<T>
+{
+    T W = 0;
+    Vector4() = default;
+    Vector4(T x, T y, T z, T w) : Vector3(x, y, z), W(w) { }
+    Vector4 operator+(Vector4& other) const { return Vector4(X + other.X, Y + other.Y, Z + other.Z, W + other.W); }
+    Vector4 operator-(Vector4& other) const { return Vector4(X - other.X, Y - other.Y, Z - other.Z, W - other.W); }
+    Vector4 operator*(Vector4& other) const { return Vector4(X * other.X, Y * other.Y, Z * other.Z, W * other.W); }
+    Vector4 operator/(Vector4& other) const { return Vector4(X / other.X, Y / other.Y, Z / other.Z, W / other.W); }
+    Vector4& operator+=(Vector4& other) { X += other.X; Y += other.Y; Z += other.Z; W += other.W; return *this; }
+    Vector4& operator-=(Vector4& other) { X -= other.X; Y -= other.Y; Z -= other.Z; W -= other.W; return *this; }
+    Vector4& operator*=(Vector4& other) { X *= other.X; Y *= other.Y; Z *= other.Z; W *= other.W; return *this; }
+    Vector4& operator/=(Vector4& other) { X /= other.X; Y /= other.Y; Z /= other.Z; W /= other.W; return *this; }
+    Vector4 operator+(T other) const { return Vector4(X + other, Y + other, Z + other, W + other); }
+    Vector4 operator-(T other) const { return Vector4(X - other, Y - other, Z - other, W - other); }
+    Vector4 operator*(T other) const { return Vector4(X * other, Y * other, Z * other, W * other); }
+    Vector4 operator/(T other) const { return Vector4(X / other, Y / other, Z / other, W / other); }
+    Vector4& operator+=(T other) { X += other; Y += other; Z += other; W += other; return *this; }
+    Vector4& operator-=(T other) { X -= other; Y -= other; Z -= other; W -= other; return *this; }
+    Vector4& operator*=(T other) { X *= other; Y *= other; Z *= other; W *= other; return *this; }
+    Vector4& operator/=(T other) { X /= other; Y /= other; Z /= other; W /= other; return *this; }
+    T& operator[](int index) {
+        switch (index)
+        {
+            case 0: return X;
+            case 1: return Y;
+            case 2: return Z;
+            case 3: return W;
+            default: throw std::out_of_range();
+        }
+    }
+};
+
+/*
 
 template <typename T>
 struct Vector2 {
@@ -87,5 +221,7 @@ struct Vector4 {
         return Vector4<T>(newX, newY, newZ, newW);
     }
 };
+
+*/
 
 #endif /* LUNITY_UTILS_MATH */
