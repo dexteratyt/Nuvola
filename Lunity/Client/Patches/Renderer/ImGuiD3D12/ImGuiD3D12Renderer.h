@@ -104,7 +104,12 @@ public:
     auto invokePresent(IDXGISwapChain3* SwapChainPtr,
                        unsigned int SyncInterval,
                        unsigned int Flags) -> long;
-    auto invokeResizeBuffers() -> long;
+    auto invokeResizeBuffers(IDXGISwapChain3* SwapChainPtr,
+                             unsigned int BufferCount,
+                             unsigned int Width,
+                             unsigned int Height,
+                             DXGI_FORMAT NewFormat,
+                             unsigned int SwapChainFlags) -> long;
 public:
     Event<void(ImGuiD3D12InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
     Event<void(ImGuiD3D12RenderEventArgs&)> render; // Is being invoked when everything is being rendered

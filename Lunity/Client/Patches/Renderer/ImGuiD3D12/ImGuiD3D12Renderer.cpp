@@ -101,3 +101,18 @@ auto ImGuiD3D12Renderer::reload() -> void {
     unhook();
     hook();
 }
+
+auto ImGuiD3D12Renderer::invokePresent(int *SwapChainPtr,
+                                       unsigned int SyncInterval,
+                                       unsigned int Flags) -> long {
+
+}
+
+auto ImGuiD3D12Renderer::invokeResizeBuffers(IDXGISwapChain3* SwapChainPtr,
+                                             unsigned int BufferCount,
+                                             unsigned int Width,
+                                             unsigned int Height,
+                                             DXGI_FORMAT NewFormat,
+                                             unsigned int SwapChainFlags) -> long {
+
+}
