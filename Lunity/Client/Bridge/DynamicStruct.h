@@ -25,28 +25,28 @@ struct DynamicObject {
         this->offset = offset;
     };
 	// Retrieve the name
-    auto getName() -> std::string {
+    auto GetName() -> std::string {
         return this->name;
     };
 	// Retrieve the resource as a void*
-    auto asVoid() -> void* {
-        return (void*)this->getAddress();
+    auto AsVoid() -> void* {
+        return (void*)this->GetAddress();
     }
 	// Change the wrapper's read location
-    auto setAddress(uintptr_t address) -> void {
+    auto SetAddress(uintptr_t address) -> void {
         this->address = address;
     }
 	// Get the wrapper's read location
-    auto getAddress() -> uintptr_t {
+    auto GetAddress() -> uintptr_t {
         return this->address;
     }
 	// Set the offset of the resource
 	// (Still relative to a parent)
-    auto setOffset(uintptr_t offset) -> void {
+    auto SetOffset(uintptr_t offset) -> void {
         this->offset = offset;
     }
 	// Retrieve the offset
-    auto getOffset() -> uintptr_t {
+    auto GetOffset() -> uintptr_t {
         return this->offset;
     }
 };
@@ -57,7 +57,7 @@ struct DynamicField : DynamicObject {
     DynamicField(std::string fieldName, uintptr_t offset) : DynamicObject(fieldName, offset) {
     };
 	// If the field was a struct, this can be used to get it.
-    auto asStruct() -> DynamicStruct* {
+    auto AsStruct() -> DynamicStruct* {
         return (DynamicStruct*)this;
     };
 };
@@ -71,7 +71,7 @@ struct DynamicMethod : DynamicObject {
 	//TODO: Make it work properly :)
 	template<typename T>
 	auto Cast(T pFunc) -> T {
-		return (T)this->asVoid();
+		return (T)this->AsVoid();
 	}
 };
 
@@ -88,48 +88,48 @@ struct DynamicStruct : DynamicObject {
     };
 
 	//Add a field to the struct
-    auto addField(DynamicField* theField) -> void {
-        theField->setAddress(this->getAddress()+offset);
+    auto AddField(DynamicField* theField) -> void {
+        theField->SetAddress(this->GetAddress()+offset);
         this->fields->push_back(theField);
     };
 	//Add a virtual function/vtable function to the struct
-    auto addVirtual(DynamicMethod* theMethod) -> void {
-        uintptr_t newAddr = (*((uintptr_t*)this->getAddress()))+(8*offset);
-        theMethod->setAddress(newAddr);
+    auto AddVirtual(DynamicMethod* theMethod) -> void {
+        uintptr_t newAddr = (*((uintptr_t*)this->GetAddress()))+(8*offset);
+        theMethod->SetAddress(newAddr);
         this->virtualFunctions->push_back(theMethod);
     };
 	//Add a non-virtual function to the struct
 	//These are the functions typically found with signatures
-    auto addFunction(DynamicMethod* theMethod) -> void {
-        theMethod->setAddress(address);
+    auto AddFunction(DynamicMethod* theMethod) -> void {
+        theMethod->SetAddress(address);
         this->functions->push_back(theMethod);
     };
 
 	//Retrieve the DynamicObject by name
-    auto get(std::string name) -> DynamicObject* {
+    auto Get(std::string name) -> DynamicObject* {
 		//Search fields
         for(auto field : *fields) {
 			//If name matches
-            if(field->getName()==name) {
+            if(field->GetName()==name) {
 				//Adjust the address properly & return
-                field->setAddress(this->getAddress()+field->getOffset());
+                field->SetAddress(this->GetAddress()+field->GetOffset());
                 return field;
             }
         }
 		//Search added virtual functions
         for(auto function : *virtualFunctions) {
 			//If name matches
-            if(function->getName()==name) {
+            if(function->GetName()==name) {
 				//Get cool address & return
-                uintptr_t newAddr = (*((uintptr_t*)this->getAddress()))+(8*function->getOffset());
-                function->setAddress(newAddr);
+                uintptr_t newAddr = (*((uintptr_t*)this->GetAddress()))+(8*function->GetOffset());
+                function->SetAddress(newAddr);
                 return function;
             }
         }
 		//Search non-virtual functions
         for(auto function : *functions) {
 			//Match name
-            if(function->getName()==name) {
+            if(function->GetName()==name) {
 				//Return, no address math needs to be added. The address is static.
                 return function;
             }
