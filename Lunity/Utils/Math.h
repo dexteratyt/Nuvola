@@ -103,35 +103,35 @@ struct Vector4 : public Vector3<T>
     T& operator[](int index) { *(this+(index*sizeof(T))); }
 };
 
-struct Vector1F : Vector1<float> { };
-struct Vector2F : Vector2<float> { };
-struct Vector3F : Vector3<float> { };
-struct Vector4F : Vector4<float> { };
+struct Vector1F : public Vector1<float> { };
+struct Vector2F : public Vector2<float> { };
+struct Vector3F : public Vector3<float> { };
+struct Vector4F : public Vector4<float> { };
 
-struct Vector1D : Vector1<double> { };
-struct Vector2D : Vector2<double> { };
-struct Vector3D : Vector3<double> { };
-struct Vector4D : Vector4<double> { };
+struct Vector1D : public Vector1<double> { };
+struct Vector2D : public Vector2<double> { };
+struct Vector3D : public Vector3<double> { };
+struct Vector4D : public Vector4<double> { };
 
-struct Vector1B : Vector1<char> { };
-struct Vector2B : Vector2<char> { };
-struct Vector3B : Vector3<char> { };
-struct Vector4B : Vector4<char> { };
+struct Vector1B : public Vector1<char> { };
+struct Vector2B : public Vector2<char> { };
+struct Vector3B : public Vector3<char> { };
+struct Vector4B : public Vector4<char> { };
 
-struct Vector1S : Vector1<short> { };
-struct Vector2S : Vector2<short> { };
-struct Vector3S : Vector3<short> { };
-struct Vector4S : Vector4<short> { };
+struct Vector1S : public Vector1<short> { };
+struct Vector2S : public Vector2<short> { };
+struct Vector3S : public Vector3<short> { };
+struct Vector4S : public Vector4<short> { };
 
-struct Vector1I : Vector1<int> { };
-struct Vector2I : Vector2<int> { };
-struct Vector3I : Vector3<int> { };
-struct Vector4I : Vector4<int> { };
+struct Vector1I : public Vector1<int> { };
+struct Vector2I : public Vector2<int> { };
+struct Vector3I : public Vector3<int> { };
+struct Vector4I : public Vector4<int> { };
 
-struct Vector1L : Vector1<long long> { };
-struct Vector2L : Vector2<long long> { };
-struct Vector3L : Vector3<long long> { };
-struct Vector4L : Vector4<long long> { };
+struct Vector1L : public Vector1<long long> { };
+struct Vector2L : public Vector2<long long> { };
+struct Vector3L : public Vector3<long long> { };
+struct Vector4L : public Vector4<long long> { };
 
 /*
 
