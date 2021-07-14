@@ -1,5 +1,26 @@
 #include "D3D12Renderer.h"
 
+D3D12Renderer* currentRenderer = nullptr;
+
+long __fastcall _Present(IDXGISwapChain3* SwapChainPtr,
+                         unsigned int SyncInterval,
+                         unsigned int Flags) {
+    if (currentRenderer) return currentRenderer->_Present(SwapChainPtr, SyncInterval, Flags);
+    if (!D3D12Renderer::D3D12Present) throw std::exception("ImGuiD3D12Renderer::D3D12Present was null.");
+    return D3D12Renderer::D3D12Present(SwapChainPtr, SyncInterval, Flags);
+}
+
+long __fastcall _ResizeBuffers(IDXGISwapChain3* SwapChainPtr,
+                               unsigned int BufferCount,
+                               unsigned int Width,
+                               unsigned int Height,
+                               DXGI_FORMAT NewFormat,
+                               unsigned int SwapChainFlags) {
+    if (currentRenderer) return currentRenderer->_ResizeBuffers(SwapChainPtr, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+    if (!D3D12Renderer::D3D12ResizeBuffers) throw std::exception("ImGuiD3D12Renderer::D3D12ResizeBuffers was null.");
+    return D3D12Renderer::D3D12ResizeBuffers(SwapChainPtr, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+}
+
 auto D3D12Renderer::isHooked() -> bool {
     return hooked;
 }
@@ -10,7 +31,7 @@ auto D3D12Renderer::hookUnsafely() -> void {
     if (kiero::init(kiero::RenderType::D3D12) != kiero::Status::Success)
         throw std::exception("Could not initialize kiero in D3D12Renderer.cpp");
 
-    // TODO: set initializeOnnextCall to true
+    // TODO: set initializeOnNextCall to true
 
     //kiero::bind(140, (void**)&D3D12Present, _Present);
     //kiero::bind(145, (void**)&D3D12ResizeBuffers, _ResizeBuffers); // 13

@@ -57,13 +57,13 @@ public:
     UInt BufferCount = 0;
 
     // Original Functions
-    D3D12PresentFunc D3D12Present = nullptr;
-    D3D12ResizeBuffersFunc D3D12ResizeBuffers = nullptr;
-    D3D12ExecuteCommandListsFunc D3D12ExecuteCommandLists = nullptr;
-    D3D12SignalFunc D3D12Signal = nullptr;
-    D3D12ResizeRenderTargetsFunc D3D12ResizeRenderTargets = nullptr;
-    D3D12DrawInstancedFunc D3D12DrawInstanced = nullptr;
-    D3D12DrawIndexedInstancedFunc D3D12DrawIndexedInstanced = nullptr;
+    static D3D12PresentFunc D3D12Present = nullptr;
+    static D3D12ResizeBuffersFunc D3D12ResizeBuffers = nullptr;
+    static D3D12ExecuteCommandListsFunc D3D12ExecuteCommandLists = nullptr;
+    static D3D12SignalFunc D3D12Signal = nullptr;
+    static D3D12ResizeRenderTargetsFunc D3D12ResizeRenderTargets = nullptr;
+    static D3D12DrawInstancedFunc D3D12DrawInstanced = nullptr;
+    static D3D12DrawIndexedInstancedFunc D3D12DrawIndexedInstanced = nullptr;
 
 private:
     bool InitializeOnNextCall = true;
