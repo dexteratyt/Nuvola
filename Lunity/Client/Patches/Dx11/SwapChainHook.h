@@ -5,6 +5,7 @@
 #include "../../Features/ModuleMgr.h"
 
 #include <d3d11.h>
+#include <d3d12.h>
 #include <d2d1_1.h>
 #include <dwrite_1.h>
 #include <dxgi.h>
@@ -13,7 +14,6 @@
 #include <DirectXMath.h>
 #include <DirectXColors.h>
 
-#define KIERO_INCLUDE_D3D11 1
 #include <kiero.h>
 
 class SwapChainHook : public IPatch {
