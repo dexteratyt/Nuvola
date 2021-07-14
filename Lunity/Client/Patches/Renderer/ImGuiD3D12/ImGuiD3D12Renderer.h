@@ -15,6 +15,7 @@
 // imgui
 #include "../../../../Lib/imgui/imgui.h"
 #include "../../../../Lib/imgui/imgui_demo.h"
+#include "../../../../Lib/imgui/backends/imgui_impl_dx12.h"
 // imgui end
 
 #include "../../../../Utils/Event.h"
@@ -93,16 +94,18 @@ public:
 
 public:
     ImGuiD3D12Renderer() : Renderer("Renderer::D3D12") { }
-    ~ImGuiD3D12Renderer() { }
+    ~ImGuiD3D12Renderer();
     auto isHooked() -> bool;
     auto hookUnsafely() -> void;
     auto hook() -> void;
     auto unhook() -> void;
     auto reload() -> void;
     auto release() -> void;
-
+    auto invokePresent(IDXGISwapChain3* SwapChainPtr,
+                       unsigned int SyncInterval,
+                       unsigned int Flags) -> long;
+    auto invokeResizeBuffers() -> long;
 public:
-    // TODO: Add EventArgs
     Event<void(ImGuiD3D12InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
     Event<void(ImGuiD3D12RenderEventArgs&)> render; // Is being invoked when everything is being rendered
 };

@@ -21,6 +21,12 @@ long __fastcall _ResizeBuffers(IDXGISwapChain3* SwapChainPtr,
     return ImGuiD3D12Renderer::D3D12ResizeBuffers(SwapChainPtr, BufferCount, Width, Height, NewFormat, SwapChainFlags);
 }
 
+ImGuiD3D12Renderer::~ImGuiD3D12Renderer() {
+    if (isHooked()) {
+        unhook();
+    }
+}
+
 auto ImGuiD3D12Renderer::isHooked() -> bool {
     return hooked;
 }
@@ -33,7 +39,7 @@ auto ImGuiD3D12Renderer::hookUnsafely() -> void {
     if (kiero::init(kiero::RenderType::D3D12) != kiero::Status::Success)
         throw std::exception("Could not initialize kiero in D3D12Renderer.cpp");
 
-    // TODO: set initializeOnNextCall to true
+    InitializeOnNextCall = true;
 
     kiero::bind(140, (void**)&D3D12Present, _Present);
     kiero::bind(145, (void**)&D3D12ResizeBuffers, _ResizeBuffers); // 13
@@ -55,7 +61,12 @@ auto ImGuiD3D12Renderer::unhook() -> void {
 
     if (currentRenderer == this) currentRenderer = nullptr;
 
-    // TODO: D3D12Renderer::unhook
+    kiero::unbind(140);
+    kiero::unbind(145);
+
+    release();
+
+    ImGui_ImplDX12_Shutdown();
 
     isAlreadyHooked = false;
     hooked = false;
@@ -64,7 +75,24 @@ auto ImGuiD3D12Renderer::unhook() -> void {
 auto ImGuiD3D12Renderer::release() -> void {
     if (!hooked) return;
 
-    // TODO: D3D12Renderer::release
+    DisposeOnNextCall = true;
+
+    if (D3D12DevicePtr) D3D12DevicePtr->Release();
+    if (D3D12DescriptorHeapBackBuffersPtr) D3D12DescriptorHeapBackBuffersPtr->Release();
+    if (D3D12DescriptorHeapImGuiRenderPtr) D3D12DescriptorHeapImGuiRenderPtr->Release();
+
+    //if (FrameContextPtr)
+    //{
+    //    for (size_t i = 0; i < BufferCount; i++)
+    //    {
+    //        if ((uintptr_t)FrameContextPtr[i].MainRenderTargetResourcePtr > 69420)
+    //            FrameContextPtr[i].MainRenderTargetResourcePtr->Release();
+    //    }
+    //}
+
+    D3D12DevicePtr = nullptr;
+    D3D12DescriptorHeapBackBuffersPtr = nullptr;
+    D3D12DescriptorHeapImGuiRenderPtr = nullptr;
 
     hooked = false;
 }
