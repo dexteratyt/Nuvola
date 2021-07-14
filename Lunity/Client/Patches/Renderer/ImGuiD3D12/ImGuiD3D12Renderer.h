@@ -2,6 +2,7 @@
 #define LUNITY_CLIENT_RENDERER_D3D12_D3D12RENDERER_H
 
 #include <exception>
+#include <chrono>
 #include <Windows.h>
 #include <dxgi.h>
 #include <d3d12.h>
@@ -14,30 +15,36 @@
 
 // imgui
 #include "../../../../Lib/imgui/imgui.h"
-#include "../../../../Lib/imgui/imgui_demo.h"
 #include "../../../../Lib/imgui/backends/imgui_impl_dx12.h"
 // imgui end
 
 #include "../../../../Utils/Event.h"
 #include "../Renderer.h"
 
+struct ImGuiD3D12FrameContext
+{
+    ID3D12CommandAllocator* CommandAllocatorPtr = nullptr;
+    ID3D12Resource* MainRenderTargetResourcePtr = nullptr;
+    D3D12_CPU_DESCRIPTOR_HANDLE MainRenderTargetDescriptor;
+};
+
 struct ImGuiD3D12InitializingEventArgs
 {
-    bool handled;
-    bool cancel;
+    bool Handled;
+    bool Cancel;
 };
 
 struct ImGuiD3D12RenderEventArgs
 {
-    bool handled;
+    bool Handled;
 };
 
 class ImGuiD3D12Renderer : Renderer
 {
 private:
-    bool isInitialized = false;
-    bool hooked = false;
-    static bool isAlreadyHooked = false;
+    bool IsInitialized = false;
+    bool Hooked = false;
+    static bool IsAlreadyHooked = false;
 
 public:
     // Typedefs
@@ -58,7 +65,7 @@ public:
     ID3D12CommandQueue* D3D12CommandQueuePtr = nullptr;
     ID3D12Fence* D3D12FencePtr = nullptr;
     UInt64 D3D12FenceValue = 0;
-    FrameContext* FrameContextPtr = nullptr;
+    ImGuiD3D12FrameContext* FrameContextPtr = nullptr;
     UInt ReservedBufferCount = 0;
     UInt BufferCount = 0;
 
@@ -81,38 +88,37 @@ private:
 public:
     HWND WindowHandle = 0;
 
-public:
-    virtual long __fastcall _Present(IDXGISwapChain3* SwapChainPtr,
-                             unsigned int SyncInterval,
-                             unsigned int Flags);
-    virtual long __fastcall _ResizeBuffers(IDXGISwapChain3* SwapChainPtr,
-                                   unsigned int BufferCount,
-                                   unsigned int Width,
-                                   unsigned int Height,
-                                   DXGI_FORMAT NewFormat,
-                                   unsigned int SwapChainFlags);
+private:
+    unsigned int _Width;
+    unsigned int _Height;
+    unsigned long long _FPS = 0;
+    unsigned long long _CurrentFrame = 0;
+    std::chrono::duration<double, std::milli> _FrameTime;
+    std::chrono::high_resolution_clock _Clock;
+    std::chrono::steady_clock::time_point _StartPoint = _Clock.now();
+    unsigned long long _LastResizeTimePoint = 0;
 
 public:
     ImGuiD3D12Renderer() : Renderer("Renderer::D3D12") { }
     ~ImGuiD3D12Renderer();
-    auto isHooked() -> bool;
-    auto hookUnsafely() -> void;
-    auto hook() -> void;
-    auto unhook() -> void;
-    auto reload() -> void;
-    auto release() -> void;
-    auto invokePresent(IDXGISwapChain3* SwapChainPtr,
+    auto IsHooked() -> bool;
+    auto HookUnsafely() -> void;
+    auto Hook() -> void;
+    auto Unhook() -> void;
+    auto Reload() -> void;
+    auto Release() -> void;
+    auto InvokePresent(IDXGISwapChain3* SwapChainPtr,
                        unsigned int SyncInterval,
                        unsigned int Flags) -> long;
-    auto invokeResizeBuffers(IDXGISwapChain3* SwapChainPtr,
+    auto InvokeResizeBuffers(IDXGISwapChain3* SwapChainPtr,
                              unsigned int BufferCount,
                              unsigned int Width,
                              unsigned int Height,
                              DXGI_FORMAT NewFormat,
                              unsigned int SwapChainFlags) -> long;
 public:
-    Event<void(ImGuiD3D12InitializingEventArgs&)> initializing; // Is being invoked before the hook initializes all its resources
-    Event<void(ImGuiD3D12RenderEventArgs&)> render; // Is being invoked when everything is being rendered
+    Event<void(ImGuiD3D12InitializingEventArgs&)> Initializing; // Is being invoked before the hook initializes all its resources
+    Event<void(ImGuiD3D12RenderEventArgs&)> Render; // Is being invoked when everything is being rendered
 };
 
 
