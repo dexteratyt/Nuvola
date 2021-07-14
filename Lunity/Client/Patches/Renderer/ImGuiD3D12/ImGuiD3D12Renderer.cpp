@@ -312,5 +312,12 @@ auto ImGuiD3D12Renderer::InvokeResizeBuffers(IDXGISwapChain3* SwapChainPtr,
                                              unsigned int Height,
                                              DXGI_FORMAT NewFormat,
                                              unsigned int SwapChainFlags) -> long {
-
+    _LastResizeTimePoint = time(0) + 1;
+    if (InitializeOnNextCall)
+    {
+        return D3D12ResizeBuffers(SwapChainPtr, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+    }
+    Release();
+    InitializeOnNextCall = true;
+    return D3D12ResizeBuffers(SwapChainPtr, BufferCount, Width, Height, NewFormat, SwapChainFlags);
 }

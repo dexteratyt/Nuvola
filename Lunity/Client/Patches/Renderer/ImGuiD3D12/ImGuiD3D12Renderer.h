@@ -82,8 +82,8 @@ private:
     bool InitializeOnNextCall = true;
     bool ReleaseOnNextCall = false;
     bool DisposeOnNextCall = false;
-    unsigned int bufferWidth = 0;
-    unsigned int bufferHeight = 0;
+    unsigned int BufferWidth = 0;
+    unsigned int BufferHeight = 0;
 
 public:
     HWND WindowHandle = 0;
