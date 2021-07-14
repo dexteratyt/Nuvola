@@ -10,25 +10,25 @@ struct ClientInstance : DynamicStruct {
     LocalPlayer* localPlayer = nullptr;
 
     ClientInstance(uintptr_t address) : DynamicStruct("ClientInstance", 0) {
-        this->setAddress(address);
-        this->addVirtual(new DynamicMethod("getLocalPlayer", 25));
-        this->addVirtual(new DynamicMethod("getGuiData", 198));
+        this->SetAddress(address);
+        this->AddVirtual(new DynamicMethod("GetLocalPlayer", 25));
+        this->AddVirtual(new DynamicMethod("GetGuiData", 198));
     };
 
-    auto getLocalPlayer() -> LocalPlayer* {
-        DynamicMethod* getLP = (DynamicMethod*)this->get("getLocalPlayer");
-        uintptr_t(__fastcall** theFn)(uintptr_t) = (uintptr_t(__fastcall**)(uintptr_t))getLP->asVoid();
+    auto GetLocalPlayer() -> LocalPlayer* {
+        DynamicMethod* getLP = (DynamicMethod*)this->Get("GetLocalPlayer");
+        uintptr_t(__fastcall** theFn)(uintptr_t) = (uintptr_t(__fastcall**)(uintptr_t))getLP->AsVoid();
         if(!localPlayer)
             localPlayer = new LocalPlayer();
-        localPlayer->setAddress((*theFn)(this->getAddress()));
+        localPlayer->SetAddress((*theFn)(this->GetAddress()));
         return localPlayer;
     }
-    auto getGuiData() -> GuiData* {
-        DynamicMethod* getGD = (DynamicMethod*)this->get("getGuiData");
-        uintptr_t(__fastcall** theFn)(uintptr_t) = (uintptr_t(__fastcall**)(uintptr_t))getGD->asVoid();
+    auto GetGuiData() -> GuiData* {
+        DynamicMethod* getGD = (DynamicMethod*)this->Get("GetGuiData");
+        uintptr_t(__fastcall** theFn)(uintptr_t) = (uintptr_t(__fastcall**)(uintptr_t))getGD->AsVoid();
         if(!guiData)
             guiData = new GuiData();
-        guiData->setAddress((*theFn)(this->getAddress()));
+        guiData->SetAddress((*theFn)(this->GetAddress()));
         return guiData;
     }
 };

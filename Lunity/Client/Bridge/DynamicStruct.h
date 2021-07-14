@@ -8,91 +8,134 @@
 // This will help with updating classes and structures.
 struct DynamicStruct;
 
+// Basic dynamic object. 
 struct DynamicObject {
+	// Dynamic objects should be named by type
+	// Dynamic fields & methods should be named by their respective names
     std::string name;
+	// Address is the location of the resource (the pointer)
     uintptr_t address;
+	// Offset is the offset of a resource from its relative parent
+	// for example, a vtable offset or field offset
     uintptr_t offset;
 
+	// Construct a DynamicObject
     DynamicObject(std::string name, uintptr_t offset) {
         this->name = name;
         this->offset = offset;
     };
-    auto getName() -> std::string {
+	// Retrieve the name
+    auto GetName() -> std::string {
         return this->name;
     };
-    auto asVoid() -> void* {
-        return (void*)this->getAddress();
+	// Retrieve the resource as a void*
+    auto AsVoid() -> void* {
+        return (void*)this->GetAddress();
     }
-    auto setAddress(uintptr_t address) -> void {
+	// Change the wrapper's read location
+    auto SetAddress(uintptr_t address) -> void {
         this->address = address;
     }
-    auto getAddress() -> uintptr_t {
+	// Get the wrapper's read location
+    auto GetAddress() -> uintptr_t {
         return this->address;
     }
-    auto setOffset(uintptr_t offset) -> void {
+	// Set the offset of the resource
+	// (Still relative to a parent)
+    auto SetOffset(uintptr_t offset) -> void {
         this->offset = offset;
     }
-    auto getOffset() -> uintptr_t {
+	// Retrieve the offset
+    auto GetOffset() -> uintptr_t {
         return this->offset;
     }
 };
 
+// A field for a dynamic struct
 struct DynamicField : DynamicObject {
+	// The constructor
     DynamicField(std::string fieldName, uintptr_t offset) : DynamicObject(fieldName, offset) {
     };
-    auto asStruct() -> DynamicStruct* {
+	// If the field was a struct, this can be used to get it.
+    auto AsStruct() -> DynamicStruct* {
         return (DynamicStruct*)this;
     };
 };
 
+// A method object
 struct DynamicMethod : DynamicObject {
+	// Le constructor
     DynamicMethod(std::string methodName, uintptr_t offset) : DynamicObject(methodName, offset) {
     }
+	//Generate a call wrapper just like PLH::FnCast does
+	//TODO: Make it work properly :)
+	template<typename T>
+	auto Cast(T pFunc) -> T {
+		return (T)this->AsVoid();
+	}
 };
 
+// The big boy struct.
 struct DynamicStruct : DynamicObject {
+	// Vectors for all attributes of the struct
     std::vector<DynamicField*>* fields;
-    std::vector<DynamicMethod*>* virtualFunctions;
-    std::vector<DynamicMethod*>* functions;
+    std::vector<DynamicMethod*>* virtualFunctions; //VTable funcs
+    std::vector<DynamicMethod*>* functions; //All other funcs
     DynamicStruct(std::string structName, uintptr_t offset) : DynamicObject(structName, offset) {
         fields = new std::vector<DynamicField*>();
         virtualFunctions = new std::vector<DynamicMethod*>();
         functions = new std::vector<DynamicMethod*>();
     };
 
-    auto addField(DynamicField* theField) -> void {
-        theField->setAddress(this->getAddress()+offset);
+	//Add a field to the struct
+    auto AddField(DynamicField* theField) -> void {
+        theField->SetAddress(this->GetAddress()+offset);
         this->fields->push_back(theField);
     };
-    auto addVirtual(DynamicMethod* theMethod) -> void {
-        uintptr_t newAddr = (*((uintptr_t*)this->getAddress()))+(8*offset);
-        theMethod->setAddress(newAddr);
+	//Add a virtual function/vtable function to the struct
+    auto AddVirtual(DynamicMethod* theMethod) -> void {
+        uintptr_t newAddr = (*((uintptr_t*)this->GetAddress()))+(8*offset);
+        theMethod->SetAddress(newAddr);
         this->virtualFunctions->push_back(theMethod);
     };
-    auto addFunction(DynamicMethod* theMethod) -> void {
-        theMethod->setAddress(address);
+	//Add a non-virtual function to the struct
+	//These are the functions typically found with signatures
+    auto AddFunction(DynamicMethod* theMethod) -> void {
+        theMethod->SetAddress(address);
         this->functions->push_back(theMethod);
     };
 
-    auto get(std::string name) -> DynamicObject* {
+	//Retrieve the DynamicObject by name
+    auto Get(std::string name) -> DynamicObject* {
+		//Search fields
         for(auto field : *fields) {
-            if(field->getName()==name) {
-                field->setAddress(this->getAddress()+field->getOffset());
+			//If name matches
+            if(field->GetName()==name) {
+				//Adjust the address properly & return
+                field->SetAddress(this->GetAddress()+field->GetOffset());
                 return field;
             }
         }
+		//Search added virtual functions
         for(auto function : *virtualFunctions) {
-            if(function->getName()==name) {
-                uintptr_t newAddr = (*((uintptr_t*)this->getAddress()))+(8*function->getOffset());
-                function->setAddress(newAddr);
+			//If name matches
+            if(function->GetName()==name) {
+				//Get cool address & return
+                uintptr_t newAddr = (*((uintptr_t*)this->GetAddress()))+(8*function->GetOffset());
+                function->SetAddress(newAddr);
                 return function;
             }
         }
+		//Search non-virtual functions
         for(auto function : *functions) {
-            if(function->getName()==name) {
+			//Match name
+            if(function->GetName()==name) {
+				//Return, no address math needs to be added. The address is static.
                 return function;
             }
         }
+		//Everything failed? return null
+		//PLEASE CHECK THIS IN CODE!!
         return nullptr;
     };
 };

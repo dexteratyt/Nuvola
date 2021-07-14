@@ -20,7 +20,7 @@ void Utils::SetClientInstance(uintptr_t address) {
 	if(clientInstance == nullptr) {
 		clientInstance = new ClientInstance(address);
 	}
-	clientInstance->setAddress(address);
+	clientInstance->SetAddress(address);
 }
 auto Utils::GetClientInstance() -> ClientInstance* {
 	return clientInstance;
