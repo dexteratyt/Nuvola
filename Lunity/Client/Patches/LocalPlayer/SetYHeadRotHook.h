@@ -7,9 +7,9 @@
 #include "../../Bridge/LocalPlayer.h"
 
 class SetYHeadRotHook : public IPatch {
-    static inline uint64_t setYHeadRotHookOriginal = 0;
 	static void __fastcall SetYHeadRotHookCallback_1_17_10_4(LocalPlayer* localPlayer, struct RendererCamera* camera);
 public:
+	static inline uintptr_t funcOriginal = 0;
 	SetYHeadRotHook();
 	auto Apply() -> bool override;
 };
