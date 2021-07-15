@@ -3,10 +3,12 @@
 #include <iostream>
 
 #include "ClientInstance/UpdateHook.h"
+#include "LocalPlayer/SetYHeadRotHook.h"
 
 void PatchManager::ApplyAll()
 {
 	PatchManager::ApplyPatch(new UpdateHook());
+	//PatchManager::ApplyPatch(new SetYHeadRotHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)

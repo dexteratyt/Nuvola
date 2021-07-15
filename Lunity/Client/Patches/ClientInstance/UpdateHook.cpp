@@ -1,6 +1,7 @@
 #include "UpdateHook.h"
 
-auto UpdateHook::clientInstanceCallback_1_17_2_1(uintptr_t theInstance, char param_2) -> int {
+uintptr_t funcOriginal = 0;
+auto __fastcall UpdateHook::clientInstanceCallback_1_17_2_1(uintptr_t theInstance, char param_2) -> int {
     Utils::SetClientInstance(theInstance);
 
 	std::vector<Module*>* modules = ModuleMgr::getInstance()->getAllModules();
@@ -8,7 +9,7 @@ auto UpdateHook::clientInstanceCallback_1_17_2_1(uintptr_t theInstance, char par
 		module->onTick();
 	}
 
-    return PLH::FnCast(clientInstanceOriginal, &clientInstanceCallback_1_17_2_1)(theInstance, param_2);
+    return PLH::FnCast(funcOriginal, &clientInstanceCallback_1_17_2_1)(theInstance, param_2);
 }
 
 UpdateHook::UpdateHook()  : IPatch::IPatch("ClientInstance::Update") {
@@ -18,19 +19,5 @@ UpdateHook::UpdateHook()  : IPatch::IPatch("ClientInstance::Update") {
 }
 
 auto UpdateHook::Apply() -> bool {
-	PLH::CapstoneDisassembler dis = this->GetDis();
-
-	uintptr_t clientInstanceHookAddr = this->ScanSigs();
-
-	if(clientInstanceHookAddr == 0) {
-		return false;
-	}
-
-	PLH::x64Detour* detourHook = new PLH::x64Detour((char*)clientInstanceHookAddr, (char*)clientInstanceCallback_1_17_2_1, &clientInstanceOriginal, dis);
-
-	if(!detourHook->hook()) {
-		return false;
-	}
-
-	return true;
+	return this->AutoPatch(clientInstanceCallback_1_17_2_1, &funcOriginal);
 }

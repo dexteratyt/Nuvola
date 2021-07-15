@@ -5,7 +5,6 @@
 #include "../../Features/ModuleMgr.h"
 
 class UpdateHook : public IPatch {
-    static inline uint64_t clientInstanceOriginal = 0;
 	static auto clientInstanceCallback_1_17_2_1(uintptr_t theInstance, char param_2) -> int;
 public:
 	UpdateHook();

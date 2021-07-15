@@ -31,6 +31,8 @@ public:
 	auto GetDis() -> PLH::CapstoneDisassembler&;
 	//Actually apply the hook
 	virtual auto Apply() -> bool;
+	//Use polyhook to hook the function
+	auto AutoPatch(void* callback, uintptr_t* original) -> bool;
 };
 
 #endif /* LUNITY_CLIENT_PATCHES_IPATCH */
