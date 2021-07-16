@@ -1,8 +1,24 @@
 #include  "SetYHeadRotHook.h"
 
-void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(LocalPlayer* localPlayer, struct RendererCamera* camera) {
+void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(uintptr_t localPlayer, uintptr_t camera) {
 	PLH::FnCast(funcOriginal, &SetYHeadRotHookCallback_1_17_10_4)(localPlayer, camera);
-	localPlayer->SetYHeadRot(0);
+	ClientInstance* client = Utils::GetClientInstance();
+	if(!client) {
+		return;
+	}
+	if(client->GetAddress() == 0) {
+		return;
+	}
+	Utils::DebugF("Got client");
+	LocalPlayer* lPlayer = client->GetLocalPlayer();
+	if(lPlayer) {
+		Utils::DebugF("Got DynamicLPlayer");
+		if(lPlayer->GetAddress() != 0) {
+			Utils::DebugF("Got Player");
+			lPlayer->SetYHeadRot(0);
+			Utils::DebugF("Set rotation");
+		}
+	}
 }
 
 SetYHeadRotHook::SetYHeadRotHook() : IPatch::IPatch("LocalPlayer::SetYHeadRot") {

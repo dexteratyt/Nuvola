@@ -8,7 +8,7 @@
 void PatchManager::ApplyAll()
 {
 	PatchManager::ApplyPatch(new UpdateHook());
-	//PatchManager::ApplyPatch(new SetYHeadRotHook());
+	PatchManager::ApplyPatch(new SetYHeadRotHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)

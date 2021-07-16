@@ -28,7 +28,7 @@ public:
 	//The patches name
 	auto GetName() -> std::string;
 	//Returns the polyhook disassembler. You might not need this.
-	auto GetDis() -> PLH::CapstoneDisassembler&;
+	auto GetDis() -> PLH::CapstoneDisassembler;
 	//Actually apply the hook
 	virtual auto Apply() -> bool;
 	//Use polyhook to hook the function
