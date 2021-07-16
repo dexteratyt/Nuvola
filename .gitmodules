@@ -10,3 +10,6 @@
 [submodule "Lunity/Lib/HTTPRequest"]
 	path = Lunity/Lib/HTTPRequest
 	url = https://github.com/elnormous/HTTPRequest.git
+[submodule "Lunity/Lib/PolyHook_2_0"]
+	path = Lunity/Lib/PolyHook_2_0
+	url = https://github.com/stevemk14ebr/PolyHook_2_0.git
