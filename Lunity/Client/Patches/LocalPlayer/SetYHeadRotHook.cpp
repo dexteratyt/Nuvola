@@ -14,7 +14,9 @@ void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(uintptr_t loc
 	if(lPlayer) {
 		Utils::DebugF("Got DynamicLPlayer");
 		if(lPlayer->GetAddress() != 0) {
-			Utils::DebugF("Got Player");
+			Utils::DebugF("Got Player at: "+std::to_string(lPlayer->GetAddress()));
+			float rot = lPlayer->GetYHeadRot();
+			Utils::DebugF("Got rot: " + std::to_string(rot));
 			lPlayer->SetYHeadRot(0);
 			Utils::DebugF("Set rotation");
 		}

@@ -5,12 +5,10 @@
 #include "../../Utils/Math.h"
 
 struct Mob : Actor {
-    Mob() : Actor("Mob") {
+    Mob() : Actor("Mob") {};
+    Mob(std::string structName) : Actor(structName) {
         this->AddVirtual(new DynamicMethod("getYHeadRot", 221)); // getYHeadRot should be exempt from naming conventions as it is the internal name from Minecraft
         this->AddField(new DynamicField("YHeadRot", 0x728));
-    };
-    Mob(std::string structName) : Actor(structName) {
-
     };
 
 	auto GetYHeadRot() -> float {

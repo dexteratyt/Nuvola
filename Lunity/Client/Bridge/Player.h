@@ -3,9 +3,7 @@
 #include "Mob.h"
 
 struct Player : Mob {
-    Player() : Mob("Player") {
-
-    };
+    Player() : Mob("Player") {};
     Player(std::string structName) : Mob(structName) {
 
     };
