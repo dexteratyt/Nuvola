@@ -5,15 +5,17 @@
 struct Actor : DynamicStruct {
     Actor() : Actor("Actor") {};
     Actor(std::string structName) : DynamicStruct(structName, 0) {
-        this->AddField("OnGround", 0x1E0);
+        this->AddField(new DynamicField("OnGround", 0x1E0));
     };
 
 	auto IsOnGround() -> bool {
-		bool* theVal = (bool*)this->GetField("OnGround");
+		DynamicField* theField = (DynamicField*)this->Get("OnGround");
+		bool* theVal = (bool*)theField->AsVoid();
 		return *theVal;
 	}
 	void SetOnGround(bool onGround) {
-		bool* theVal = (bool*)this->GetField("OnGround");
+		DynamicField* theField = (DynamicField*)this->Get("OnGround");
+		bool* theVal = (bool*)theField->AsVoid();
 		*theVal = onGround;
 	}
 };
