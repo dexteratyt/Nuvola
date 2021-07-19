@@ -11,7 +11,7 @@ void Test::onDisable() {
 void Test::onTick() {
 	//Tick code
 	ClientInstance* client = Utils::GetClientInstance();
-	LocalPlayer lPlayer = client->GetLocalPlayer();
-	if(!lPlayer.IsNull())
-		lPlayer.SetOnGround(true);
+	Actor* lPlayer = client->LocalPlayer();
+	if(lPlayer)
+		lPlayer->OnGround(true);
 }

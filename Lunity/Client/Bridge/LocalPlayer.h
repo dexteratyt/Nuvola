@@ -3,12 +3,6 @@
 #include "Player.h"
 
 struct LocalPlayer : Player {
-    LocalPlayer() : Player("LocalPlayer") {
-
-    };
-    LocalPlayer(std::string structName) : Player(structName) {
-
-    };
 };
 
 #endif /* LUNITY_CLIENT_BRIDGE_LOCALPLAYER */
