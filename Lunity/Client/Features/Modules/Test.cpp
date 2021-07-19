@@ -11,7 +11,7 @@ void Test::onDisable() {
 void Test::onTick() {
 	//Tick code
 	ClientInstance* client = Utils::GetClientInstance();
-	Actor* lPlayer = client->LocalPlayer();
+	LocalPlayer* lPlayer = client->ClientPlayer();
 	if(lPlayer)
 		lPlayer->OnGround(true);
 }

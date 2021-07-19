@@ -1,13 +1,13 @@
 #ifndef LUNITY_CLIENT_BRIDGE_CLIENTINSTANCE
 #define LUNITY_CLIENT_BRIDGE_CLIENTINSTANCE
 #include "DynamicStruct.h"
-#include "Actor.h"
+#include "LocalPlayer.h"
 //#include "GuiData.h"
 #include "../../Utils/VersionUtils.h"
 
 struct ClientInstance {
 
-	DYN_FIELD(LocalPlayer, 0x140, Actor*);
+	DYN_FIELD(ClientPlayer, 0x140, LocalPlayer*);
 
 /*
     ClientInstance(uintptr_t address) : DynamicStruct("ClientInstance", 0) {

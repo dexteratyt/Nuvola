@@ -3,23 +3,10 @@
 void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(uintptr_t localPlayer, uintptr_t camera) {
 	PLH::FnCast(funcOriginal, &SetYHeadRotHookCallback_1_17_10_4)(localPlayer, camera);
 	ClientInstance* client = Utils::GetClientInstance();
-	if(!client) {
-		return;
-	}
-	if(client->GetAddress() == 0) {
-		return;
-	}
-	Utils::DebugF("Got client");
-	LocalPlayer* lPlayer = client->GetLocalPlayer();
+	LocalPlayer* lPlayer = client->ClientPlayer();
 	if(lPlayer) {
-		Utils::DebugF("Got DynamicLPlayer");
-		if(lPlayer->GetAddress() != 0) {
-			Utils::DebugF("Got Player at: "+std::to_string(lPlayer->GetAddress()));
-			float rot = lPlayer->GetYHeadRot();
-			Utils::DebugF("Got rot: " + std::to_string(rot));
-			lPlayer->SetYHeadRot(0);
-			Utils::DebugF("Set rotation");
-		}
+		float rot = lPlayer->YHeadRot();
+		lPlayer->YHeadRot(0);
 	}
 }
 
