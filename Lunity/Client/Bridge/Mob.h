@@ -5,6 +5,7 @@
 #include "../../Utils/Math.h"
 
 struct Mob : Actor {
+	DYN_FIELD(LookingVec, 0x140, Vector2<float>);
 	DYN_FIELD(YHeadRot, 0x728, float);
 };
 
