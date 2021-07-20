@@ -3,3 +3,5 @@ target_sources(Lunity PRIVATE
 	"PatchManager.cpp"
 )
 add_subdirectory(ClientInstance)
+add_subdirectory(Mob)
+add_subdirectory(LocalPlayer)

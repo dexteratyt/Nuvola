@@ -38,11 +38,28 @@ auto IPatch::GetName() -> std::string
 {
     return this->name;
 }
-auto IPatch::GetDis() -> PLH::CapstoneDisassembler&
+auto IPatch::GetDis() -> PLH::CapstoneDisassembler
 {
-    return *dis;
+    return PLH::CapstoneDisassembler(PLH::Mode::x64);
 }
 auto IPatch::Apply() -> bool
 {
     return false;
+}
+auto IPatch::AutoPatch(void* callbackPtr, uintptr_t* funcOriginal) -> bool {
+	PLH::CapstoneDisassembler dis = this->GetDis();
+
+	uintptr_t hookAddr = this->ScanSigs();
+
+	if(hookAddr == 0) {
+		return false;
+	}
+
+	PLH::x64Detour* detourHook = new PLH::x64Detour((char*)hookAddr, (char*)callbackPtr, (uint64_t*)funcOriginal, dis);
+
+	if(!detourHook->hook()) {
+		return false;
+	}
+
+	return true;
 }
