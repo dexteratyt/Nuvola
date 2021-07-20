@@ -2,13 +2,13 @@
 
 void __fastcall SnapLookingVecHook::SnapLookingVecHook_1_17_10_4(Mob* mob, Vector2<float>* vector) {
 	PLH::FnCast(funcOriginal, &SnapLookingVecHook_1_17_10_4)(mob, vector);
-	ClientInstance* client = Utils::GetClientInstance();
-	LocalPlayer* lPlayer = client->ClientPlayer();
-	if(lPlayer) {
-		Vector2<float> lookVec = lPlayer->LookingVec();
-		lookVec.x = 0;
-		lPlayer->LookingVec(lookVec);
-	}
+	// ClientInstance* client = Utils::GetClientInstance();
+	// LocalPlayer* lPlayer = client->ClientPlayer();
+	// if(lPlayer) {
+	// 	Vector2<float> lookVec = lPlayer->LookingVec();
+	// 	lookVec.x = 0;
+	// 	lPlayer->LookingVec(lookVec);
+	// }
 }
 
 SnapLookingVecHook::SnapLookingVecHook() : IPatch::IPatch("LocalPlayer::SetYHeadRot") {

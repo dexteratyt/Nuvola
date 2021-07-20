@@ -2,12 +2,12 @@
 
 void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(uintptr_t localPlayer, uintptr_t camera) {
 	PLH::FnCast(funcOriginal, &SetYHeadRotHookCallback_1_17_10_4)(localPlayer, camera);
-	ClientInstance* client = Utils::GetClientInstance();
-	LocalPlayer* lPlayer = client->ClientPlayer();
-	if(lPlayer) {
-		float rot = lPlayer->YHeadRot();
-		lPlayer->YHeadRot(0);
-	}
+	// ClientInstance* client = Utils::GetClientInstance();
+	// LocalPlayer* lPlayer = client->ClientPlayer();
+	// if(lPlayer) {
+	// 	float rot = lPlayer->YHeadRot();
+	// 	lPlayer->YHeadRot(0);
+	// }
 }
 
 SetYHeadRotHook::SetYHeadRotHook() : IPatch::IPatch("LocalPlayer::SetYHeadRot") {
