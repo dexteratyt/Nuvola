@@ -1,9 +1,10 @@
 #ifndef LUNITY_CLIENT_EVENTS_EVENTREGISTRY
 #define LUNITY_CLIENT_EVENTS_EVENTREGISTRY
 
-#include "Event.h"
 #include <functional>
 #include <vector>
+
+class Event;
 
 enum EVENT_ID {
 	EVENT_BASE
@@ -13,7 +14,7 @@ struct Listener {
 	EVENT_ID id;
 	std::function<void(Event*)> callback;
 
-	Listener::Listener(EVENT_ID id, std::function<void(Event*)> callback);
+	Listener(EVENT_ID id, std::function<void(Event*)> callback);
 };
 
 class EventRegistry {

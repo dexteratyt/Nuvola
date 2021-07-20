@@ -1,12 +1,14 @@
 #include "EventRegistry.h"
 
+#include "Event.h"
+
 Listener::Listener(EVENT_ID id, std::function<void(Event*)> callback) {
 	this->id;
 	this->callback = callback;
 }
 
 EventRegistry::EventRegistry() {
-	listeners = new std::vector<std::function<void(Event*)>>();
+	listeners = new std::vector<Listener>();
 }
 
 auto EventRegistry::GetInstance() -> EventRegistry* {
