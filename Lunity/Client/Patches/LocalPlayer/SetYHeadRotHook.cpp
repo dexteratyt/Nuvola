@@ -1,7 +1,12 @@
 #include  "SetYHeadRotHook.h"
 
-void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(uintptr_t localPlayer, uintptr_t camera) {
+#include "../../Events/Event.h"
+#include "../../Events/EventRegistry.h"
+
+void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(LocalPlayer* localPlayer, Actor* camera) {
 	PLH::FnCast(funcOriginal, &SetYHeadRotHookCallback_1_17_10_4)(localPlayer, camera);
+	Event event();
+	EventRegistry::GetInstance()->DispatchEvent(&event);
 	// ClientInstance* client = Utils::GetClientInstance();
 	// LocalPlayer* lPlayer = client->ClientPlayer();
 	// if(lPlayer) {
