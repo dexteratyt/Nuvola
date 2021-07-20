@@ -3,7 +3,7 @@
 #include "Event.h"
 
 Listener::Listener(EVENT_ID id, std::function<void(Event*)> callback) {
-	this->id;
+	this->id = id;
 	this->callback = callback;
 }
 
