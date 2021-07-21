@@ -5,9 +5,5 @@ Event::Event() {
 }
 
 auto Event::Identifier() -> EVENT_ID {
-	return id;
-}
-
-auto Event::GetEventID() -> EVENT_ID {
-	return id;
+	return EVENT_BASE;
 }

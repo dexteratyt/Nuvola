@@ -1,10 +1,10 @@
 #include "Test.h"
 
-#include "../../Events/Event.h"
+#include "../../Events/LocalPlayer/HeadRotYEvent.h"
 
-void CallbackFunc(Event* event) {
-	ClientInstance* instance = Utils::GetClientInstance();
-	LocalPlayer* player = instance->ClientPlayer();
+void CallbackFunc(Event* e) {
+	HeadRotYEvent* event = (HeadRotYEvent*)e;
+	LocalPlayer* player = event->GetPlayer();
 	if(player) {
 		player->YHeadRot(0);
 	}
@@ -13,7 +13,7 @@ void CallbackFunc(Event* event) {
 void Test::onEnable() {
 	//Enable code
 
-	EventRegistry::GetInstance()->AddSubscriber(CallbackFunc, EVENT_BASE);
+	EventRegistry::GetInstance()->AddSubscriber(CallbackFunc, LP_HEAD_ROT_Y_EVENT);
 }
 
 void Test::onDisable() {

@@ -7,7 +7,9 @@
 class Event;
 
 enum EVENT_ID {
-	EVENT_BASE
+	EVENT_BASE,
+	LP_HEAD_ROT_Y_EVENT,
+	LP_HEAD_ROT_CHANGE_EVENT
 };
 
 struct Listener {

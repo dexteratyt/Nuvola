@@ -25,7 +25,7 @@ void EventRegistry::AddSubscriber(std::function<void(Event*)> callback, EVENT_ID
 
 void EventRegistry::DispatchEvent(Event* event) {
 	for(auto listener : *listeners) {
-		if(listener.id == event->GetEventID()) {
+		if(listener.id == event->Identifier()) {
 			listener.callback(event);
 		}
 	}
