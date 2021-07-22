@@ -18,5 +18,11 @@ versionless code won't be possible.
 		*(TYPE*)addr = newVal; \
 	}
 
+/*
+TODO:
+	- DYN_FIELD (Done)
+	- DYN_FUNC
+	- DYN_VIRT
+*/
 
 #endif /* LUNITY_CLIENT_BRIDGE_DYNAMICSTRUCT */

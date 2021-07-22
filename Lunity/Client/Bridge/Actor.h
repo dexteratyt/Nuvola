@@ -1,10 +1,14 @@
 #ifndef LUNITY_CLIENT_BRIDGE_ACTOR
 #define LUNITY_CLIENT_BRIDGE_ACTOR
+
 #include "DynamicStruct.h"
+#include "BlockSource.h"
+#include "Dimension.h"
 
 struct Actor {
 	DYN_FIELD(OnGround, 0x1E0, bool);
-
+	DYN_FIELD(WorldSource, 0x368, BlockSource*);
+	DYN_FIELD(Dim, 0x368, Dimension*);
 /*
 	auto Get_OnGround() -> bool {
 		void* addr = this+0x1E0;
