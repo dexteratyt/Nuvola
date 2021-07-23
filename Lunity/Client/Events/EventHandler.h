@@ -4,13 +4,23 @@
 #include <functional>
 #include <vector>
 
-typedef std::function<void(class EventData*)> EventCallback;
+class EventData;
+
+typedef void(*EventCallback)(EventData*);
 
 //Events are defined here.
 //3rd party events can just cast themselves or something, enums are just ints after all.
-#define EVENT_COUNT 1
+/*
+ATTENTION:
+	IF THE EVENT_COUNT MACRO IS NOT UPDATED PROPERLY, BAD SHIT WILL HAPPEN!!!
+*/
+#define EVENT_COUNT 3
 enum class EVENT_ID {
-	DEFAULT_EVENT
+	DEFAULT_EVENT, //Responsible caller: NONE, this event should never be used.
+	LOCALPLAYER_UPDATE_HEAD_Y, //Responsible caller: "Patches/LocalPlayer/SetYHeadRotHook.cpp"
+	MOB_UPDATE_ROT //Responsible caller: "Patches/Mob/SnapLookingVecHook.cpp"
+
+	//ATTENTION: REMEMBER TO UPDATE THE MACRO!
 };
 
 class EventHandler {
@@ -23,7 +33,7 @@ class EventHandler {
 public:
 	static EventHandler* GetInstance();
 	void ListenFor(EVENT_ID event, EventCallback callback);
-	void DispatchEvent(EVENT_ID event, class EventData* data);
+	void DispatchEvent(EVENT_ID event, EventData* data);
 };
 
 #endif /* LUNITY_CLIENT_EVENTS_EVENTHANDLER */
