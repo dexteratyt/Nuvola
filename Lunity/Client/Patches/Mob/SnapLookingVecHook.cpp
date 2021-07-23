@@ -1,7 +1,14 @@
 #include  "SnapLookingVecHook.h"
 
+#include "../../Events/Mob/UpdateRot.h"
+
 void __fastcall SnapLookingVecHook::SnapLookingVecHook_1_17_10_4(Mob* mob, Vector2<float>* vector) {
-	PLH::FnCast(funcOriginal, &SnapLookingVecHook_1_17_10_4)(mob, vector);
+	UpdateRot event(mob, vector);
+	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::MOB_UPDATE_ROT, &event);
+	if(event.IsCancelled()) {
+		return;
+	}
+	PLH::FnCast(funcOriginal, &SnapLookingVecHook_1_17_10_4)(event.GetMob(), event.GetNewVector());
 	// ClientInstance* client = Utils::GetClientInstance();
 	// LocalPlayer* lPlayer = client->ClientPlayer();
 	// if(lPlayer) {
