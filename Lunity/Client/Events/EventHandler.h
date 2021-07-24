@@ -18,7 +18,7 @@ ATTENTION:
 enum class EVENT_ID {
 	DEFAULT_EVENT, //Responsible caller: NONE, this event should never be used.
 	LOCALPLAYER_UPDATE_HEAD_Y, //Responsible caller: "Patches/LocalPlayer/SetYHeadRotHook.cpp"
-	MOB_UPDATE_ROT //Responsible caller: "Patches/Mob/SnapLookingVecHook.cpp"
+	ACTOR_SET_ROT //Responsible caller: "Patches/Actor/SetRotHook.cpp"
 
 	//ATTENTION: REMEMBER TO UPDATE THE MACRO!
 };

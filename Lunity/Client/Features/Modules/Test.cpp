@@ -1,7 +1,7 @@
 #include "Test.h"
 
 #include "../../Events/LocalPlayer/UpdateHeadYEvent.h"
-#include "../../Events/Mob/UpdateRot.h"
+#include "../../Events/Actor/SetRotEvent.h"
 
 void Head_Y_Callback(EventData* event) {
 	//Using "as" properly
@@ -17,11 +17,11 @@ void Rot_Callback(EventData* event) {
 	LocalPlayer* localPlayer = client->ClientPlayer();
 
 	//Get data from event
-	Mob* mob = event->as<UpdateRot>()->GetMob();
-	Vector2<float>* newVec = event->as<UpdateRot>()->GetNewVector();
+	Actor* actor = event->as<SetRotEvent>()->GetActor();
+	Vector2<float>* newVec = event->as<SetRotEvent>()->GetNewVector();
 
 	//If the mob is the local player
-	if(mob == localPlayer) {
+	if(actor == localPlayer) {
 		//Control the vector
 		newVec->x = 0;
 		localPlayer->LookingVec(*newVec);
@@ -30,7 +30,7 @@ void Rot_Callback(EventData* event) {
 
 Test::Test() : Module("Test") {
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::LOCALPLAYER_UPDATE_HEAD_Y, Head_Y_Callback);
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::MOB_UPDATE_ROT, Rot_Callback);
+	EventHandler::GetInstance()->ListenFor(EVENT_ID::ACTOR_SET_ROT, Rot_Callback);
 }
 
 void Test::onEnable() {

@@ -1,14 +1,14 @@
 #include  "SetRotHook.h"
 
-void __fastcall SetRotHook::SetRotCallback_1_17_10_4(Mob* mob, Vector2<float>* vector) {
-	PLH::FnCast(funcOriginal, &SetRotCallback_1_17_10_4)(mob, vector);
-	ClientInstance* client = Utils::GetClientInstance();
-	LocalPlayer* lPlayer = client->ClientPlayer();
-	if(lPlayer) {
-		Vector2<float> lookVec = lPlayer->LookingVec();
-		lookVec.x = 0;
-		lPlayer->LookingVec(lookVec);
+#include "../../Events/Actor/SetRotEvent.h"
+
+void __fastcall SetRotHook::SetRotCallback_1_17_10_4(Actor* actor, Vector2<float>* vector) {
+	SetRotEvent event(actor, vector);
+	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::ACTOR_SET_ROT, &event);
+	if(event.IsCancelled()) {
+		return;
 	}
+	PLH::FnCast(funcOriginal, &SetRotCallback_1_17_10_4)(event.GetActor(), event.GetNewVector());
 }
 
 SetRotHook::SetRotHook() : IPatch::IPatch("Actor::SetRot") {
