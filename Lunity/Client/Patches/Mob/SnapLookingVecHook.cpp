@@ -18,7 +18,7 @@ void __fastcall SnapLookingVecHook::SnapLookingVecHook_1_17_10_4(Mob* mob, Vecto
 	// }
 }
 
-SnapLookingVecHook::SnapLookingVecHook() : IPatch::IPatch("LocalPlayer::SetYHeadRot") {
+SnapLookingVecHook::SnapLookingVecHook() : IPatch::IPatch("Mob::SnapLookingVec") {
 	this->AddSignature(new SigInfo(new std::string("89 ?? ?? ?? 57 48 83 ?? ?? 8B ?? ?? 48 8B ?? 48 81"), -1));
 }
 
