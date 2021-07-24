@@ -9,6 +9,9 @@ struct Actor {
 	DYN_FIELD(OnGround, 0x1E0, bool);
 	DYN_FIELD(WorldSource, 0x368, BlockSource*);
 	DYN_FIELD(Dim, 0x368, Dimension*);
+
+	DYN_FUNC(setRot, "89 ?? ?? ?? 57 48 83 ?? ?? 8B ?? ?? 48 8B ?? 48 81", -1, void, Vector2<float> pos, pos);
+
 /*
 	auto Get_OnGround() -> bool {
 		void* addr = this+0x1E0;
