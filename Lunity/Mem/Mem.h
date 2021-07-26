@@ -4,6 +4,15 @@
 #include <Psapi.h>
 #include <vector>
 
+//Polyhook defines these macros, but its a different definition.
+//To solve this, we'll undef polyhooks, then redef at the end.
+#ifdef getBits
+#define PLH_INCLUDED
+#undef INRANGE
+#undef getBits
+#undef getByte
+#endif
+
 #define INRANGE(x,a,b)	(x >= a && x <= b)
 #define getBits( x )	(INRANGE((x&(~0x20)),'A','F') ? ((x&(~0x20)) - 'A' + 0xa) : (INRANGE(x,'0','9') ? x - '0' : 0))
 #define getByte( x )	(getBits(x[0]) << 4 | getBits(x[1]))
@@ -21,5 +30,12 @@ public:
     static auto getBaseModuleEnd() -> long long;
 };
 
+//Re use PLH macros if needed
+#ifdef PLH_INCLUDED
+#undef INRANGE
+#undef getBits
+#undef getByte
+#include <polyhook2/Misc.hpp>
+#endif
 
 #endif /* LUNITY_MEM_MEM */

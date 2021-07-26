@@ -6,11 +6,15 @@
 #include "Dx11/SwapChainHook.h"
 #include "LocalPlayer/SetYHeadRotHook.h"
 #include "Actor/SetRotHook.h"
+#include "ScreenView/SetupAndRenderHook.h"
 
 void PatchManager::ApplyAll()
 {
 	PatchManager::ApplyPatch(new UpdateHook());
+
+	/* Graphics hooking */
 	PatchManager::ApplyPatch(new SwapChainHook());
+	PatchManager::ApplyPatch(new SetupAndRenderHook());
 
 	/* Both patches are needed for changing where LP is facing */
 	PatchManager::ApplyPatch(new SetYHeadRotHook()); // This func has head & camera math
