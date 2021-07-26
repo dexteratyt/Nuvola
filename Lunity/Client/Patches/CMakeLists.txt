@@ -4,3 +4,5 @@ target_sources(Lunity PRIVATE
 )
 add_subdirectory(ClientInstance)
 add_subdirectory(Dx11)
+add_subdirectory(Actor)
+add_subdirectory(LocalPlayer)

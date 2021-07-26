@@ -17,10 +17,7 @@ void Utils::DebugF(std::string out) {
 }
 
 void Utils::SetClientInstance(uintptr_t address) {
-	if(clientInstance == nullptr) {
-		clientInstance = new ClientInstance(address);
-	}
-	clientInstance->SetAddress(address);
+	clientInstance = (ClientInstance*)address;
 }
 auto Utils::GetClientInstance() -> ClientInstance* {
 	return clientInstance;

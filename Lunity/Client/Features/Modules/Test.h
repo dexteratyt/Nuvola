@@ -4,7 +4,7 @@
 
 class Test : public Module {
 public:
-	Test() : Module("Test") {};
+	Test();
 	void onEnable() override;
 	void onDisable() override;
 	void onTick() override;
