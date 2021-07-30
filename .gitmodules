@@ -13,3 +13,6 @@
 [submodule "Lunity/Lib/PolyHook_2_0"]
 	path = Lunity/Lib/PolyHook_2_0
 	url = https://github.com/stevemk14ebr/PolyHook_2_0.git
+[submodule "ClassBuilder"]
+	path = ClassBuilder
+	url = https://github.com/DisabledMallis/ClassBuilder.git
