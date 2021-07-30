@@ -1,8 +1,8 @@
 #ifndef LUNITY_CLIENT_BRIDGE_ACTOR
 #define LUNITY_CLIENT_BRIDGE_ACTOR
 
-#include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "../../Utils/Utils.h"
 #include "../../Utils/Math.h"
 #include <polyhook2/Detour/ADetour.hpp>
 
@@ -32,10 +32,10 @@ struct Actor {
 	void virt_pad_12() {};
 	void virt_pad_13() {};
 	void virt_pad_14() {};
-	auto getPos() -> Vector3<float> {};
+	auto getPos() -> Vector3<float>* {};
 	/* Functions */
-	static inline uintptr_t holder_setRot = 0;
-	auto __thiscall setRot(Vector2<float> rotation) -> void {
+	static inline uintptr_t holder_setRot;
+	auto __thiscall setRot(Vector2<float>* rotation) -> void {
 		if(holder_setRot == 0) {
 			holder_setRot = Mem::FindSig("89 ?? ?? ?? 57 48 83 ?? ?? 8B ?? ?? 48 8B ?? 48 81");
 		}
@@ -43,7 +43,7 @@ struct Actor {
 			Utils::DebugF("FATAL: Sig failure for setRot");
 		}
 		holder_setRot += -1;
-		((void(__thiscall*)(Actor*, Vector2<float> rotation))holder_setRot)(this, rotation);
+		((void(__thiscall*)(Actor*, Vector2<float>* rotation))holder_setRot)(this, rotation);
 	};
 };
 
