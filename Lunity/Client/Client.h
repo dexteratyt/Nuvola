@@ -13,6 +13,8 @@
 
 #include "Patches/PatchManager.h"
 
+#include "Bridge/Actor.h"
+
 class Client {
 public:
     std::string name;
