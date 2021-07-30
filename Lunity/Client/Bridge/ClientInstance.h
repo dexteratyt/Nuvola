@@ -1,12 +1,13 @@
-#ifndef LUNITY_CLIENT_BRIDGE_CLIENTINSTANCE
-#define LUNITY_CLIENT_BRIDGE_CLIENTINSTANCE
-
+#ifndef GUARD_ClientInstance
+#define GUARD_ClientInstance
+#include "../../Utils/Math.h"
+#include "../../Utils/Utils.h"
+#include "../../Mem/Mem.h"
 struct ClientInstance {
-        /* Fields */
-        char padding_320[320];
-        class LocalPlayer* clientPlayer;
-        /* Virtuals */
-        /* Functions */
+	/* Fields */
+	char padding_320[320];
+	class LocalPlayer* clientPlayer;
+	/* Virtuals */
+	/* Functions */
 };
-
-#endif /* LUNITY_CLIENT_BRIDGE_CLIENTINSTANCE */
+#endif

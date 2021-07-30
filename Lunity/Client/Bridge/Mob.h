@@ -1,8 +1,8 @@
-#ifndef LUNITY_CLIENT_BRIDGE_MOB
-#define LUNITY_CLIENT_BRIDGE_MOB
-
-#include "Actor.h"
-
+#ifndef GUARD_Mob
+#define GUARD_Mob
+#include "../../Utils/Math.h"
+#include "../../Utils/Utils.h"
+#include "../../Mem/Mem.h"
 struct Mob : public Actor {
 	/* Fields */
 	char padding_1832[952];
@@ -10,5 +10,4 @@ struct Mob : public Actor {
 	/* Virtuals */
 	/* Functions */
 };
-
-#endif /* LUNITY_CLIENT_BRIDGE_MOB */
+#endif

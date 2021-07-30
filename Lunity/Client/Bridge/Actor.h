@@ -1,13 +1,8 @@
-#ifndef LUNITY_CLIENT_BRIDGE_ACTOR
-#define LUNITY_CLIENT_BRIDGE_ACTOR
-
-#include "../../Mem/Mem.h"
-#include "../../Utils/Utils.h"
+#ifndef GUARD_Actor
+#define GUARD_Actor
 #include "../../Utils/Math.h"
-#include <polyhook2/Detour/ADetour.hpp>
-
-#include "BlockSource.h"
-
+#include "../../Utils/Utils.h"
+#include "../../Mem/Mem.h"
 struct Actor {
 	/* Fields */
 	char padding_320[320];
@@ -15,7 +10,7 @@ struct Actor {
 	char padding_480[152];
 	bool OnGround;
 	char padding_872[391];
-	BlockSource* WorldSource;
+	class BlockSource* WorldSource;
 	/* Virtuals */
 	void virt_pad_0() {};
 	void virt_pad_1() {};
@@ -43,8 +38,7 @@ struct Actor {
 			Utils::DebugF("FATAL: Sig failure for setRot");
 		}
 		holder_setRot += -1;
-		return ((void(__thiscall*)(Actor*, Vector2<float>* rotation))holder_setRot)(this, rotation);
+		((void(__thiscall*)(Actor*, Vector2<float>* rotation))holder_setRot)(this, rotation);
 	};
 };
-
-#endif /* LUNITY_CLIENT_BRIDGE_ACTOR */
+#endif

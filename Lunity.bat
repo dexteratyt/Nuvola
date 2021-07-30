@@ -26,6 +26,15 @@ goto main
 :build
 :: Update submodules
 git submodule update --init --recursive
+:: Setup classbuilder to generate the bridge source code
+cd ClassBuilder
+cmake .
+cmake --build . --config Release
+cd Release
+ClassBuilder.exe --proj "../../Lunity/Client/Bridge/bridge.json" --gen CppGen --output "../../Lunity/Client/Bridge/"
+cd ..
+cd ..
+::Setup submodules
 cd Lunity
 cd Lib
 cd PolyHook_2_0
