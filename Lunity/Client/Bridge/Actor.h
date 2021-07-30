@@ -34,7 +34,7 @@ struct Actor {
 	void virt_pad_14() {};
 	auto getPos() -> Vector3<float> {};
 	/* Functions */
-	static inline uintptr_t holder_setRot;
+	static inline uintptr_t holder_setRot = 0;
 	auto __thiscall setRot(Vector2<float> rotation) -> void {
 		if(holder_setRot == 0) {
 			holder_setRot = Mem::FindSig("89 ?? ?? ?? 57 48 83 ?? ?? 8B ?? ?? 48 8B ?? 48 81");

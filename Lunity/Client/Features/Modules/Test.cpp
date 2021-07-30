@@ -24,7 +24,7 @@ void Rot_Callback(EventData* event) {
 	if(actor == localPlayer) {
 		//Control the vector
 		newVec->x = 0;
-		localPlayer->LookingVec = *newVec;
+		localPlayer->setRot(*newVec);
 	}
 }
 
