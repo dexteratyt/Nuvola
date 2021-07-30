@@ -23,7 +23,7 @@ void Rot_Callback(EventData* event) {
 	//If the mob is the local player
 	if(actor == localPlayer) {
 		//Control the vector
-		newVec->x = 0;
+		newVec->X = 0;
 		localPlayer->setRot(*newVec);
 	}
 }

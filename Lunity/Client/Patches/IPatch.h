@@ -17,8 +17,12 @@ class IPatch
 	//Patch metadata
 	std::string name;
 	std::vector<SigInfo*>* signatures;
+
+	//PLH
+	PLH::x64Detour* detourHook;
 public:
 	IPatch(std::string name);
+	~IPatch();
 	//When adding sigs, the first added have priority.
 	//Order matters, older version sigs might work on new versions
 	//but result in the wrong func or bad memory

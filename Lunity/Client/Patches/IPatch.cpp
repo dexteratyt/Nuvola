@@ -5,6 +5,18 @@ IPatch::IPatch(std::string name)
     this->name = name;
 	this->signatures = new std::vector<SigInfo*>();
 }
+IPatch::~IPatch() {
+	// Clear signatures
+	for(auto* elem : *this->signatures) {
+		delete elem;
+	}
+	this->signatures->clear();
+	delete this->signatures;
+
+	//Clear hook & unhook
+	detourHook->unHook();
+	delete detourHook;
+}
 void IPatch::AddSignature(SigInfo* sigInfo)
 {
 	this->signatures->push_back(sigInfo);
@@ -55,7 +67,7 @@ auto IPatch::AutoPatch(void* callbackPtr, uintptr_t* funcOriginal) -> bool {
 		return false;
 	}
 
-	PLH::x64Detour* detourHook = new PLH::x64Detour((char*)hookAddr, (char*)callbackPtr, (uint64_t*)funcOriginal, dis);
+	detourHook = new PLH::x64Detour((char*)hookAddr, (char*)callbackPtr, (uint64_t*)funcOriginal, dis);
 
 	if(!detourHook->hook()) {
 		return false;
