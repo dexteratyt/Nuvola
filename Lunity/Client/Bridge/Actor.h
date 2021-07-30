@@ -43,7 +43,7 @@ struct Actor {
 			Utils::DebugF("FATAL: Sig failure for setRot");
 		}
 		holder_setRot += -1;
-		((void(__thiscall*)(Actor*, Vector2<float>* rotation))holder_setRot)(this, rotation);
+		return ((void(__thiscall*)(Actor*, Vector2<float>* rotation))holder_setRot)(this, rotation);
 	};
 };
 
