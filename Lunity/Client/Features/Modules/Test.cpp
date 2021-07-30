@@ -7,14 +7,14 @@ void Head_Y_Callback(EventData* event) {
 	//Using "as" properly
 	LocalPlayer* player = event->as<UpdateHeadYEvent>()->GetLocalPlayer();
 	if(player) {
-		player->YHeadRot(0);
+		player->YHeadRot = 0;
 	}
 }
 
 void Rot_Callback(EventData* event) {
 	//Get the client instance & local player
 	ClientInstance* client = Utils::GetClientInstance();
-	LocalPlayer* localPlayer = client->ClientPlayer();
+	LocalPlayer* localPlayer = client->clientPlayer;
 
 	//Get data from event
 	Actor* actor = event->as<SetRotEvent>()->GetActor();
@@ -24,7 +24,7 @@ void Rot_Callback(EventData* event) {
 	if(actor == localPlayer) {
 		//Control the vector
 		newVec->X = 0;
-		localPlayer->LookingVec(*newVec);
+		localPlayer->LookingVec = *newVec;
 	}
 }
 
