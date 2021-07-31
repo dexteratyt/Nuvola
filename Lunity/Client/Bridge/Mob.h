@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "Actor.h"
 struct Mob : public Actor {
 	/* Fields */
 	char padding_1832[952];

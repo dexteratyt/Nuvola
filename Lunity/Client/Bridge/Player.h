@@ -1,8 +1,12 @@
-#ifndef LUNITY_CLIENT_BRIDGE_PLAYER
-#define LUNITY_CLIENT_BRIDGE_PLAYER
+#ifndef GUARD_Player
+#define GUARD_Player
+#include "../../Utils/Math.h"
+#include "../../Utils/Utils.h"
+#include "../../Mem/Mem.h"
 #include "Mob.h"
-
-struct Player : Mob {
+struct Player : public Mob {
+	/* Fields */
+	/* Virtuals */
+	/* Functions */
 };
-
-#endif /* LUNITY_CLIENT_BRIDGE_PLAYER */
+#endif

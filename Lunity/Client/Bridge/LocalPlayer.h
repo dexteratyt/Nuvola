@@ -1,8 +1,12 @@
-#ifndef LUNITY_CLIENT_BRIDGE_LOCALPLAYER
-#define LUNITY_CLIENT_BRIDGE_LOCALPLAYER
+#ifndef GUARD_LocalPlayer
+#define GUARD_LocalPlayer
+#include "../../Utils/Math.h"
+#include "../../Utils/Utils.h"
+#include "../../Mem/Mem.h"
 #include "Player.h"
-
-struct LocalPlayer : Player {
+struct LocalPlayer : public Player {
+	/* Fields */
+	/* Virtuals */
+	/* Functions */
 };
-
-#endif /* LUNITY_CLIENT_BRIDGE_LOCALPLAYER */
+#endif

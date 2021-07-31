@@ -117,7 +117,20 @@
               }
         ],
 		"Functions": [],
-		"Virtuals": [
-		]
-    }
+		"Virtuals": []
+    },
+	{
+		"ClassName": "Player",
+		"Extends": "Mob",
+		"Fields": [],
+		"Functions": [],
+		"Virtuals": []
+	},
+	{
+		"ClassName": "LocalPlayer",
+		"Extends": "Player",
+		"Fields": [],
+		"Functions": [],
+		"Virtuals": []
+	}
 ]
