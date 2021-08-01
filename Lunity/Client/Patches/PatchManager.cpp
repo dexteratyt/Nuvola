@@ -7,10 +7,12 @@
 #include "LocalPlayer/SetYHeadRotHook.h"
 #include "Actor/SetRotHook.h"
 #include "ScreenView/SetupAndRenderHook.h"
+#include "MeshHelpers/RenderMeshHook.h"
 
 void PatchManager::ApplyAll()
 {
 	PatchManager::ApplyPatch(new UpdateHook());
+	PatchManager::ApplyPatch(new RenderMeshHook());
 
 	/* Graphics hooking */
 	PatchManager::ApplyPatch(new SwapChainHook());

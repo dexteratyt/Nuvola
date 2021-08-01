@@ -168,7 +168,27 @@
 			}
 		],
 		"Functions":[],
-		"Virtuals":[]
+		"Virtuals":[
+			{
+                "Name": "fillRectangle",
+                "Offset": 13,
+                "Parameters": [
+					{
+						"Name": "rect",
+						"Type": "class RectangleArea*"
+					},
+					{
+						"Name": "color",
+						"Type": "class Color*"
+					},
+					{
+						"Name": "alpha",
+						"Type": "float"
+					}
+				],
+                "Type": "void"
+            }
+		]
 	},
 	{
 		"ClassName": "ScreenContext",
@@ -200,12 +220,12 @@
 						"Type": "Tessellator"
 					},
 					{
-						"Name": "vertCount",
+						"Name": "vertFormat",
 						"Type": "int"
 					},
 					{
-						"Name": "param_2",
-						"Type": "bool"
+						"Name": "vertCount",
+						"Type": "int"
 					}
                 ],
                 "Type": "void",

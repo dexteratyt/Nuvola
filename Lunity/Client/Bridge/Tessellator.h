@@ -8,7 +8,7 @@ struct Tessellator {
 	/* Virtuals */
 	/* Functions */
 	static inline uintptr_t holder_begin;
-	auto __thiscall begin(int vertCount, bool param_2) -> void {
+	auto __thiscall begin(int vertFormat, int vertCount) -> void {
 		if(holder_begin == 0) {
 			holder_begin = Mem::FindSig("89 ?? ?? ?? 55 48 83 ?? ?? ?? B9 ?? ?? ?? ?? ?? 45");
 		}
@@ -16,7 +16,7 @@ struct Tessellator {
 			Utils::DebugF("FATAL: Sig failure for begin");
 		}
 		holder_begin += -1;
-		return ((void(__thiscall*)(Tessellator*, int vertCount, bool param_2))holder_begin)(this, vertCount, param_2);
+		return ((void(__thiscall*)(Tessellator*, int vertFormat, int vertCount))holder_begin)(this, vertFormat, vertCount);
 	};
 	static inline uintptr_t holder_vertex;
 	auto __thiscall vertex(float vertX, float vertY, float vertZ) -> void {

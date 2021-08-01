@@ -22,3 +22,22 @@ void Utils::SetClientInstance(uintptr_t address) {
 auto Utils::GetClientInstance() -> ClientInstance* {
 	return clientInstance;
 }
+
+uintptr_t uiMatPtr = 0;
+auto Utils::GetUIMaterialPtr() -> class MaterialPtr* {
+	if(uiMatPtr != 0) {
+		return (MaterialPtr*)uiMatPtr;
+	}
+	uintptr_t fillAddr = 0;
+	if(fillAddr == 0) {
+		fillAddr = Mem::FindSig("89 ?? ?? ?? 57 48 83 ?? ?? 48 ?? ?? ?? 45 33 ?? 48 ?? ?? ?? ?? ?? ?? ?? 48 8B ?? ?? 29");
+	}
+	if(fillAddr == 0) {
+		Utils::DebugF("UI Mat sig failure!");
+	}
+	fillAddr-=1;
+	int* uiMatOffset = (int*)(fillAddr + 0x9F + 3);
+	uintptr_t baseInstruction = (uintptr_t)uiMatOffset;
+	uiMatPtr = ((baseInstruction+7)+(*uiMatOffset))-3;
+	return (MaterialPtr*)uiMatPtr;
+}
