@@ -19,14 +19,6 @@ void Rot_Callback(EventData* event) {
 	//Get data from event
 	Actor* actor = event->as<SetRotEvent>()->GetActor();
 	Vector2<float>* newVec = event->as<SetRotEvent>()->GetNewVector();
-	Vector2<float> cloneVec = Vector2<float>(*newVec);
-
-	//If the mob is the local player
-	if(actor == localPlayer) {
-		//Control the vector
-		cloneVec.X = 0;
-		localPlayer->setRot(&cloneVec);
-	}
 }
 
 Test::Test() : Module("Test") {
@@ -45,6 +37,10 @@ void Test::onDisable() {
 
 bool init = true;
 void Test::onTick() {
+	ClientInstance* client = Utils::GetClientInstance();
+	LocalPlayer* lPlayer = client->clientPlayer;
+	if(lPlayer)
+		lPlayer->swing();
 	//Tick code
 	// ClientInstance* client = Utils::GetClientInstance();
 	// LocalPlayer* lPlayer = client->GetLocalPlayer();

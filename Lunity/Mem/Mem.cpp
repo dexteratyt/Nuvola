@@ -32,14 +32,34 @@ auto Mem::getBaseModuleEnd() -> long long {
 auto Mem::FindSig(const char* pattern) -> uintptr_t {
     return FindSig(getModuleBase(), getBaseModuleEnd(), pattern);
 }
+struct SearchedSig {
+	std::string pattern;
+	uintptr_t result;
+	SearchedSig(std::string pattern, uintptr_t result) {
+		this->pattern = pattern;
+		this->result = result;
+	}
+};
+
+#include "../Utils/Utils.h"
+
+std::vector<SearchedSig> alreadySearched = std::vector<SearchedSig>();
 auto Mem::FindSig(long long rangeStart, long long rangeEnd, const char* pattern) -> uintptr_t {
+	for(int i = 0; i < alreadySearched.size(); i++) {
+		if(alreadySearched[i].pattern == std::string(pattern)) {
+			return alreadySearched[i].result;
+		}
+	}
     const char* pat = pattern;
     long long firstMatch = 0;
     for (long long pCur = rangeStart; pCur < rangeEnd; pCur++) {
         if (!*pat) return firstMatch;
         if (*(PBYTE)pat == '\?' || *(BYTE*)pCur == getByte(pat)) {
             if (!firstMatch) firstMatch = pCur;
-            if (!pat[2]) return firstMatch;
+            if (!pat[2]) {
+				alreadySearched.push_back(SearchedSig(std::string(pattern), firstMatch));
+				return firstMatch;
+			};
             if (*(PWORD)pat == '\?\?' || *(PBYTE)pat != '\?') pat += 3;
             else pat += 2;
         } else {

@@ -29,16 +29,5 @@ struct Actor {
 	void virt_pad_14() {};
 	auto getPos() -> Vector3<float>* {};
 	/* Functions */
-	static inline uintptr_t holder_setRot;
-	auto __thiscall setRot(Vector2<float>* rotation) -> void {
-		if(holder_setRot == 0) {
-			holder_setRot = Mem::FindSig("89 ?? ?? ?? 57 48 83 ?? ?? 8B ?? ?? 48 8B ?? 48 81");
-		}
-		if(holder_setRot == 0){
-			Utils::DebugF("FATAL: Sig failure for setRot");
-		}
-		holder_setRot += -1;
-		((void(__thiscall*)(Actor*, Vector2<float>* rotation))holder_setRot)(this, rotation);
-	};
 };
 #endif

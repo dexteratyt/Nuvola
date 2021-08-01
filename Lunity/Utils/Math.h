@@ -3,6 +3,7 @@
 #ifndef LUNITY_UTILS_MATH
 #define LUNITY_UTILS_MATH
 
+/*
 template<typename T>
 struct Vector1
 {
@@ -133,7 +134,7 @@ struct Vector2L : public Vector2<long long> { using Vector2<long long>::Vector2;
 struct Vector3L : public Vector3<long long> { using Vector3<long long>::Vector3; };
 struct Vector4L : public Vector4<long long> { using Vector4<long long>::Vector4; };
 
-/*
+*/
 
 template <typename T>
 struct Vector2 {
@@ -222,6 +223,5 @@ struct Vector4 {
     }
 };
 
-*/
 
 #endif /* LUNITY_UTILS_MATH */

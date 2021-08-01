@@ -77,22 +77,6 @@
 			}
         ],
 		"Functions": [
-            {
-                "Name": "setRot",
-                "Signature": "?? 89 ?? ?? ?? 57 48 83 ?? ?? 8B ?? ?? 48 8B ?? 48 81",
-                "Parameters": [
-					{
-						"Name": "this",
-						"Type": "Actor"
-					},
-                    {
-                        "Name": "rotation",
-                        "Type": "Vector2<float>*"
-                    }
-                ],
-                "Type": "void",
-                "Convention": "__thiscall"
-            }
         ],
         "Virtuals": [
             {
@@ -130,7 +114,20 @@
 		"ClassName": "LocalPlayer",
 		"Extends": "Player",
 		"Fields": [],
-		"Functions": [],
+		"Functions": [
+            {
+                "Name": "swing",
+                "Signature": "40 ?? 48 83 ?? ?? 48 8B ?? ?? ?? ?? ?? 48 33 ?? ?? 89 ?? ?? ?? 48 8B ?? ?? B9 ?? ?? ?? ?? ?? 74 ?? E8",
+                "Parameters": [
+					{
+						"Name": "this",
+						"Type": "LocalPlayer"
+					}
+                ],
+                "Type": "void",
+                "Convention": "__thiscall"
+            }
+		],
 		"Virtuals": []
 	}
 ]

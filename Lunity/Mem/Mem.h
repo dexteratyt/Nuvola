@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <Psapi.h>
 #include <vector>
+#include <string>
 
 //Polyhook defines these macros, but its a different definition.
 //To solve this, we'll undef polyhooks, then redef at the end.
