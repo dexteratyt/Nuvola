@@ -1,7 +1,16 @@
 #include "SetupAndRenderHook.h"
 
-void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class UIRenderContext* renderContext) {
+#include <string>
+
+#include "../../Bridge/MinecraftUIRenderContext.h"
+#include "../../Bridge/ScreenContext.h"
+#include "../../Bridge/Tessellator.h"
+
+void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
+
+	Tessellator* tess = renderContext->screenContext->tessellator;
+	Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
 }
 
 SetupAndRenderHook::SetupAndRenderHook() : IPatch::IPatch("ScreenView::setupAndRender") {

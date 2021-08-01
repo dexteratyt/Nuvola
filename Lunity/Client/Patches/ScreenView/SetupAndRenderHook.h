@@ -5,7 +5,7 @@
 
 class SetupAndRenderHook : public IPatch {
     static inline uint64_t setupAndRenderOriginal = 0;
-	static void __fastcall setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class UIRenderContext* renderContext);
+	static void __fastcall setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext);
 public:
 	SetupAndRenderHook();
 	auto Apply() -> bool override;

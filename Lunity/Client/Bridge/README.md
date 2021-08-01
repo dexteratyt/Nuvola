@@ -1,0 +1,2 @@
+# Lunity Bridge
+The Bridge (commonly known as the SDK) is Lunity's way of simplifying its access to game code. ClassBuilder is used to auto generate the classes based on the "bridge.json" file. If you need to make a modification to the Bridge, modify the bridge.json file and run Lunity.bat to build.

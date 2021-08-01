@@ -129,5 +129,89 @@
             }
 		],
 		"Virtuals": []
+	},
+	{
+		"ClassName": "MinecraftUIRenderContext",
+		"Extends": null,
+		"Fields":[
+			{
+				"Name": "clientInstance",
+				"Offset": "8",
+				"Type":{
+					"TypeName": "class ClientInstance*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "screenContext",
+				"Offset": "10",
+				"Type":{
+					"TypeName": "class ScreenContext*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "textAlpha",
+				"Offset": "28",
+				"Type":{
+					"TypeName": "float",
+					"TypeSize": 4
+				}
+			},
+			{
+				"Name": "uiScene",
+				"Offset": "F0",
+				"Type":{
+					"TypeName": "class UIScene*",
+					"TypeSize": 8
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "ScreenContext",
+		"Extends": null,
+		"Fields":[
+			{
+				"Name": "tessellator",
+				"Offset": "B0",
+				"Type": {
+					"TypeName": "class Tessellator*",
+					"TypeSize": 8
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "Tessellator",
+		"Extends": null,
+		"Fields":[],
+		"Functions":[
+			{
+				"Name": "begin",
+				"Signature": "?? 89 ?? ?? ?? 55 48 83 ?? ?? ?? B9 ?? ?? ?? ?? ?? 45",
+				"Parameters": [
+					{
+						"Name": "this",
+						"Type": "Tessellator"
+					},
+					{
+						"Name": "vertCount",
+						"Type": "int"
+					},
+					{
+						"Name": "param_2",
+						"Type": "bool"
+					}
+                ],
+                "Type": "void",
+                "Convention": "__thiscall"
+			}
+		],
+		"Virtuals":[]
 	}
 ]
