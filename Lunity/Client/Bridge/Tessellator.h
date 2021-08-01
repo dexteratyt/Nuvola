@@ -18,5 +18,16 @@ struct Tessellator {
 		holder_begin += -1;
 		return ((void(__thiscall*)(Tessellator*, int vertCount, bool param_2))holder_begin)(this, vertCount, param_2);
 	};
+	static inline uintptr_t holder_vertex;
+	auto __thiscall vertex(float vertX, float vertY, float vertZ) -> void {
+		if(holder_vertex == 0) {
+			holder_vertex = Mem::FindSig("40 ?? 48 83 ?? ?? ?? 29 ?? ?? ?? ?? 29 ?? ?? ?? ?? 0F");
+		}
+		if(holder_vertex == 0){
+			Utils::DebugF("FATAL: Sig failure for vertex");
+		}
+		holder_vertex += -0;
+		return ((void(__thiscall*)(Tessellator*, float vertX, float vertY, float vertZ))holder_vertex)(this, vertX, vertY, vertZ);
+	};
 };
 #endif

@@ -10,7 +10,11 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 
 	Tessellator* tess = renderContext->screenContext->tessellator;
-	Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
+	//Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
+	tess->begin(3, true);
+	tess->vertex(0,0,0);
+	tess->vertex(0,100,0);
+	tess->vertex(100,100,0);
 }
 
 SetupAndRenderHook::SetupAndRenderHook() : IPatch::IPatch("ScreenView::setupAndRender") {

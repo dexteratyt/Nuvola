@@ -5,26 +5,26 @@
 		"Fields": [
 			{
 				"Name": "../../Utils/Math.h",
-				"Offset": 0,
+				"Offset": "0",
 				"Type": {
 					"TypeName": "",
-					"TypeSize": 0
+					"TypeSize": "0"
 				}
 			},
 			{
 				"Name": "../../Utils/Utils.h",
-				"Offset": 0,
+				"Offset": "0",
 				"Type": {
 					"TypeName": "",
-					"TypeSize": 0
+					"TypeSize": "0"
 				}
 			},
 			{
 				"Name": "../../Mem/Mem.h",
-				"Offset": 0,
+				"Offset": "0",
 				"Type": {
 					"TypeName": "",
-					"TypeSize": 0
+					"TypeSize": "0"
 				}
 			}
 		],
@@ -210,6 +210,59 @@
                 ],
                 "Type": "void",
                 "Convention": "__thiscall"
+			},
+			{
+				"Name": "vertex",
+				"Signature": "40 ?? 48 83 ?? ?? ?? 29 ?? ?? ?? ?? 29 ?? ?? ?? ?? 0F",
+				"Parameters": [
+					{
+						"Name": "this",
+						"Type": "Tessellator"
+					},
+					{
+						"Name": "vertX",
+						"Type": "float"
+					},
+					{
+						"Name": "vertY",
+						"Type": "float"
+					},
+					{
+						"Name": "vertZ",
+						"Type": "float"
+					}
+				],
+				"Type": "void",
+				"Convention": "__thiscall"
+			}
+		],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "MeshHelpers",
+		"Extends": null,
+		"Fields":[],
+		"Functions":[
+			{
+				"Name": "renderMeshImmediately",
+				"Signature": "40 ?? 56 57 48 81 ?? ?? ?? ?? ?? 49 8B ?? 48 8B ?? 48 8B ?? ?? BA",
+				"Parameters": [
+					{
+						"Name": "screenContext",
+						"Type": "class ScreenContext*"
+					},
+					{
+						"Name": "tessellator",
+						"Type": "class Tessellator*"
+					},
+					{
+						"Name": "material",
+						"Type": "class MaterialPtr*"
+					}
+				],
+				"Type": "void",
+				"Convention": "__fastcall",
+				"Static": true
 			}
 		],
 		"Virtuals":[]
