@@ -170,6 +170,17 @@
 		"Functions":[],
 		"Virtuals":[
 			{
+				"Name": "flushText",
+				"Offset": "6",
+				"Parameters": [
+					{
+						"Name": "param_1",
+						"Type": "float"
+					}
+				],
+				"Type": "void"
+			},
+			{
                 "Name": "fillRectangle",
                 "Offset": 13,
                 "Parameters": [

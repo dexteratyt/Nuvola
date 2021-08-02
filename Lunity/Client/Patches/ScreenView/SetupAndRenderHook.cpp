@@ -12,9 +12,10 @@
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 
-	Vector4<float> rect(0, 0, 100, 100);
-	Vector4<float> color(1, 1, 1, 0);
-	renderContext->fillRectangle((class RectangleArea*)&rect, (class Color*)&color, 0);
+	Vector4<float> rect(0, 1000, 0, 1000);
+	Vector4<float> color(1, 1, 1, 1);
+	renderContext->fillRectangle((class RectangleArea*)&rect, (class Color*)&color, 1);
+	renderContext->flushText(0);
 
 	/*Tessellator* tess = renderContext->screenContext->tessellator;
 	//Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));

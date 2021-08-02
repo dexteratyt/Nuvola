@@ -19,7 +19,7 @@ struct MinecraftUIRenderContext {
 	void virt_pad_3() {};
 	void virt_pad_4() {};
 	void virt_pad_5() {};
-	void virt_pad_6() {};
+	auto flushText(float param_1) -> void {};
 	void virt_pad_7() {};
 	void virt_pad_8() {};
 	void virt_pad_9() {};
