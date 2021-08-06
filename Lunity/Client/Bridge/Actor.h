@@ -27,7 +27,7 @@ struct Actor {
 	void virt_pad_12() {};
 	void virt_pad_13() {};
 	void virt_pad_14() {};
-	auto getPos() -> Vector3<float>* {};
+	virtual auto getPos() -> Vector3<float>* {};
 	/* Functions */
 };
 #endif
