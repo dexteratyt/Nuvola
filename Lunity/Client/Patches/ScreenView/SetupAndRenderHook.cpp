@@ -53,7 +53,8 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	ScreenContext* screenCtx = renderContext->screenContext;
 	Tessellator* tess = screenCtx->tessellator;
 	Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
-	if(!Utils::GetUIMaterialPtr()) {
+	class MaterialPtr* mat = Utils::GetUIMaterialPtr();
+	if(!mat) {
 		Utils::DebugF("Failed to get material");
 		return;
 	}
@@ -62,17 +63,17 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	screenCtx->shaderColor->g = 1;
 	screenCtx->shaderColor->b = 1;
 	screenCtx->shaderColor->a = 1;
-	Utils::DebugF("Got mat*: " + std::to_string((uintptr_t)Utils::GetUIMaterialPtr()));
+	Utils::DebugF("Got mat*: " + std::to_string((uintptr_t)mat));
 	Utils::DebugF("Starting render");
-	tess->begin(1, 3, true);
+	tess->begin(3, 3, true);
 	Utils::DebugF("Began");
 	tess->vertex(0,0,0);
 	Utils::DebugF("Vert #1");
-	tess->vertex(0, 0, 100);
+	tess->vertex(0, 100, 0);
 	Utils::DebugF("Vert #2");
-	tess->vertex(0, 100,100);
+	tess->vertex(100, 100, 0);
 	Utils::DebugF("Vert #3");
-	MeshHelpers::renderMeshImmediately(screenCtx, tess, Utils::GetUIMaterialPtr());
+	MeshHelpers::renderMeshImmediately(screenCtx, tess, mat);
 	Utils::DebugF("Rendered mesh");
 }
 

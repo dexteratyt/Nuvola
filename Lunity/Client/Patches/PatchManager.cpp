@@ -12,7 +12,7 @@
 void PatchManager::ApplyAll()
 {
 	PatchManager::ApplyPatch(new UpdateHook());
-	PatchManager::ApplyPatch(new RenderMeshHook());
+	//PatchManager::ApplyPatch(new RenderMeshHook());
 
 	/* Graphics hooking */
 	PatchManager::ApplyPatch(new SwapChainHook());
