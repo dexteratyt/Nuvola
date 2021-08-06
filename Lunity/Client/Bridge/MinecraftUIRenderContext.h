@@ -26,7 +26,7 @@ struct MinecraftUIRenderContext {
 	void virt_pad_10() {};
 	void virt_pad_11() {};
 	void virt_pad_12() {};
-	auto fillRectangle(class RectangleArea* rect, class Color* color, float alpha) -> void {};
+	auto fillRectangle(float* rect, float* color, float alpha) -> void {};
 	/* Functions */
 };
 #endif

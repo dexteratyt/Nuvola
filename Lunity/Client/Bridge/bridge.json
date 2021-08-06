@@ -186,11 +186,11 @@
                 "Parameters": [
 					{
 						"Name": "rect",
-						"Type": "class RectangleArea*"
+						"Type": "float*"
 					},
 					{
 						"Name": "color",
-						"Type": "class Color*"
+						"Type": "float*"
 					},
 					{
 						"Name": "alpha",
@@ -205,6 +205,14 @@
 		"ClassName": "ScreenContext",
 		"Extends": null,
 		"Fields":[
+			{
+				"Name": "shaderColor",
+				"Offset": "30",
+				"Type": {
+					"TypeName": "class Color*",
+					"TypeSize": 8
+				}
+			},
 			{
 				"Name": "tessellator",
 				"Offset": "B0",
@@ -231,12 +239,16 @@
 						"Type": "Tessellator"
 					},
 					{
-						"Name": "vertFormat",
+						"Name": "primitiveMode",
 						"Type": "int"
 					},
 					{
 						"Name": "vertCount",
 						"Type": "int"
+					},
+					{
+						"Name": "param_3",
+						"Type": "bool"
 					}
                 ],
                 "Type": "void",

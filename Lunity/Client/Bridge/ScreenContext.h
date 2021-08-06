@@ -5,7 +5,9 @@
 #include "../../Mem/Mem.h"
 struct ScreenContext {
 	/* Fields */
-	char padding_176[176];
+	char padding_48[48];
+	class Color* shaderColor;
+	char padding_176[120];
 	class Tessellator* tessellator;
 	/* Virtuals */
 	/* Functions */

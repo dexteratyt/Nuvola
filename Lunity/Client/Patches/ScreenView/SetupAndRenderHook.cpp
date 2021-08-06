@@ -9,31 +9,72 @@
 
 #include "../../../Utils/Math.h"
 
+
+struct Color {
+	union {
+		struct {
+			float r;
+			float g;
+			float b;
+			float a;
+		};
+		float arr[4];
+	};
+	bool test;
+
+	Color(float r, float g, float b, float a, bool test) {
+		this->r = r;
+		this->g = g;
+		this->b = b;
+		this->a = a;
+		this->test = test;
+	}
+};
+
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 
-	Vector4<float> rect(0, 1000, 0, 1000);
-	Vector4<float> color(1, 1, 1, 1);
-	renderContext->fillRectangle((class RectangleArea*)&rect, (class Color*)&color, 1);
-	renderContext->flushText(0);
+	Vector4<float> rect = Vector4<float>(-1000, -1000, 1000, 1000);
+	float test[4];
+	test[0] = rect.x;
+	test[1] = rect.z;
+	test[2] = rect.y;
+	test[3] = rect.z;
+	Color color = Color(1, 1, 1, .5, false);
+	float col[4];
+	col[0] = color.r;
+	col[1] = color.g;
+	col[2] = color.b;
+	col[3] = color.a;
+	renderContext->fillRectangle((float*)test, (float*)col, .5);
+	Sleep(1000/30);
+	/*
+	Sleep(1000/30);
 
-	/*Tessellator* tess = renderContext->screenContext->tessellator;
+	ScreenContext* screenCtx = renderContext->screenContext;
+	Tessellator* tess = screenCtx->tessellator;
 	//Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
 	if(!Utils::GetUIMaterialPtr()) {
 		return;
 	}
+	class MaterialPtr* matPtr = (class MaterialPtr*)(((size_t)Utils::GetUIMaterialPtr())+0x10);
+	screenCtx->shaderColor->r = 1;
+	screenCtx->shaderColor->g = 1;
+	screenCtx->shaderColor->b = 1;
+	screenCtx->shaderColor->a = 1;
 	Utils::DebugF("Got mat*: " + std::to_string((uintptr_t)Utils::GetUIMaterialPtr()));
 	Utils::DebugF("Starting render");
-	tess->begin(1, 3);
+	tess->begin(1, 3, true);
 	Utils::DebugF("Began");
 	tess->vertex(0,0,0);
 	Utils::DebugF("Vert #1");
-	tess->vertex(0,100,0);
+	tess->vertex(0, 0, 100);
 	Utils::DebugF("Vert #2");
-	tess->vertex(100,100,0);
+	tess->vertex(0, 100,100);
 	Utils::DebugF("Vert #3");
-	MeshHelpers::renderMeshImmediately(renderContext->screenContext, tess, Utils::GetUIMaterialPtr());
-	Utils::DebugF("Rendered mesh");*/
+	MeshHelpers::renderMeshImmediately(screenCtx, tess, (class MaterialPtr*)matPtr);
+	Utils::DebugF("Rendered mesh");
+	*/
 }
 
 SetupAndRenderHook::SetupAndRenderHook() : IPatch::IPatch("ScreenView::setupAndRender") {
