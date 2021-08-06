@@ -34,7 +34,8 @@ struct Color {
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 
-	Vector4<float> rect = Vector4<float>(-1000, -1000, 1000, 1000);
+/*
+	Vector4<float> rect = Vector4<float>(0, 0, 1000, 1000);
 	float test[4];
 	test[0] = rect.x;
 	test[1] = rect.z;
@@ -47,17 +48,16 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	col[2] = color.b;
 	col[3] = color.a;
 	renderContext->fillRectangle((float*)test, (float*)col, .5);
-	Sleep(1000/30);
-	/*
-	Sleep(1000/30);
+*/
 
 	ScreenContext* screenCtx = renderContext->screenContext;
 	Tessellator* tess = screenCtx->tessellator;
-	//Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
+	Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
 	if(!Utils::GetUIMaterialPtr()) {
+		Utils::DebugF("Failed to get material");
 		return;
 	}
-	class MaterialPtr* matPtr = (class MaterialPtr*)(((size_t)Utils::GetUIMaterialPtr())+0x10);
+	//class MaterialPtr* matPtr = (class MaterialPtr*)(((size_t)Utils::GetUIMaterialPtr())+0x10);
 	screenCtx->shaderColor->r = 1;
 	screenCtx->shaderColor->g = 1;
 	screenCtx->shaderColor->b = 1;
@@ -72,9 +72,8 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	Utils::DebugF("Vert #2");
 	tess->vertex(0, 100,100);
 	Utils::DebugF("Vert #3");
-	MeshHelpers::renderMeshImmediately(screenCtx, tess, (class MaterialPtr*)matPtr);
+	MeshHelpers::renderMeshImmediately(screenCtx, tess, Utils::GetUIMaterialPtr());
 	Utils::DebugF("Rendered mesh");
-	*/
 }
 
 SetupAndRenderHook::SetupAndRenderHook() : IPatch::IPatch("ScreenView::setupAndRender") {
