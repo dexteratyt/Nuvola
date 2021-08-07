@@ -245,10 +245,6 @@
 					{
 						"Name": "vertCount",
 						"Type": "int"
-					},
-					{
-						"Name": "param_3",
-						"Type": "bool"
 					}
                 ],
                 "Type": "void",
