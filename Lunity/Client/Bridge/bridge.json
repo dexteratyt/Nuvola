@@ -36,6 +36,14 @@
 		"Extends": null,
 		"Fields":[
 			{
+				"Name": "minecraftGame",
+				"Offset": "A8",
+				"Type": {
+					"TypeName": "class MinecraftGame*",
+					"TypeSize": 8
+				}
+			},
+			{
 				"Name": "clientPlayer",
 				"Offset": "140",
 				"Type": {
@@ -169,6 +177,45 @@
 		],
 		"Functions":[],
 		"Virtuals":[
+			{
+				"Name": "drawText",
+				"Offset": "5",
+				"Parameters": [
+					{
+						"Name": "font",
+						"Type": "class BitmapFont*"
+					},
+					{
+						"Name": "rectArea",
+						"Type": "class RectangleArea*"
+					},
+					{
+						"Name": "text",
+						"Type": "std::string*"
+					},
+					{
+						"Name": "color",
+						"Type": "class Color*"
+					},
+					{
+						"Name": "param_5",
+						"Type": "float"
+					},
+					{
+						"Name": "textAlignment",
+						"Type": "class TextAlignment*"
+					},
+					{
+						"Name": "textMeasureData",
+						"Type": "class TextMeasureData*"
+					},
+					{
+						"Name": "caretMeasureData",
+						"Type": "class CaretMeasureData*"
+					}
+				],
+				"Type": "void"
+			},
 			{
 				"Name": "flushText",
 				"Offset": "6",
@@ -304,6 +351,22 @@
 				"Static": true
 			}
 		],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "MinecraftGame",
+		"Extends": null,
+		"Fields":[
+			{
+				"Name": "possibleFont",
+				"Offset": "158",
+				"Type": {
+					"TypeName": "class BitmapFont*",
+					"TypeSize": 8
+				}
+			}
+		],
+		"Functions":[],
 		"Virtuals":[]
 	}
 ]

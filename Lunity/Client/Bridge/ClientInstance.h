@@ -5,7 +5,9 @@
 #include "../../Mem/Mem.h"
 struct ClientInstance {
 	/* Fields */
-	char padding_320[320];
+	char padding_168[168];
+	class MinecraftGame* minecraftGame;
+	char padding_320[144];
 	class LocalPlayer* clientPlayer;
 	/* Virtuals */
 	/* Functions */
