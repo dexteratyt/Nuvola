@@ -17,4 +17,5 @@ void MinecraftRenderer::DrawString(std::string text, Color color, float scale, V
 	TextMeasureData measureData = TextMeasureData(scale);
 	CaretMeasureData caretData = CaretMeasureData();
 	this->renderContext->drawText(font, &rect, &text, &color, 1.0f, nullptr, &measureData, &caretData);
+	this->renderContext->flushText(0);
 }

@@ -4,3 +4,4 @@ target_sources(Lunity PRIVATE
 
 add_subdirectory(LocalPlayer)
 add_subdirectory(Actor)
+add_subdirectory(Renderer)

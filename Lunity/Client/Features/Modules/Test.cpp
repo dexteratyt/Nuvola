@@ -2,6 +2,7 @@
 
 #include "../../Events/LocalPlayer/UpdateHeadYEvent.h"
 #include "../../Events/Actor/SetRotEvent.h"
+#include "../../Events/Renderer/UIRenderEvent.h"
 
 void Head_Y_Callback(EventData* event) {
 	//Using "as" properly
@@ -21,9 +22,15 @@ void Rot_Callback(EventData* event) {
 	Vector2<float>* newVec = event->as<SetRotEvent>()->GetNewVector();
 }
 
+void Render_Callback(EventData* event) {
+	MinecraftRenderer* renderer = event->as<UIRenderEvent>()->GetRenderWrapper();
+	renderer->DrawString("Test!", Vector2<float>(0, 20));
+}
+
 Test::Test() : Module("Test") {
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::LOCALPLAYER_UPDATE_HEAD_Y, Head_Y_Callback);
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::ACTOR_SET_ROT, Rot_Callback);
+	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, Render_Callback);
 }
 
 void Test::onEnable() {

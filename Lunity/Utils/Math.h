@@ -226,42 +226,39 @@ struct Vector4 {
 struct RectangleArea : public Vector4<float> {
     RectangleArea(){
         this->x = 0;
-        this->y = 0;
-        this->z = 100;
+        this->z = 0;
+        this->y = 100;
         this->w = 100;
     };
     RectangleArea(float x, float y){
         this->x = x;
-        this->y = y;
-        this->z = this->x + 100;
-        this->w = this->y + 100;
+        this->z = y;
+        this->y = this->x + 100;
+        this->w = this->z + 100;
     };
     RectangleArea(Vector2<float> vec2){
         this->x = vec2.x;
-        this->y = vec2.y;
-        this->z = this->x + 100;
-        this->w = this->y + 100;
+        this->z = vec2.y;
+        this->y = this->x + 100;
+        this->w = this->z + 100;
     };
     RectangleArea(float x, float y, float w, float h){
         this->x = x;
-        this->y = y;
-        this->z = this->x + z;
-        this->w = this->y + w;
+        this->z = y;
+        this->y = this->x + z;
+        this->w = this->z + w;
     };
 };
 
 struct Color : public Vector4<float> {
 	bool test;
 
-	Color() {
-		Color(1,1,1);
-	}
-	Color(float r, float g, float b) {
-		Color(r, g, b, 1.0f);
-	}
-	Color(float r, float g, float b, float a) {
-		Color(r, g, b, a, false);
-	}
+	/* Constructor overloads */
+	Color() : Color(1.0f, 1.0f, 1.0f) {}
+	Color(float r, float g, float b) : Color(r, g, b, 1.0f) {}
+	Color(float r, float g, float b, float a) : Color(r, g, b, a, false) {}
+
+	//Constructor
 	Color(float r, float g, float b, float a, bool test) {
 		this->x = r;
 		this->y = g;

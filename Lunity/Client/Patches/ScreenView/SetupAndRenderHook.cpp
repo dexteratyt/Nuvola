@@ -5,13 +5,14 @@
 #include <string>
 
 #include "../../../Utils/MinecraftRenderer.h"
+#include "../../Events/Renderer/UIRenderEvent.h"
 
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 
-
 	MinecraftRenderer renderer = MinecraftRenderer(renderContext);
-	renderer.DrawString(std::string("Lunity"), Vector2<float>(0,0));
+	UIRenderEvent event(renderContext, &renderer);
+	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::RENDER_EVENT, &event);
 /*
 	Vector4<float> rect = Vector4<float>(0, 100, 0, 100);
 	float test[4];

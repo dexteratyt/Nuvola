@@ -14,11 +14,12 @@ typedef void(*EventCallback)(EventData*);
 ATTENTION:
 	IF THE EVENT_COUNT MACRO IS NOT UPDATED PROPERLY, BAD SHIT WILL HAPPEN!!!
 */
-#define EVENT_COUNT 3
+#define EVENT_COUNT 4
 enum class EVENT_ID {
 	DEFAULT_EVENT, //Responsible caller: NONE, this event should never be used.
 	LOCALPLAYER_UPDATE_HEAD_Y, //Responsible caller: "Patches/LocalPlayer/SetYHeadRotHook.cpp"
-	ACTOR_SET_ROT //Responsible caller: "Patches/Actor/SetRotHook.cpp"
+	ACTOR_SET_ROT, //Responsible caller: "Patches/Actor/SetRotHook.cpp"
+	RENDER_EVENT
 
 	//ATTENTION: REMEMBER TO UPDATE THE MACRO!
 };
