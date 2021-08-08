@@ -358,8 +358,32 @@
 		"Extends": null,
 		"Fields":[
 			{
-				"Name": "possibleFont",
+				"Name": "mcFontA",
+				"Offset": "110",
+				"Type": {
+					"TypeName": "class BitmapFont*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "mcFontB",
 				"Offset": "158",
+				"Type": {
+					"TypeName": "class BitmapFont*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "mcFontC",
+				"Offset": "1A0",
+				"Type": {
+					"TypeName": "class BitmapFont*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "mcFontD",
+				"Offset": "230",
 				"Type": {
 					"TypeName": "class BitmapFont*",
 					"TypeSize": 8

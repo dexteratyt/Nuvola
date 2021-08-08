@@ -223,5 +223,76 @@ struct Vector4 {
     }
 };
 
+struct RectangleArea : public Vector4<float> {
+    RectangleArea(){
+        this->x = 0;
+        this->y = 0;
+        this->z = 100;
+        this->w = 100;
+    };
+    RectangleArea(float x, float y){
+        this->x = x;
+        this->y = y;
+        this->z = this->x + 100;
+        this->w = this->y + 100;
+    };
+    RectangleArea(Vector2<float> vec2){
+        this->x = vec2.x;
+        this->y = vec2.y;
+        this->z = this->x + 100;
+        this->w = this->y + 100;
+    };
+    RectangleArea(float x, float y, float w, float h){
+        this->x = x;
+        this->y = y;
+        this->z = this->x + z;
+        this->w = this->y + w;
+    };
+};
+
+struct Color : public Vector4<float> {
+	bool test;
+
+	Color() {
+		Color(1,1,1);
+	}
+	Color(float r, float g, float b) {
+		Color(r, g, b, 1.0f);
+	}
+	Color(float r, float g, float b, float a) {
+		Color(r, g, b, a, false);
+	}
+	Color(float r, float g, float b, float a, bool test) {
+		this->x = r;
+		this->y = g;
+		this->z = b;
+		this->w = a;
+		this->test = test;
+	}
+};
+
+struct TextMeasureData {
+    float scale;
+
+    TextMeasureData() {
+        this->scale = 1.0f;
+    }
+    TextMeasureData(float scale) {
+        this->scale = scale;
+    }
+};
+
+struct CaretMeasureData {
+    int a;
+    bool b;
+
+    CaretMeasureData() {
+        CaretMeasureData(0xFFFFFFFF, false);
+    };
+    CaretMeasureData(int param_1, bool param_2) {
+        this->a = param_1;
+        this->b = param_2;
+    };
+};
 
 #endif /* LUNITY_UTILS_MATH */

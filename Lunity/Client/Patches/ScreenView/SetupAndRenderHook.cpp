@@ -2,98 +2,17 @@
 
 #include <string>
 
-struct Color {
-	union {
-		struct {
-			float r;
-			float g;
-			float b;
-			float a;
-		};
-		float arr[4];
-	};
-	bool test;
-
-	Color(float r, float g, float b, float a, bool test) {
-		this->r = r;
-		this->g = g;
-		this->b = b;
-		this->a = a;
-		this->test = test;
-	}
-};
-
-struct TextMeasureData {
-    float scale;
-
-    TextMeasureData() {
-        this->scale = 1.0f;
-    }
-    TextMeasureData(float scale) {
-        this->scale = scale;
-    }
-};
-
-struct CaretMeasureData {
-    int a;
-    bool b;
-
-    CaretMeasureData() {
-        CaretMeasureData(0xFFFFFFFF, false);
-    };
-    CaretMeasureData(int param_1, bool param_2) {
-        this->a = param_1;
-        this->b = param_2;
-    };
-};
-
-
-
-#include "../../Bridge/MinecraftUIRenderContext.h"
 #include <string>
-#include "../../Bridge/MinecraftGame.h"
-#include "../../Bridge/ScreenContext.h"
-#include "../../Bridge/Tessellator.h"
-#include "../../Bridge/MeshHelpers.h"
 
-#include "../../../Utils/Math.h"
-
-struct RectangleArea {
-    float x;
-    float w;
-    float y;
-    float h;
-
-    RectangleArea(){
-        this->x = 0;
-        this->y = 0;
-        this->w = 100;
-        this->h = 100;
-    };
-    RectangleArea(float x, float y){
-        this->x = x;
-        this->y = y;
-        this->w = this->x + 100;
-        this->h = this->y + 100;
-    };
-    RectangleArea(Vector2<float> vec2){
-        this->x = vec2.x;
-        this->y = vec2.y;
-        this->w = this->x + 100;
-        this->h = this->y + 100;
-    };
-    RectangleArea(float x, float y, float w, float h){
-        this->x = x;
-        this->y = y;
-        this->w = this->x + w;
-        this->h = this->y + h;
-    };
-};
+#include "../../../Utils/MinecraftRenderer.h"
 
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 
 
+	MinecraftRenderer renderer = MinecraftRenderer(renderContext);
+	renderer.DrawString(std::string("Lunity"), Vector2<float>(0,0));
+/*
 	Vector4<float> rect = Vector4<float>(0, 100, 0, 100);
 	float test[4];
 	test[0] = rect.x;
@@ -113,12 +32,12 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	TextMeasureData measureData = TextMeasureData(1.0f);
 	CaretMeasureData caretData = CaretMeasureData();
 	std::string text = "Lunity";
-	class BitmapFont* font = renderContext->clientInstance->minecraftGame->possibleFont;
+	class BitmapFont* font = renderContext->clientInstance->minecraftGame->mcFontA;
 	renderContext->drawText(font, &area, &text, &color, 1.0f, nullptr, &measureData, &caretData);
 	Utils::DebugF("Drawn text");
 	renderContext->flushText(0);
 	Utils::DebugF("Flushed");
-
+*/
 /*
 	ScreenContext* screenCtx = renderContext->screenContext;
 	Tessellator* tess = screenCtx->tessellator;
