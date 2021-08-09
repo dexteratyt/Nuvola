@@ -6,12 +6,12 @@ MinecraftRenderer::MinecraftRenderer(MinecraftUIRenderContext* renderContext) {
 }
 
 void MinecraftRenderer::DrawString(std::string text, Vector2<float> position) {
-	MinecraftRenderer::DrawString(text, Color(), position);
+	MinecraftRenderer::DrawString(text, position, Color());
 }
-void MinecraftRenderer::DrawString(std::string text, Color color, Vector2<float> position) {
-	MinecraftRenderer::DrawString(text, color, 1.0f, position);
+void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Color color) {
+	MinecraftRenderer::DrawString(text, position, color, 1.0f);
 }
-void MinecraftRenderer::DrawString(std::string text, Color color, float scale, Vector2<float> position) {
+void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Color color, float scale) {
 	class BitmapFont* font = this->renderContext->clientInstance->minecraftGame->mcFontA;
 	RectangleArea rect = RectangleArea(position);
 	TextMeasureData measureData = TextMeasureData(scale);

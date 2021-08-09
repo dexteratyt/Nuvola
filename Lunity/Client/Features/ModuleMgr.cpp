@@ -1,6 +1,6 @@
 #include "ModuleMgr.h"
 
-#include "Modules/Test.h"
+#include "Modules/TabUI.h"
 
 ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Set instance
@@ -14,12 +14,10 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 
     //Combat
     //Render
-    //render->addItem(new hud());
+	misc->addItem(new TabUI());
     //Motion
     //Player
     //Misc
-    //misc->addItem(new unload());
-	misc->addItem(new Test());
 
     //Register categories
     this->addItem(combat);

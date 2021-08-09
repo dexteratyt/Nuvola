@@ -13,8 +13,8 @@ public:
 
 	/* Text drawing wrappers */
 	void DrawString(std::string text, Vector2<float> position);
-	void DrawString(std::string text, Color color, Vector2<float> position);
-	void DrawString(std::string text, Color color, float scale, Vector2<float> position);
+	void DrawString(std::string text, Vector2<float> position, Color color);
+	void DrawString(std::string text, Vector2<float> position, Color color, float scale);
 };
 
 #endif /* LUNITY_UTILS_MINECRAFTRENDERER */

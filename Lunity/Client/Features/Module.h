@@ -5,19 +5,14 @@
 #include <utility>
 #include "Manager.h"
 #include "Setting.h"
+#include "../Events/EventHandler.h"
 
 class Module : public Manager<Setting> {
 public:
     explicit Module(std::string name);
 
-    virtual void onTick();
-    virtual void onGmTick(class GameMode* gm);
     virtual void onEnable();
     virtual void onDisable();
-    virtual void onKey(int key, bool isPressed);
-    virtual void onMouseButton(char button, bool isPressed);
-    virtual void onMouseMove();
-    virtual void onRender(class Renderer*);
 };
 
 

@@ -3,11 +3,6 @@
 auto __fastcall UpdateHook::clientInstanceCallback_1_17_2_1(uintptr_t theInstance, char param_2) -> int {
     Utils::SetClientInstance(theInstance);
 
-	std::vector<Module*>* modules = ModuleMgr::getInstance()->getAllModules();
-	for(auto module : *modules) {
-		module->onTick();
-	}
-
     return PLH::FnCast(funcOriginal, &clientInstanceCallback_1_17_2_1)(theInstance, param_2);
 }
 

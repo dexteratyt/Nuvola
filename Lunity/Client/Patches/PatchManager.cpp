@@ -2,6 +2,7 @@
 #include "IPatch.h"
 #include <iostream>
 
+#include "Global/KeyPressHook.h"
 #include "ClientInstance/UpdateHook.h"
 #include "Dx11/SwapChainHook.h"
 #include "LocalPlayer/SetYHeadRotHook.h"
@@ -11,8 +12,11 @@
 
 void PatchManager::ApplyAll()
 {
+	/* Input hooking */
+	PatchManager::ApplyPatch(new KeyPressHook());
+
+	/* ClientInstance reference receiver hook */
 	PatchManager::ApplyPatch(new UpdateHook());
-	//PatchManager::ApplyPatch(new RenderMeshHook());
 
 	/* Graphics hooking */
 	PatchManager::ApplyPatch(new SwapChainHook());
