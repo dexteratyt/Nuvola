@@ -1,7 +1,13 @@
 #include "KeyPressHook.h"
 
-void KeyPressHook::keyPressCallback_1_17_10_4(int key, int action) {
+#include "../../Events/Global/KeyPressEvent.h"
 
+void KeyPressHook::keyPressCallback_1_17_10_4(int key, int action) {
+	KeyPressEvent event(key, action);
+	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::KEYPRESS_EVENT, &event);
+	if(!event.IsCancelled()) {
+		PLH::FnCast(funcOriginal, keyPressCallback_1_17_10_4)(event.GetKey(), (int)event.GetAction());
+	}
 }
 
 KeyPressHook::KeyPressHook() : IPatch("Global::KeyPress") {
