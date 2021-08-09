@@ -4,11 +4,14 @@
 
 #include <string>
 
+#include "../../../Utils/IAnimWrapper.h"
 #include "../../../Utils/MinecraftRenderer.h"
 #include "../../Events/Renderer/UIRenderEvent.h"
 
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
+
+	IAnimWrapper::NewFrame();
 
 	MinecraftRenderer renderer = MinecraftRenderer(renderContext);
 	UIRenderEvent event(renderContext, &renderer);

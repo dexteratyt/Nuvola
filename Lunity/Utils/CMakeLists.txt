@@ -3,4 +3,5 @@ target_sources(Lunity PRIVATE
 	"VersionUtils.cpp"
 	"Renderer.cpp"
 	"MinecraftRenderer.cpp"
+	"IAnimWrapper.cpp"
 )

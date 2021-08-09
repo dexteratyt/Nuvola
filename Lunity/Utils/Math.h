@@ -242,6 +242,12 @@ struct RectangleArea : public Vector4<float> {
         this->y = this->x + 100;
         this->w = this->z + 100;
     };
+	RectangleArea(Vector2<float> position, Vector2<float> size) {
+		this->x = position.x;
+		this->y = this->x + size.x; //width
+		this->z = position.y;
+		this->w = this->z + size.y; //Height
+	}
     RectangleArea(float x, float y, float w, float h){
         this->x = x;
         this->z = y;
