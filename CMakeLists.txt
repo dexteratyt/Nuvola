@@ -5,4 +5,3 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_subdirectory(Lunity)
 add_subdirectory(Injector)
-add_subdirectory(DxExperiment)
