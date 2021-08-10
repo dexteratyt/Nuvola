@@ -178,6 +178,25 @@
 		"Functions":[],
 		"Virtuals":[
 			{
+				"Name": "getLineLength",
+				"Offset": "1",
+				"Parameters": [
+					{
+						"Name": "font",
+						"Type": "class BitmapFont*"
+					},
+					{
+						"Name": "text",
+						"Type": "std::string*"
+					},
+					{
+						"Name": "scale",
+						"Type": "float"
+					}
+				],
+				"Type": "float"
+			},
+			{
 				"Name": "drawText",
 				"Offset": "5",
 				"Parameters": [

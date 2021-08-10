@@ -13,7 +13,7 @@ struct MinecraftUIRenderContext {
 	class UIScene* uiScene;
 	/* Virtuals */
 	virtual void virt_pad_0() {};
-	virtual void virt_pad_1() {};
+	virtual auto getLineLength(class BitmapFont* font, std::string* text, float scale) -> float {};
 	virtual void virt_pad_2() {};
 	virtual void virt_pad_3() {};
 	virtual void virt_pad_4() {};

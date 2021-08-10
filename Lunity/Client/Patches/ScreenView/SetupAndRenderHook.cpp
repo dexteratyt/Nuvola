@@ -8,6 +8,7 @@
 #include "../../../Utils/MinecraftRenderer.h"
 #include "../../Events/Renderer/UIRenderEvent.h"
 
+bool other = false;
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
 	PLH::FnCast(setupAndRenderOriginal, setupAndRenderCallback_1_17_10_4)(screenView, renderContext);
 

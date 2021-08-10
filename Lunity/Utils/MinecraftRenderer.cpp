@@ -1,6 +1,11 @@
 #include "MinecraftRenderer.h"
-#include "../Client/Bridge/MinecraftGame.h"
 
+/* Private helper functions */
+auto MinecraftRenderer::getFont() -> class BitmapFont* {
+	return this->renderContext->clientInstance->minecraftGame->mcFontA;
+}
+
+/* Wrapper API below */
 MinecraftRenderer::MinecraftRenderer(MinecraftUIRenderContext* renderContext) {
 	this->renderContext = renderContext;
 }
@@ -18,12 +23,21 @@ void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Co
 	MinecraftRenderer::DrawString(text, position, color, 1.0f);
 }
 void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Color color, float scale) {
-	class BitmapFont* font = this->renderContext->clientInstance->minecraftGame->mcFontA;
+	class BitmapFont* font = MinecraftRenderer::getFont();
 	RectangleArea rect = RectangleArea(position);
 	TextMeasureData measureData = TextMeasureData(scale);
 	CaretMeasureData caretData = CaretMeasureData();
 	this->renderContext->drawText(font, &rect, &text, &color, 1.0f, nullptr, &measureData, &caretData);
 	this->renderContext->flushText(0);
+}
+
+/* Text measure wrappers */
+auto MinecraftRenderer::MeasureText(std::string text) -> float {
+	return MinecraftRenderer::MeasureText(text, 1.0f);
+}
+auto MinecraftRenderer::MeasureText(std::string text, float scale) -> float {
+	class BitmapFont* font = MinecraftRenderer::getFont();
+	return this->renderContext->getLineLength(font, &text, scale);
 }
 
 /* Fill wrappers */
