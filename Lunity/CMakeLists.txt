@@ -17,6 +17,7 @@ target_sources(Lunity PRIVATE
 )
 
 add_subdirectory(Client)
+add_subdirectory(Render)
 add_subdirectory(Utils)
 add_subdirectory(Mem)
 add_subdirectory(Lib)

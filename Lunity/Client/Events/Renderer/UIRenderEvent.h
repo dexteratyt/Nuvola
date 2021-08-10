@@ -3,7 +3,7 @@
 
 #include "../EventData.h"
 #include "../../Bridge/MinecraftUIRenderContext.h"
-#include "../../../Utils/MinecraftRenderer.h"
+#include "../../../Render/RenderContext/MinecraftRenderer.h"
 
 class UIRenderEvent : public EventData {
 	MinecraftUIRenderContext* renderContext;

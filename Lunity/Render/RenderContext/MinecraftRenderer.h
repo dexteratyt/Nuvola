@@ -2,10 +2,10 @@
 #define LUNITY_UTILS_MINECRAFTRENDERER
 
 #include "Math.h"
-#include "../Client/Bridge/MinecraftUIRenderContext.h"
-#include "../Client/Bridge/MinecraftGame.h"
+#include "../../Client/Bridge/MinecraftUIRenderContext.h"
+#include "../../Client/Bridge/MinecraftGame.h"
 #include <string>
-#include "IAnimWrapper.h"
+#include "../IAnimWrapper.h"
 
 #define TEXT_HEIGHT 9 //Text to geometry math
 #define DRAWN_TEXT_HEIGHT 6 //Text to text math

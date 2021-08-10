@@ -4,8 +4,8 @@
 
 #include <string>
 
-#include "../../../Utils/IAnimWrapper.h"
-#include "../../../Utils/MinecraftRenderer.h"
+#include "../../../Render/IAnimWrapper.h"
+#include "../../../Render/RenderContext/MinecraftRenderer.h"
 #include "../../Events/Renderer/UIRenderEvent.h"
 
 bool other = false;

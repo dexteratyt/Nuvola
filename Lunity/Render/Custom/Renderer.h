@@ -8,7 +8,7 @@
 // be provided as an alternative for drawing basic shapes
 // simply and efficiently using this renderer as a base
 
-#include "Math.h"
+#include "../../Utils/Math.h"
 
 class Renderer {
 public:
