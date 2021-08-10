@@ -7,7 +7,7 @@
 #include <string>
 #include "IAnimWrapper.h"
 
-#define TEXT_HEIGHT 10 //Text to geometry math
+#define TEXT_HEIGHT 9 //Text to geometry math
 #define DRAWN_TEXT_HEIGHT 6 //Text to text math
 //I dont know why, but text is like twice as big or smth always
 //I really don't understand

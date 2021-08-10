@@ -13,9 +13,11 @@ float currentX = 0.0f;
 namespace TabUIVars {
 	int selectedCategory = 0;
 	float selectedCatX = 0; //X offset for the selected cat. This is for the animation.
+	float selectedCatBgX = 0;
 
 	void resetAnim() {
 		TabUIVars::selectedCatX = 0.0f;
+		TabUIVars::selectedCatBgX = 0.0f;
 	}
 }
 
@@ -42,28 +44,40 @@ void onRender(EventData* event) {
 #define BRAND_SCALE 2
 #define CATEGORY_SCALE 1
 #define ANIM_SPEED 70
+
+#define COL_SELECTION Color(.53, 0.16, 0.94, .3)
+#define COL_BACKGROUND Color(1, 0.53, 0.78, .3)
+#define COL_BRAND Color()
+#define COL_CAT_SELECT Color(0.97, 1, 0.97)
+#define COL_CAT COL_CAT_SELECT //Color(0.02,0.03,0.05)
+
 	auto allCategories = ModuleMgr::getInstance()->getItems();
-	float yOff = (BRAND_SCALE * DRAWN_TEXT_HEIGHT)+5;
+	float yOff = (BRAND_SCALE * DRAWN_TEXT_HEIGHT)+6.5;
+	float yOffGeo = (BRAND_SCALE * TEXT_HEIGHT)+10;
 
 	//Draw background
 	float brandWidth = renderer->MeasureText("Lunity", BRAND_SCALE);
-	float bgHeight = yOff + (allCategories->size() * (CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) + (BRAND_SCALE * DRAWN_TEXT_HEIGHT); //You can figure out this math for yourself
-	renderer->Fill(9, 10, brandWidth, bgHeight+2, Color(1,1,1,.5));
+	float bgHeight = yOff + (allCategories->size() * (CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) + (BRAND_SCALE * DRAWN_TEXT_HEIGHT) + 1; //You can figure out this math for yourself
+	renderer->Fill(9, 10, brandWidth, bgHeight+2, COL_BACKGROUND);
 
 	//Draw branding
-	renderer->DrawString("Lunity", Vector2<float>(10, 5), Color(0,0,0), BRAND_SCALE);
+	renderer->DrawString("Lunity", Vector2<float>(10, 5), COL_BRAND, BRAND_SCALE);
 
 
 	int currentCategory = 0;
 	for(auto category : *allCategories) {
 		std::string catText = category->getName();
+		bool isSelected = TabUIVars::selectedCategory == currentCategory;
 		Vector2<float> catTextLoc = Vector2<float>(
-			(TabUIVars::selectedCategory == currentCategory ? floor(TabUIVars::selectedCatX) : 0) + 10, //Push to the right selectedCatX if the selected category is this one. 
-																										//selectedCatX is floored because text doesnt render properly on decimals for some reason.
+			(isSelected ? floor(TabUIVars::selectedCatX) : 0) + 10, //Push to the right selectedCatX if the selected category is this one. 
+																	//selectedCatX is floored because text doesnt render properly on decimals for some reason.
 			yOff + (currentCategory*(CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) //Multiply the category scale with text height, then multiply that by the current category and add the offset
 		);
 
-		renderer->DrawString(catText, catTextLoc, Color(0,0,0), CATEGORY_SCALE);
+		if(isSelected) {
+			renderer->Fill(9, yOffGeo+(currentCategory*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_SELECTION);
+		}
+		renderer->DrawString(catText, catTextLoc, isSelected ? COL_CAT_SELECT : COL_CAT, CATEGORY_SCALE);
 
 		currentCategory++;
 	}
@@ -74,11 +88,17 @@ void onRender(EventData* event) {
 	} else {
 		TabUIVars::selectedCatX = 10.0f;
 	}
+	if(TabUIVars::selectedCatBgX < brandWidth) {
+		TabUIVars::selectedCatBgX += delta * (ANIM_SPEED*4);
+	} else {
+		TabUIVars::selectedCatBgX = brandWidth;
+	}
 }
 
 
 
 void onKey(EventData* event) {
+	auto allCategories = ModuleMgr::getInstance()->getItems();
 	int key = event->as<KeyPressEvent>()->GetKey();
 	KeyAction action = event->as<KeyPressEvent>()->GetAction();
 
@@ -93,6 +113,13 @@ void onKey(EventData* event) {
 				TabUIVars::resetAnim();
 				break;
 		}
+	}
+
+	if(TabUIVars::selectedCategory < 0) {
+		TabUIVars::selectedCategory = allCategories->size()-1;
+	}
+	if(TabUIVars::selectedCategory >= allCategories->size()) {
+		TabUIVars::selectedCategory = 0;
 	}
 }
 
