@@ -43,11 +43,11 @@ void onRender(EventData* event) {
 #define CATEGORY_SCALE 1
 #define ANIM_SPEED 70
 	auto allCategories = ModuleMgr::getInstance()->getItems();
-	float yOff = (BRAND_SCALE * TEXT_HEIGHT)+5;
+	float yOff = (BRAND_SCALE * DRAWN_TEXT_HEIGHT)+5;
 
 	//Draw background
 	float brandWidth = renderer->MeasureText("Lunity", BRAND_SCALE);
-	float bgHeight = yOff + (allCategories->size() * (CATEGORY_SCALE * TEXT_HEIGHT)) + (BRAND_SCALE * TEXT_HEIGHT); //You can figure out this math for yourself
+	float bgHeight = yOff + (allCategories->size() * (CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) + (BRAND_SCALE * DRAWN_TEXT_HEIGHT); //You can figure out this math for yourself
 	renderer->Fill(9, 10, brandWidth, bgHeight+2, Color(1,1,1,.5));
 
 	//Draw branding
@@ -60,7 +60,7 @@ void onRender(EventData* event) {
 		Vector2<float> catTextLoc = Vector2<float>(
 			(TabUIVars::selectedCategory == currentCategory ? floor(TabUIVars::selectedCatX) : 0) + 10, //Push to the right selectedCatX if the selected category is this one. 
 																										//selectedCatX is floored because text doesnt render properly on decimals for some reason.
-			yOff + (currentCategory*(CATEGORY_SCALE * TEXT_HEIGHT)) //Multiply the category scale with text height, then multiply that by the current category and add the offset
+			yOff + (currentCategory*(CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) //Multiply the category scale with text height, then multiply that by the current category and add the offset
 		);
 
 		renderer->DrawString(catText, catTextLoc, Color(0,0,0), CATEGORY_SCALE);
