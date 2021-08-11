@@ -4,14 +4,23 @@
 #include "../ModuleMgr.h"
 #include <Windows.h>
 
-//#define ANIM_TIMING_DISPLAY
-#ifdef ANIM_TIMING_DISPLAY
-float currentX = 0.0f;
-#endif
+/* Tab GUI */
+#define BRAND_SCALE 2
+#define CATEGORY_SCALE 1
+#define ANIM_SPEED 70
+
+#define COL_SELECTION Color(.53, 0.16, 0.94, .3)
+#define COL_BACKGROUND Color(1, 0.53, 0.78, .3)
+#define COL_BRAND Color()
+#define COL_CAT_SELECT Color(0.97, 1, 0.97)
+#define COL_CAT COL_CAT_SELECT //Color(0.02,0.03,0.05)
+#define COL_CHOSEN Color(0, 0, 1)
 
 //I made a namespace here because I don't want to deal with conflicting names in the future
 namespace TabUIVars {
-	int selectedCategory = 0;
+	int highlightedIndex = 0;
+	Category* highlightedCategory = nullptr;
+	Category* chosenCategory = nullptr;
 	float selectedCatX = 0; //X offset for the selected cat. This is for the animation.
 	float selectedCatBgX = 0;
 	float tabUiPosX = 9;
@@ -23,53 +32,73 @@ namespace TabUIVars {
 	}
 }
 
+void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vector2<float> location, float textYOff) {
+	std::vector<ManagedItem*>* items = toRender->getItems();
+	for(int i = 0; i < items->size(); i++) {
+		ManagedItem* item = items->at(i);
+		std::string catText = item->getName();
+		bool isSelected = TabUIVars::highlightedCategory == item;
+		bool isChosen = TabUIVars::chosenCategory == item;
+		Vector2<float> catTextLoc = Vector2<float>(
+			(isSelected ? floor(TabUIVars::selectedCatX) : 0) + (floor(location.x)+1), //Push to the right selectedCatX if the selected category is this one. 
+																	//selectedCatX is floored because text doesnt render properly on decimals for some reason.
+			textYOff + (i * (CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) //Multiply the category scale with text height, then multiply that by the current category and add the offset
+		);
+		
+		if(isSelected) {
+			renderer->Fill(location.x, location.y + (i * (CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_SELECTION);
+		}
+		if(isChosen) {
+			renderer->Fill(location.x, location.y+(i*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_CHOSEN);
+		}
+		renderer->DrawString(catText, catTextLoc, isSelected ? COL_CAT_SELECT : COL_CAT, CATEGORY_SCALE);
+	}
+}
+
 void onRender(EventData* event) {
 	MinecraftRenderer* renderer = event->as<UIRenderEvent>()->GetRenderWrapper();
 	float delta = renderer->GetDeltaTime();
 
-/* Animation timing testing (Ignore! this part is not compiled without the macro definition!) */
-#ifdef ANIM_TIMING_DISPLAY
-	if(delta > .0001) {
-		renderer->DrawString(std::string("DeltaTime: ")+std::to_string(delta), Vector2<float>(10, 10));
-		renderer->DrawString(std::string("FPS: ") + std::to_string(1000/(delta*1000)), Vector2<float>(10, 20));
-	}
-	
-	renderer->Fill(currentX, 0, 10, 10, Color());
-
-	currentX += delta*50;
-	if(currentX > 1000) {
-		currentX = 0;
-	}
-#endif
-
-/* Tab GUI */
-#define BRAND_SCALE 2
-#define CATEGORY_SCALE 1
-#define ANIM_SPEED 70
-
-#define COL_SELECTION Color(.53, 0.16, 0.94, .3)
-#define COL_BACKGROUND Color(1, 0.53, 0.78, .3)
-#define COL_BRAND Color()
-#define COL_CAT_SELECT Color(0.97, 1, 0.97)
-#define COL_CAT COL_CAT_SELECT //Color(0.02,0.03,0.05)
-
 	auto allCategories = ModuleMgr::getInstance()->getItems();
+	if(TabUIVars::highlightedCategory == nullptr) {
+		TabUIVars::highlightedCategory = allCategories->at(0);
+	}
 	float yOff = (BRAND_SCALE * DRAWN_TEXT_HEIGHT)+6.5;
 	float yOffGeo = (BRAND_SCALE * TEXT_HEIGHT)+10;
 
 	//Draw background
 	float brandWidth = renderer->MeasureText("Lunity", BRAND_SCALE);
 	float bgHeight = yOff + (allCategories->size() * (CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) + (BRAND_SCALE * DRAWN_TEXT_HEIGHT) + 1; //You can figure out this math for yourself
+	
 	renderer->Fill(TabUIVars::tabUiPosX, 10, brandWidth, bgHeight+2, COL_BACKGROUND);
 
 	//Draw branding
 	renderer->DrawString("Lunity", Vector2<float>(floor(TabUIVars::tabUiPosX)+1, 5), COL_BRAND, BRAND_SCALE);
 
+	renderMgr(renderer, (Manager<ManagedItem>*)ModuleMgr::getInstance(), Vector2<float>(TabUIVars::tabUiPosX, yOffGeo), yOff);
 
+	if(TabUIVars::chosenCategory != nullptr) {
+		float categoryWidth = 0.0f;
+		float categoryHeight = 0.0f;
+		for(auto category : *TabUIVars::chosenCategory->getItems()) {
+			std::string catName = category->getName();
+			float catWidth = renderer->MeasureText(catName, CATEGORY_SCALE);
+			if(catWidth > categoryWidth) {
+				categoryWidth = catWidth;
+			}
+			categoryHeight += CATEGORY_SCALE * TEXT_HEIGHT;
+		}
+		renderer->Fill(TabUIVars::tabUiPosX+brandWidth, yOffGeo, categoryWidth+2, categoryHeight, COL_BACKGROUND);
+		renderMgr(renderer, (Manager<ManagedItem>*)TabUIVars::chosenCategory, Vector2<float>(TabUIVars::tabUiPosX+brandWidth, yOffGeo), yOff);
+	}
+
+
+	/*
 	int currentCategory = 0;
 	for(auto category : *allCategories) {
 		std::string catText = category->getName();
 		bool isSelected = TabUIVars::selectedCategory == currentCategory;
+		bool isChosen = TabUIVars::chosenCategory == category;
 		Vector2<float> catTextLoc = Vector2<float>(
 			(isSelected ? floor(TabUIVars::selectedCatX) : 0) + (floor(TabUIVars::tabUiPosX)+1), //Push to the right selectedCatX if the selected category is this one. 
 																	//selectedCatX is floored because text doesnt render properly on decimals for some reason.
@@ -79,10 +108,15 @@ void onRender(EventData* event) {
 		if(isSelected) {
 			renderer->Fill(TabUIVars::tabUiPosX, yOffGeo+(currentCategory*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_SELECTION);
 		}
+		if(isChosen) {
+			renderer->Fill(TabUIVars::tabUiPosX, yOffGeo+(currentCategory*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_CHOSEN);
+		}
 		renderer->DrawString(catText, catTextLoc, isSelected ? COL_CAT_SELECT : COL_CAT, CATEGORY_SCALE);
 
 		currentCategory++;
 	}
+	*/
+
 
 	//If the selected cat x offset is less than 10, add to it based on time.
 	if(TabUIVars::selectedCatX < 10.0f) {
@@ -91,19 +125,19 @@ void onRender(EventData* event) {
 		TabUIVars::selectedCatX = 10.0f;
 	}
 	if(TabUIVars::selectedCatBgX < brandWidth) {
-		TabUIVars::selectedCatBgX += delta * (ANIM_SPEED*4);
+		TabUIVars::selectedCatBgX += delta * (ANIM_SPEED*6);
 	} else {
 		TabUIVars::selectedCatBgX = brandWidth;
 	}
 	if(TabUIVars::tabUIShow) {
 		if(TabUIVars::tabUiPosX < 10) {
-			TabUIVars::tabUiPosX += delta * (ANIM_SPEED*4);
+			TabUIVars::tabUiPosX += delta * (ANIM_SPEED*8);
 		} else {
 			TabUIVars::tabUiPosX = 10;
 		}
 	} else {
 		if(TabUIVars::tabUiPosX > -100) {
-			TabUIVars::tabUiPosX -= delta * (ANIM_SPEED*4);
+			TabUIVars::tabUiPosX -= delta * (ANIM_SPEED*8);
 		} else {
 			TabUIVars::tabUiPosX = -100;
 		}
@@ -119,27 +153,33 @@ void onKey(EventData* event) {
 
 	if(action == KeyAction::PRESSED) {
 		switch(key) {
+			case VK_RIGHT:
+				TabUIVars::chosenCategory = allCategories->at(TabUIVars::highlightedIndex);
+				break;
+			case VK_LEFT:
+				TabUIVars::chosenCategory = nullptr;
+				break;
 			case VK_DOWN:
-				TabUIVars::selectedCategory++;
+				TabUIVars::highlightedIndex++;
 				TabUIVars::resetAnim();
 				break;
 			case VK_UP:
-				TabUIVars::selectedCategory--;
+				TabUIVars::highlightedIndex--;
 				TabUIVars::resetAnim();
 				break;
 			case VK_TAB:
 				TabUIVars::tabUIShow =! TabUIVars::tabUIShow;
-				TabUIVars::resetAnim();
 				break;
 		}
 	}
 
-	if(TabUIVars::selectedCategory < 0) {
-		TabUIVars::selectedCategory = allCategories->size()-1;
+	if(TabUIVars::highlightedIndex < 0) {
+		TabUIVars::highlightedIndex = allCategories->size()-1;
 	}
-	if(TabUIVars::selectedCategory >= allCategories->size()) {
-		TabUIVars::selectedCategory = 0;
+	if(TabUIVars::highlightedIndex >= allCategories->size()) {
+		TabUIVars::highlightedIndex = 0;
 	}
+	TabUIVars::highlightedCategory = allCategories->at(TabUIVars::highlightedIndex);
 }
 
 TabUI::TabUI() : Module("TabUI") {
