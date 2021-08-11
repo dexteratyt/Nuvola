@@ -1,7 +1,7 @@
 #include "TabUI.h"
-#include "../../Events/Renderer/UIRenderEvent.h"
-#include "../../Events/Global/KeyPressEvent.h"
-#include "../ModuleMgr.h"
+#include "../../../Events/Renderer/UIRenderEvent.h"
+#include "../../../Events/Global/KeyPressEvent.h"
+#include "../../ModuleMgr.h"
 #include <Windows.h>
 
 /* Tab GUI */
@@ -21,6 +21,7 @@ namespace TabUIVars {
 	int highlightedIndex = 0;
 	Category* highlightedCategory = nullptr;
 	Category* chosenCategory = nullptr;
+	Module* highlightedModule = nullptr;
 	float selectedCatX = 0; //X offset for the selected cat. This is for the animation.
 	float selectedCatBgX = 0;
 	float tabUiPosX = 9;
@@ -36,9 +37,10 @@ void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vect
 	std::vector<ManagedItem*>* items = toRender->getItems();
 	for(int i = 0; i < items->size(); i++) {
 		ManagedItem* item = items->at(i);
+		Module* mod = dynamic_cast<Module*>(item);
 		std::string catText = item->getName();
-		bool isSelected = TabUIVars::highlightedCategory == item;
-		bool isChosen = TabUIVars::chosenCategory == item;
+		bool isSelected = TabUIVars::highlightedCategory == item || TabUIVars::highlightedModule == item;
+		bool isChosen = TabUIVars::chosenCategory == item || (mod != nullptr ? mod->isEnabled() : false);
 		Vector2<float> catTextLoc = Vector2<float>(
 			(isSelected ? floor(TabUIVars::selectedCatX) : 0) + (floor(location.x)+1), //Push to the right selectedCatX if the selected category is this one. 
 																	//selectedCatX is floored because text doesnt render properly on decimals for some reason.
@@ -78,7 +80,7 @@ void onRender(EventData* event) {
 	renderMgr(renderer, (Manager<ManagedItem>*)ModuleMgr::getInstance(), Vector2<float>(TabUIVars::tabUiPosX, yOffGeo), yOff);
 
 	if(TabUIVars::chosenCategory != nullptr) {
-		float categoryWidth = 0.0f;
+		float categoryWidth = brandWidth;
 		float categoryHeight = 0.0f;
 		for(auto category : *TabUIVars::chosenCategory->getItems()) {
 			std::string catName = category->getName();
@@ -129,7 +131,7 @@ void onRender(EventData* event) {
 	} else {
 		TabUIVars::selectedCatBgX = brandWidth;
 	}
-	if(TabUIVars::tabUIShow) {
+	if(ModuleMgr::getInstance()->findModule("TabUI")->isEnabled()) {
 		if(TabUIVars::tabUiPosX < 10) {
 			TabUIVars::tabUiPosX += delta * (ANIM_SPEED*8);
 		} else {
@@ -160,15 +162,19 @@ void onKey(EventData* event) {
 				TabUIVars::chosenCategory = nullptr;
 				break;
 			case VK_DOWN:
-				TabUIVars::highlightedIndex++;
-				TabUIVars::resetAnim();
+				if(TabUIVars::chosenCategory == nullptr) {
+					TabUIVars::highlightedIndex++;
+					TabUIVars::resetAnim();
+				}
 				break;
 			case VK_UP:
-				TabUIVars::highlightedIndex--;
-				TabUIVars::resetAnim();
+				if(TabUIVars::chosenCategory == nullptr) {
+					TabUIVars::highlightedIndex--;
+					TabUIVars::resetAnim();
+				}
 				break;
 			case VK_TAB:
-				TabUIVars::tabUIShow =! TabUIVars::tabUIShow;
+				ModuleMgr::getInstance()->findModule("TabUI")->toggle();
 				break;
 		}
 	}

@@ -1,6 +1,6 @@
 #include "ModuleMgr.h"
 
-#include "Modules/TabUI.h"
+#include "Modules/Render/TabUI.h"
 
 ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Set instance
@@ -14,7 +14,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 
     //Combat
     //Render
-	misc->addItem(new TabUI());
+	render->addItem(new TabUI());
     //Motion
     //Player
     //Misc
@@ -60,4 +60,14 @@ std::vector<Module*>* ModuleMgr::getAllModules() {
     }
     //Return allModules
     return allModules;
+}
+
+Module* ModuleMgr::findModule(std::string name) {
+	std::vector<Module*>* allModules = this->getAllModules();
+	for(auto mod : *allModules) {
+		if(mod->getName() == name) {
+			return mod;
+		}
+	}
+	return nullptr;
 }

@@ -1,3 +1,7 @@
 target_sources(Lunity PRIVATE
-	"TabUI.cpp"
 )
+add_subdirectory(Combat)
+add_subdirectory(Misc)
+add_subdirectory(Motion)
+add_subdirectory(Player)
+add_subdirectory(Render)

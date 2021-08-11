@@ -8,11 +8,15 @@
 #include "../Events/EventHandler.h"
 
 class Module : public Manager<Setting> {
+	bool enabled;
 public:
     explicit Module(std::string name);
 
     virtual void onEnable();
     virtual void onDisable();
+	bool isEnabled();
+	void setEnabled(bool enabled);
+	void toggle();
 };
 
 

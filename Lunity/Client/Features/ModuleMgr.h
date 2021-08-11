@@ -11,6 +11,7 @@ public:
     ModuleMgr();
     static ModuleMgr * getInstance();
     std::vector<Module*>* getAllModules();
+	Module* findModule(std::string name);
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_MODULEMGR */
