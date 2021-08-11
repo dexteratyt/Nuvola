@@ -14,6 +14,8 @@ namespace TabUIVars {
 	int selectedCategory = 0;
 	float selectedCatX = 0; //X offset for the selected cat. This is for the animation.
 	float selectedCatBgX = 0;
+	float tabUiPosX = 9;
+	bool tabUIShow = true;
 
 	void resetAnim() {
 		TabUIVars::selectedCatX = 0.0f;
@@ -58,10 +60,10 @@ void onRender(EventData* event) {
 	//Draw background
 	float brandWidth = renderer->MeasureText("Lunity", BRAND_SCALE);
 	float bgHeight = yOff + (allCategories->size() * (CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) + (BRAND_SCALE * DRAWN_TEXT_HEIGHT) + 1; //You can figure out this math for yourself
-	renderer->Fill(9, 10, brandWidth, bgHeight+2, COL_BACKGROUND);
+	renderer->Fill(TabUIVars::tabUiPosX, 10, brandWidth, bgHeight+2, COL_BACKGROUND);
 
 	//Draw branding
-	renderer->DrawString("Lunity", Vector2<float>(10, 5), COL_BRAND, BRAND_SCALE);
+	renderer->DrawString("Lunity", Vector2<float>(floor(TabUIVars::tabUiPosX)+1, 5), COL_BRAND, BRAND_SCALE);
 
 
 	int currentCategory = 0;
@@ -69,13 +71,13 @@ void onRender(EventData* event) {
 		std::string catText = category->getName();
 		bool isSelected = TabUIVars::selectedCategory == currentCategory;
 		Vector2<float> catTextLoc = Vector2<float>(
-			(isSelected ? floor(TabUIVars::selectedCatX) : 0) + 10, //Push to the right selectedCatX if the selected category is this one. 
+			(isSelected ? floor(TabUIVars::selectedCatX) : 0) + (floor(TabUIVars::tabUiPosX)+1), //Push to the right selectedCatX if the selected category is this one. 
 																	//selectedCatX is floored because text doesnt render properly on decimals for some reason.
 			yOff + (currentCategory*(CATEGORY_SCALE * DRAWN_TEXT_HEIGHT)) //Multiply the category scale with text height, then multiply that by the current category and add the offset
 		);
 
 		if(isSelected) {
-			renderer->Fill(9, yOffGeo+(currentCategory*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_SELECTION);
+			renderer->Fill(TabUIVars::tabUiPosX, yOffGeo+(currentCategory*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_SELECTION);
 		}
 		renderer->DrawString(catText, catTextLoc, isSelected ? COL_CAT_SELECT : COL_CAT, CATEGORY_SCALE);
 
@@ -92,6 +94,19 @@ void onRender(EventData* event) {
 		TabUIVars::selectedCatBgX += delta * (ANIM_SPEED*4);
 	} else {
 		TabUIVars::selectedCatBgX = brandWidth;
+	}
+	if(TabUIVars::tabUIShow) {
+		if(TabUIVars::tabUiPosX < 10) {
+			TabUIVars::tabUiPosX += delta * (ANIM_SPEED*4);
+		} else {
+			TabUIVars::tabUiPosX = 10;
+		}
+	} else {
+		if(TabUIVars::tabUiPosX > -100) {
+			TabUIVars::tabUiPosX -= delta * (ANIM_SPEED*4);
+		} else {
+			TabUIVars::tabUiPosX = -100;
+		}
 	}
 }
 
@@ -110,6 +125,10 @@ void onKey(EventData* event) {
 				break;
 			case VK_UP:
 				TabUIVars::selectedCategory--;
+				TabUIVars::resetAnim();
+				break;
+			case VK_TAB:
+				TabUIVars::tabUIShow =! TabUIVars::tabUIShow;
 				TabUIVars::resetAnim();
 				break;
 		}
