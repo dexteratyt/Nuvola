@@ -14,7 +14,7 @@
 #define COL_BRAND Color()
 #define COL_CAT_SELECT Color(0.97, 1, 0.97)
 #define COL_CAT COL_CAT_SELECT //Color(0.02,0.03,0.05)
-#define COL_CHOSEN Color(0, 0, 1)
+#define COL_CHOSEN Color(0.18, 0.18, 0.18)
 
 //I made a namespace here because I don't want to deal with conflicting names in the future
 namespace TabUIVars {
@@ -33,7 +33,7 @@ namespace TabUIVars {
 	}
 }
 
-void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vector2<float> location, float textYOff) {
+void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vector2<float> location, float textYOff, float bgInteractWidth) {
 	std::vector<ManagedItem*>* items = toRender->getItems();
 	for(int i = 0; i < items->size(); i++) {
 		ManagedItem* item = items->at(i);
@@ -48,10 +48,10 @@ void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vect
 		);
 		
 		if(isSelected) {
-			renderer->Fill(location.x, location.y + (i * (CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_SELECTION);
+			renderer->Fill(location.x, location.y + (i * (CATEGORY_SCALE * TEXT_HEIGHT)), bgInteractWidth, TEXT_HEIGHT, COL_SELECTION);
 		}
 		if(isChosen) {
-			renderer->Fill(location.x, location.y+(i*(CATEGORY_SCALE * TEXT_HEIGHT)), TabUIVars::selectedCatBgX, TEXT_HEIGHT, COL_CHOSEN);
+			renderer->Fill(location.x, location.y+(i*(CATEGORY_SCALE * TEXT_HEIGHT)), bgInteractWidth, TEXT_HEIGHT, COL_CHOSEN);
 		}
 		renderer->DrawString(catText, catTextLoc, isSelected ? COL_CAT_SELECT : COL_CAT, CATEGORY_SCALE);
 	}
@@ -77,7 +77,7 @@ void onRender(EventData* event) {
 	//Draw branding
 	renderer->DrawString("Lunity", Vector2<float>(floor(TabUIVars::tabUiPosX)+1, 5), COL_BRAND, BRAND_SCALE);
 
-	renderMgr(renderer, (Manager<ManagedItem>*)ModuleMgr::getInstance(), Vector2<float>(TabUIVars::tabUiPosX, yOffGeo), yOff);
+	renderMgr(renderer, (Manager<ManagedItem>*)ModuleMgr::getInstance(), Vector2<float>(TabUIVars::tabUiPosX, yOffGeo), yOff, TabUIVars::selectedCatBgX);
 
 	if(TabUIVars::chosenCategory != nullptr) {
 		float categoryWidth = brandWidth;
@@ -90,8 +90,8 @@ void onRender(EventData* event) {
 			}
 			categoryHeight += CATEGORY_SCALE * TEXT_HEIGHT;
 		}
-		renderer->Fill(TabUIVars::tabUiPosX+brandWidth, yOffGeo, categoryWidth+2, categoryHeight, COL_BACKGROUND);
-		renderMgr(renderer, (Manager<ManagedItem>*)TabUIVars::chosenCategory, Vector2<float>(TabUIVars::tabUiPosX+brandWidth, yOffGeo), yOff);
+		renderer->Fill(TabUIVars::tabUiPosX+brandWidth, yOffGeo, categoryWidth, categoryHeight, COL_BACKGROUND);
+		renderMgr(renderer, (Manager<ManagedItem>*)TabUIVars::chosenCategory, Vector2<float>(TabUIVars::tabUiPosX+brandWidth, yOffGeo), yOff, categoryWidth);
 	}
 
 
@@ -156,20 +156,26 @@ void onKey(EventData* event) {
 	if(action == KeyAction::PRESSED) {
 		switch(key) {
 			case VK_RIGHT:
-				TabUIVars::chosenCategory = allCategories->at(TabUIVars::highlightedIndex);
+				if(TabUIVars::chosenCategory == nullptr) {
+					TabUIVars::chosenCategory = allCategories->at(TabUIVars::highlightedIndex);
+					TabUIVars::highlightedIndex = 0;
+				}
+				else if(TabUIVars::highlightedModule != nullptr) {
+					TabUIVars::highlightedModule = TabUIVars::chosenCategory->getItems()->at(TabUIVars::highlightedIndex);
+				}
 				break;
 			case VK_LEFT:
 				TabUIVars::chosenCategory = nullptr;
 				break;
 			case VK_DOWN:
+				TabUIVars::highlightedIndex++;
 				if(TabUIVars::chosenCategory == nullptr) {
-					TabUIVars::highlightedIndex++;
 					TabUIVars::resetAnim();
 				}
 				break;
 			case VK_UP:
+				TabUIVars::highlightedIndex--;
 				if(TabUIVars::chosenCategory == nullptr) {
-					TabUIVars::highlightedIndex--;
 					TabUIVars::resetAnim();
 				}
 				break;
