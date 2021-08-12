@@ -127,6 +127,11 @@ namespace TabUI_Locals {
 		Vector2<float> categoriesLoc = Vector2<float>(getTabLocX(), (BASE_PADDING * BRAND_SCALE) + (CATEGORY_SCALE * TEXT_HEIGHT));
 		maxBgAnimWidthX = width * BRAND_SCALE;
 		renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)ModuleMgr::getInstance(), categoriesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
+		if(selectedCat != nullptr) {
+			Vector2<float> modulesLoc = categoriesLoc;
+			modulesLoc.x += maxBgAnimWidthX;
+			renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)selectedCat, modulesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
+		}
 
 		updateAnimVars(e->GetRenderWrapper());
 	}
