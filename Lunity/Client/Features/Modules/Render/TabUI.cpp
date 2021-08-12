@@ -98,7 +98,8 @@ namespace TabUI_Locals {
 		if(toRender == highlightedCat) {
 			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_SELECTION);
 		}
-		if(toRender == selectedCat) {
+		Module* mod = dynamic_cast<Module*>(toRender);
+		if(toRender == selectedCat || (mod != nullptr ? mod->isEnabled() : false)) {
 			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_CHOSEN);
 		}
 		renderer->DrawString(toRender->getName(), location);
