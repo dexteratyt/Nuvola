@@ -58,10 +58,12 @@ namespace TabUI_Locals {
 			currentSelection = max-1;
 		}
 
-		if(selectedCat) {
-			highlightedMod = manager->getItem(currentSelection);
-		} else {
-			highlightedCat = manager->getItem(currentSelection);
+		if(max > 0) {
+			if(selectedCat) {
+				highlightedMod = manager->getItem(currentSelection);
+			} else {
+				highlightedCat = manager->getItem(currentSelection);
+			}
 		}
 	}
 
@@ -95,6 +97,9 @@ namespace TabUI_Locals {
 		renderer->Fill(RectangleArea(location, size), COL_BACKGROUND);
 		if(toRender == highlightedCat) {
 			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_SELECTION);
+		}
+		if(toRender == selectedCat) {
+			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_CHOSEN);
 		}
 		renderer->DrawString(toRender->getName(), location);
 	}
@@ -132,18 +137,25 @@ namespace TabUI_Locals {
 		if(e->GetAction() == KeyAction::PRESSED) {
 			if(thisMod) {
 				switch(e->GetKey()) {
+					case VK_LEFT:
+						selectedCat = nullptr;
+						break;
 					case VK_UP:
 						currentSelection--;
+						resetAnim();
+						break;
+					case VK_RIGHT:
+						selectedCat = highlightedCat;
 						break;
 					case VK_DOWN:
 						currentSelection++;
+						resetAnim();
 						break;
 					case VK_TAB:
 						thisMod->toggle();
 						break;
 				}
 			}
-			resetAnim();
 		}
 		sanitizeSelection();
 	}
