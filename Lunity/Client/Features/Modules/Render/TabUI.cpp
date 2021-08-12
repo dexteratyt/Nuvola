@@ -7,10 +7,10 @@
 /* Tab GUI constants*/
 #define BRAND std::string("Lunity")
 
-#define BASE_PADDING 10, 10
+#define BASE_PADDING 10
 #define BRAND_SCALE 2
 #define CATEGORY_SCALE 1
-#define ANIM_SPEED 70
+#define ANIM_SPEED 100
 
 #define COL_SELECTION Color(.53, 0.16, 0.94, .3)
 #define COL_BACKGROUND Color(1, 0.53, 0.78, .3)
@@ -21,11 +21,81 @@
 
 //I made a namespace here because I don't want to deal with conflicting names in the future
 namespace TabUI_Locals {
+
+	float bgAnimWidthX = 0;
+	float maxBgAnimWidthX = 0;
+
+	float tabLocX = 0;
+	auto getTabLocX() -> float {
+		return floor(tabLocX);
+	}
+
+	int currentSelection = 0;
+
+	ManagedItem* highlightedCat = nullptr;
+	ManagedItem* selectedCat = nullptr;
+	ManagedItem* highlightedMod = nullptr;
+
+	Module* thisMod;
+
 	void resetAnim() {
+		bgAnimWidthX = 0;
+	}
+	void sanitizeSelection() {
+		Manager<ManagedItem>* manager;
+		int max;
+		if(selectedCat) {
+			manager = ((Manager<ManagedItem>*)selectedCat);
+		} else {
+			manager = (Manager<ManagedItem>*)ModuleMgr::getInstance();
+		}
+		max = manager->getItems()->size();
+
+		if(currentSelection >= max) {
+			currentSelection = 0;
+		}
+		if(currentSelection < 0) {
+			currentSelection = max-1;
+		}
+
+		if(selectedCat) {
+			highlightedMod = manager->getItem(currentSelection);
+		} else {
+			highlightedCat = manager->getItem(currentSelection);
+		}
+	}
+
+	void updateAnimVars(MinecraftRenderer* renderer) {
+		if(!thisMod) {
+			thisMod = ModuleMgr::getInstance()->findModule("TabUI");
+		}
+
+		if(thisMod->isEnabled()) {
+			if(tabLocX < BASE_PADDING) {
+				tabLocX += renderer->GetDeltaTime() * (ANIM_SPEED*5);
+			} else {
+				tabLocX = BASE_PADDING;
+			}
+		} else {
+			if(tabLocX > -200) {
+				tabLocX -= renderer->GetDeltaTime() * (ANIM_SPEED*5);
+			} else {
+				tabLocX = -200;
+			}
+		}
+
+		if(bgAnimWidthX < maxBgAnimWidthX) {
+			bgAnimWidthX += renderer->GetDeltaTime() * (ANIM_SPEED*5);
+		} else {
+			bgAnimWidthX = maxBgAnimWidthX;
+		}
 	}
 
 	void renderItem(MinecraftRenderer* renderer, ManagedItem* toRender, Vector2<float> location, Vector2<float> size) {
 		renderer->Fill(RectangleArea(location, size), COL_BACKGROUND);
+		if(toRender == highlightedCat) {
+			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_SELECTION);
+		}
 		renderer->DrawString(toRender->getName(), location);
 	}
 
@@ -46,15 +116,36 @@ namespace TabUI_Locals {
 	void onRender(EventData* event) {
 		UIRenderEvent* e = event->as<UIRenderEvent>();
 		e->GetRenderWrapper()->SetScale(BRAND_SCALE);
-		float width = renderBranding(e->GetRenderWrapper(), Vector2<float>(BASE_PADDING));
+		float width = renderBranding(e->GetRenderWrapper(), Vector2<float>(getTabLocX(), BASE_PADDING));
 
 		e->GetRenderWrapper()->SetScale(CATEGORY_SCALE);
-		Vector2<float> categoriesLoc = Vector2<float>(BASE_PADDING * BRAND_SCALE + (CATEGORY_SCALE * TEXT_HEIGHT));
-		renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)ModuleMgr::getInstance(), categoriesLoc, Vector2<float>(width * BRAND_SCALE, TEXT_HEIGHT) * CATEGORY_SCALE);
+		Vector2<float> categoriesLoc = Vector2<float>(getTabLocX(), (BASE_PADDING * BRAND_SCALE) + (CATEGORY_SCALE * TEXT_HEIGHT));
+		maxBgAnimWidthX = width * BRAND_SCALE;
+		renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)ModuleMgr::getInstance(), categoriesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
+
+		updateAnimVars(e->GetRenderWrapper());
 	}
 
 	void onKey(EventData* event) {
 		KeyPressEvent* e = event->as<KeyPressEvent>();
+
+		if(e->GetAction() == KeyAction::PRESSED) {
+			if(thisMod) {
+				switch(e->GetKey()) {
+					case VK_UP:
+						currentSelection--;
+						break;
+					case VK_DOWN:
+						currentSelection++;
+						break;
+					case VK_TAB:
+						thisMod->toggle();
+						break;
+				}
+			}
+			resetAnim();
+		}
+		sanitizeSelection();
 	}
 }
 TabUI::TabUI() : Module("TabUI") {
