@@ -7,25 +7,26 @@
 #include <string>
 #include "../IAnimWrapper.h"
 
-#define TEXT_HEIGHT 9 //Text to geometry math
-#define DRAWN_TEXT_HEIGHT 6 //Text to text math
-//I dont know why, but text is like twice as big or smth always
-//I really don't understand
+#define TEXT_HEIGHT 10
 
 //A MinecraftUIRenderContext wrapper
 class MinecraftRenderer {
 	MinecraftUIRenderContext* renderContext;
 	auto getFont() -> class BitmapFont*;
+	float scale;
 public:
 	MinecraftRenderer(MinecraftUIRenderContext* renderContext);
 
 	/* Animation helpers */
 	auto GetDeltaTime() -> float;
 
+	/* Sizing wrappers */
+	void SetScale(float scale);
+	auto GetScale() -> float;
+
 	/* Text drawing wrappers */
 	void DrawString(std::string text, Vector2<float> position);
 	void DrawString(std::string text, Vector2<float> position, Color color);
-	void DrawString(std::string text, Vector2<float> position, Color color, float scale);
 
 	/* Text measure wrappers */
 	auto MeasureText(std::string text) -> float;

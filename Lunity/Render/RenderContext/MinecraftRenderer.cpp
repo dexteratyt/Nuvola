@@ -8,6 +8,7 @@ auto MinecraftRenderer::getFont() -> class BitmapFont* {
 /* Wrapper API below */
 MinecraftRenderer::MinecraftRenderer(MinecraftUIRenderContext* renderContext) {
 	this->renderContext = renderContext;
+	this->scale = 1.0f;
 }
 
 /* Animation wrappers */
@@ -15,17 +16,24 @@ auto MinecraftRenderer::GetDeltaTime() -> float {
 	return IAnimWrapper::GetDeltaTime();
 }
 
+/* Sizing wrappers */
+void MinecraftRenderer::SetScale(float scale) {
+	this->scale = scale;
+}
+auto MinecraftRenderer::GetScale() -> float {
+	return this->scale;
+}
+
 /* Draw Text wrappers */
 void MinecraftRenderer::DrawString(std::string text, Vector2<float> position) {
 	MinecraftRenderer::DrawString(text, position, Color());
 }
 void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Color color) {
-	MinecraftRenderer::DrawString(text, position, color, 1.0f);
-}
-void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Color color, float scale) {
 	class BitmapFont* font = MinecraftRenderer::getFont();
+	position.x = position.x * this->GetScale();
+	position.y = position.y * this->GetScale()/2;
 	RectangleArea rect = RectangleArea(position);
-	TextMeasureData measureData = TextMeasureData(scale);
+	TextMeasureData measureData = TextMeasureData(this->GetScale());
 	CaretMeasureData caretData = CaretMeasureData();
 	this->renderContext->drawText(font, &rect, &text, &color, 1.0f, nullptr, &measureData, &caretData);
 	this->renderContext->flushText(0);
@@ -54,5 +62,6 @@ void MinecraftRenderer::Fill(Vector2<float> position, Vector2<float> size, Color
 	MinecraftRenderer::Fill(RectangleArea(position, size), color);
 }
 void MinecraftRenderer::Fill(RectangleArea rectangle, Color color) {
+	rectangle *= this->GetScale();
 	this->renderContext->fillRectangle((float*)&rectangle, (float*)&color, color.w);
 }
