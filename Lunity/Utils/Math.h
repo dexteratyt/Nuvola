@@ -117,7 +117,9 @@ struct Color : public Vector4<float> {
 
 	/* Constructor overloads */
 	Color() : Color(1.0f, 1.0f, 1.0f) {}
+	Color(int r, int g, int b) : Color(r, g, b, 0xFF) {}
 	Color(float r, float g, float b) : Color(r, g, b, 1.0f) {}
+	Color(int r, int g, int b, int a) : Color((1.0f/255.0f)*r, (1.0f/255.0f)*g, (1.0f/255.0f)*b, (1.0f/255.0f)*a) {}
 	Color(float r, float g, float b, float a) : Color(r, g, b, a, false) {}
 
 	//Constructor

@@ -12,12 +12,12 @@
 #define CATEGORY_SCALE 1
 #define ANIM_SPEED 100
 
-#define COL_SELECTION Color(.53, 0.16, 0.94, .3)
-#define COL_BACKGROUND Color(1, 0.53, 0.78, .3)
+#define COL_SELECTION COL_BACKGROUND //Color(.53, 0.16, 0.94, .3)
+#define COL_BACKGROUND Color(1.0f, 0.53f, 0.78f, .3f)
 #define COL_BRAND Color()
-#define COL_CAT_SELECT Color(0.97, 1, 0.97)
+#define COL_CAT_SELECT Color(0.97f, 1.0f, 0.97f)
 #define COL_CAT COL_CAT_SELECT //Color(0.02,0.03,0.05)
-#define COL_CHOSEN Color(0.18, 0.18, 0.18)
+#define COL_CHOSEN Color(89, 44, 68)
 
 //I made a namespace here because I don't want to deal with conflicting names in the future
 namespace TabUI_Locals {
