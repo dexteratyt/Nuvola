@@ -1,5 +1,6 @@
 #include "ModuleMgr.h"
 
+#include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
 
 ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
@@ -14,6 +15,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 
     //Combat
     //Render
+	render->addItem(new ModList());
 	render->addItem(new TabUI());
     //Motion
     //Player

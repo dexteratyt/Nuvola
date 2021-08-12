@@ -95,14 +95,26 @@ namespace TabUI_Locals {
 
 	void renderItem(MinecraftRenderer* renderer, ManagedItem* toRender, Vector2<float> location, Vector2<float> size) {
 		renderer->Fill(RectangleArea(location, size), COL_BACKGROUND);
-		if(toRender == highlightedCat) {
-			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_SELECTION);
-		}
+
 		Module* mod = dynamic_cast<Module*>(toRender);
-		if(toRender == selectedCat || (mod != nullptr ? mod->isEnabled() : false)) {
-			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), COL_CHOSEN);
+		bool isHighlighted = toRender == highlightedCat || toRender == highlightedMod;
+		bool isSelected = toRender == selectedCat || (mod != nullptr ? mod->isEnabled() : false);
+		Color bgColor = COL_BACKGROUND;
+		Color textColor = Color();
+		if(isHighlighted) {
+			bgColor = COL_SELECTION;
 		}
-		renderer->DrawString(toRender->getName(), location);
+		if(isSelected) {
+			bgColor = COL_CHOSEN;
+		}
+		if(isHighlighted && isSelected) {
+			bgColor = Color();
+			textColor = Color(0,0,0);
+		}
+		if(isHighlighted || isSelected) {
+			renderer->Fill(RectangleArea(location.x, location.y, bgAnimWidthX, size.y), bgColor);
+		}
+		renderer->DrawString(toRender->getName(), location, textColor);
 	}
 
 	void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vector2<float> location, Vector2<float> size) {
@@ -127,7 +139,11 @@ namespace TabUI_Locals {
 		e->GetRenderWrapper()->SetScale(CATEGORY_SCALE);
 		Vector2<float> categoriesLoc = Vector2<float>(getTabLocX(), (BASE_PADDING * BRAND_SCALE) + (CATEGORY_SCALE * TEXT_HEIGHT));
 		maxBgAnimWidthX = width * BRAND_SCALE;
-		renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)ModuleMgr::getInstance(), categoriesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
+		Manager<ManagedItem>* moduleMgr = (Manager<ManagedItem>*)ModuleMgr::getInstance();
+		if(highlightedCat == nullptr) {
+			highlightedCat = moduleMgr->getItem(0);
+		}
+		renderMgr(e->GetRenderWrapper(), moduleMgr, categoriesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
 		if(selectedCat != nullptr) {
 			Vector2<float> modulesLoc = categoriesLoc;
 			modulesLoc.x += maxBgAnimWidthX;
@@ -151,7 +167,19 @@ namespace TabUI_Locals {
 						resetAnim();
 						break;
 					case VK_RIGHT:
-						selectedCat = highlightedCat;
+						if(selectedCat == nullptr) {
+							selectedCat = highlightedCat;
+							currentSelection = 0;
+						} else {
+							Category* cat = ((Category*)selectedCat);
+							if(cat->getItems()->size() < 1) {
+								break;
+							}
+							Module* mod = cat->getItem(currentSelection);
+							if(mod != nullptr) {
+								mod->toggle();
+							}
+						}
 						break;
 					case VK_DOWN:
 						currentSelection++;
@@ -167,7 +195,7 @@ namespace TabUI_Locals {
 	}
 }
 TabUI::TabUI() : Module("TabUI") {
-	this->onEnable();
+	this->setEnabled(true);
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, TabUI_Locals::onRender);
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
 }

@@ -1,7 +1,7 @@
 #include "Module.h"
 
 Module::Module(std::string name) : Manager<Setting>(name) {
-
+	this->setEnabled(false);
 }
 
 void Module::onEnable() {
