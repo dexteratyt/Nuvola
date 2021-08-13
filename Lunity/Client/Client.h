@@ -32,13 +32,20 @@ public:
 		std::vector<Module*>* allMods = moduleManager->getAllModules();
 
 		//Loop through
-		for(auto module : *allMods) {
-			Utils::DebugF(module->getName());
+		for(auto mod : *allMods) {
+			Utils::DebugF(mod->getName());
 		}
 
 		//Web panel gui
 		//Doesnt work & idk why
 		//WebPanel::getInstance()->start(420);
+
+		//Lunity tick caller
+		while(true) {
+			for(auto mod : *allMods) {
+				mod->OnLunityTick();
+			}
+		}
     };
 };
 

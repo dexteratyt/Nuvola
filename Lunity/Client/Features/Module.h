@@ -9,6 +9,7 @@
 
 class Module : public Manager<Setting> {
 	bool enabled;
+	bool wasEnabled;
 	int hotkey;
 public:
     Module(std::string name);
@@ -16,6 +17,7 @@ public:
 
     virtual void OnEnable();
     virtual void OnDisable();
+	void OnLunityTick();
 	auto IsEnabled() -> bool;
 	void SetEnabled(bool enabled);
 	void Toggle();
