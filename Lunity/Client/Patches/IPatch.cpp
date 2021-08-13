@@ -6,17 +6,28 @@ IPatch::IPatch(std::string name)
 	this->signatures = new std::vector<SigInfo*>();
 }
 IPatch::~IPatch() {
+	if(this->ManualCleanup()) {
+		return;
+	}
 	// Clear signatures
 	for(auto* elem : *this->signatures) {
 		delete elem;
 	}
+	Utils::DebugF("IPATCH 13");
 	this->signatures->clear();
 	delete this->signatures;
+	Utils::DebugF("IPATCH 16");
 
 	//Clear hook & unhook
 	detourHook->unHook();
+	Utils::DebugF("IPATCH 20");
 	delete detourHook;
+	Utils::DebugF("IPATCH 22");
 }
+auto IPatch::ManualCleanup() -> bool {
+	return false;
+}
+
 void IPatch::AddSignature(SigInfo* sigInfo)
 {
 	this->signatures->push_back(sigInfo);

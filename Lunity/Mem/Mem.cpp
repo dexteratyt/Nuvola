@@ -29,7 +29,7 @@ auto Mem::getBaseModuleEnd() -> long long {
     return getModuleBase() + getBaseModuleSize();
 }
 
-static auto Mem::GetThisModule() -> HMODULE {
+auto Mem::GetThisModule() -> HMODULE {
 	return GetModuleHandleA("Lunity.dll");
 }
 

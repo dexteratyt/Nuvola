@@ -14,8 +14,12 @@ returnPoint:
 	return PLH::FnCast(presentOriginal, &hookPresent)(pChain, syncInterval, flags);
 }
 
-SwapChainHook::SwapChainHook()  : IPatch::IPatch("Dx12::Present") {
-	
+SwapChainHook::SwapChainHook()  : IPatch::IPatch("Dx12::Present") {}
+SwapChainHook::~SwapChainHook() {
+	kiero::unbind(140);
+}
+auto SwapChainHook::ManualCleanup() -> bool {
+	return true;
 }
 
 auto SwapChainHook::Apply() -> bool {

@@ -8,6 +8,8 @@ class PatchManager
 public:
 	static void ApplyAll();
 	static void ApplyPatch(class IPatch* toAdd);
+	static auto RemoveAll() -> bool;
+	static auto RemovePatch(class IPatch* toRemove) -> bool;
 };
 
 #endif /* LUNITY_CLIENT_PATCHES_PATCHMANAGER */

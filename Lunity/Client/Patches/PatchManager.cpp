@@ -19,7 +19,7 @@ void PatchManager::ApplyAll()
 	PatchManager::ApplyPatch(new UpdateHook());
 
 	/* Graphics hooking */
-	PatchManager::ApplyPatch(new SwapChainHook());
+	//PatchManager::ApplyPatch(new SwapChainHook());
 	PatchManager::ApplyPatch(new SetupAndRenderHook());
 
 	/* Both patches are needed for changing where LP is facing */
@@ -38,4 +38,17 @@ void PatchManager::ApplyPatch(IPatch* toAdd)
     {
         Utils::DebugF("Failed to apply patch: " + toAdd->GetName());
     }
+}
+
+auto PatchManager::RemoveAll() -> bool {
+	for(auto patch : *PatchManager::patches) {
+		PatchManager::RemovePatch(patch);
+	}
+	Utils::DebugF("PATCHMANAGER 47");
+	return true;
+}
+auto PatchManager::RemovePatch(class IPatch* toRemove) -> bool {
+	delete toRemove;
+	Utils::DebugF("PATCHMANAGER 51");
+	return true;
 }

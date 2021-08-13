@@ -7,7 +7,11 @@ void Uninject::OnEnable() {
 	//Uninject here
 
 	//Clean up hooks
-	//PatchManager::
+	PatchManager::RemoveAll();
+
+	//Sleep for 5 seconds to ensure the hooks are
+	//safely removed before we kill our own code
+	Sleep(5000);
 
 	//Free library
 	FreeLibraryAndExitThread(Mem::GetThisModule(), 0);

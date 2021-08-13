@@ -23,6 +23,8 @@ class SwapChainHook : public IPatch {
 	static inline ID3D12CommandQueue* pCommandQueue;
 public:
 	SwapChainHook();
+	~SwapChainHook() override;
+	auto ManualCleanup() -> bool override;
 	auto Apply() -> bool override;
 };
 

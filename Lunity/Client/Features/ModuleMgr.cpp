@@ -1,7 +1,15 @@
 #include "ModuleMgr.h"
 
+//Combat
+//Render
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
+//Motion
+//Player
+//Misc
+#include "Modules/Misc/Uninject.h"
+
+//Events
 #include "../Events/Global/KeyPressEvent.h"
 
 void checkHotkeys(EventData* event) {
@@ -34,6 +42,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Motion
     //Player
     //Misc
+	misc->addItem(new Uninject());
 
     //Register categories
     this->addItem(combat);
