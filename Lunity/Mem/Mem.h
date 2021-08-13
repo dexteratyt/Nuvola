@@ -21,6 +21,7 @@
 #define PI 3.14159265359
 
 class Mem {
+	static inline HMODULE thisMod;
 public:
     static uintptr_t FindMLvlPtr(uintptr_t, std::vector<unsigned int>);
     static auto FindSig(const char* pattern) -> uintptr_t;
@@ -29,6 +30,7 @@ public:
     static auto getModuleBaseHandle() -> HMODULE;
     static auto getBaseModuleSize() -> long long;
     static auto getBaseModuleEnd() -> long long;
+	static void SetThisModule(HMODULE);
 	static auto GetThisModule() -> HMODULE;
 };
 

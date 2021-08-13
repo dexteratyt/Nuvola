@@ -9,9 +9,9 @@ void Uninject::OnEnable() {
 	//Clean up hooks
 	PatchManager::RemoveAll();
 
-	//Sleep for 5 seconds to ensure the hooks are
+	//Sleep for 1 second to ensure the hooks are
 	//safely removed before we kill our own code
-	Sleep(5000);
+	//Sleep(1000);
 
 	//Free library
 	FreeLibraryAndExitThread(Mem::GetThisModule(), 0);

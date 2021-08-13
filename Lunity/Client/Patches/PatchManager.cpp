@@ -19,7 +19,6 @@ void PatchManager::ApplyAll()
 	PatchManager::ApplyPatch(new UpdateHook());
 
 	/* Graphics hooking */
-	//PatchManager::ApplyPatch(new SwapChainHook());
 	PatchManager::ApplyPatch(new SetupAndRenderHook());
 
 	/* Both patches are needed for changing where LP is facing */
