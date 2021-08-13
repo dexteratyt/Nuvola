@@ -9,14 +9,18 @@
 
 class Module : public Manager<Setting> {
 	bool enabled;
+	int hotkey;
 public:
-    explicit Module(std::string name);
+    Module(std::string name);
+    Module(std::string name, int hotkey);
 
-    virtual void onEnable();
-    virtual void onDisable();
-	bool isEnabled();
-	void setEnabled(bool enabled);
-	void toggle();
+    virtual void OnEnable();
+    virtual void OnDisable();
+	auto IsEnabled() -> bool;
+	void SetEnabled(bool enabled);
+	void Toggle();
+	auto GetHotkey() -> int;
+	void SetHotkey(int key);
 };
 
 

@@ -35,6 +35,7 @@ class EventHandler {
 public:
 	static EventHandler* GetInstance();
 	void ListenFor(EVENT_ID event, EventCallback callback);
+	void UnlistenFor(EVENT_ID event, EventCallback callback);
 	void DispatchEvent(EVENT_ID event, EventData* data);
 };
 

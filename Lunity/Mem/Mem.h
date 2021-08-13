@@ -29,6 +29,7 @@ public:
     static auto getModuleBaseHandle() -> HMODULE;
     static auto getBaseModuleSize() -> long long;
     static auto getBaseModuleEnd() -> long long;
+	static auto GetThisModule() -> HMODULE;
 };
 
 //Re use PLH macros if needed

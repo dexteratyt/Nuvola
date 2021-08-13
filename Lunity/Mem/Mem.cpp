@@ -29,6 +29,10 @@ auto Mem::getBaseModuleEnd() -> long long {
     return getModuleBase() + getBaseModuleSize();
 }
 
+static auto Mem::GetThisModule() -> HMODULE {
+	return GetModuleHandleA("Lunity.dll");
+}
+
 auto Mem::FindSig(const char* pattern) -> uintptr_t {
     return FindSig(getModuleBase(), getBaseModuleEnd(), pattern);
 }

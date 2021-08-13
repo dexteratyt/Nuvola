@@ -1,25 +1,39 @@
 #include "Module.h"
 
-Module::Module(std::string name) : Manager<Setting>(name) {
-	this->setEnabled(false);
+Module::Module(std::string name)  : Module(name, 0) {};
+Module::Module(std::string name, int key) : Manager<Setting>(name) {
+	this->SetEnabled(false);
+	this->SetHotkey(key);
 }
 
-void Module::onEnable() {
+void Module::OnEnable() {
 
 }
 
-void Module::onDisable() {
+void Module::OnDisable() {
 
 }
 
-bool Module::isEnabled() {
+auto Module::IsEnabled() -> bool {
 	return this->enabled;
 }
 
-void Module::setEnabled(bool enabled) {
+void Module::SetEnabled(bool enabled) {
 	this->enabled = enabled;
+	if(this->enabled) {
+		this->OnEnable();
+	} else {
+		this->OnDisable();
+	}
 }
 
-void Module::toggle() {
-	this->enabled = !this->enabled;
+void Module::Toggle() {
+	this->SetEnabled(!this->enabled);
 }
+
+auto Module::GetHotkey() -> int {
+	return this->hotkey;
+};
+void Module::SetHotkey(int key) {
+	this->hotkey = key;
+};

@@ -2,6 +2,20 @@
 
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
+#include "../Events/Global/KeyPressEvent.h"
+
+void checkHotkeys(EventData* event) {
+	KeyPressEvent* e = event->as<KeyPressEvent>();
+
+	if(e->GetAction() == KeyAction::PRESSED) {
+		ModuleMgr* mgr = ModuleMgr::getInstance();
+		for(auto mod : *mgr->getAllModules()) {
+			if(mod->GetHotkey() == e->GetKey()) {
+				mod->Toggle();
+			}
+		}
+	}
+}
 
 ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Set instance
@@ -27,6 +41,8 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     this->addItem(motion);
     this->addItem(player);
     this->addItem(misc);
+
+	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, checkHotkeys);
 
     //LogFile::log("Created ModuleManager instance!");
 }

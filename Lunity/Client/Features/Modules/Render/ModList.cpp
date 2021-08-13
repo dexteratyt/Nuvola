@@ -3,9 +3,9 @@
 ModList::ModList() : Module("ModList") {
 
 }
-void ModList::onEnable() {
+void ModList::OnEnable() {
 
 }
-void ModList::onDisable() {
+void ModList::OnDisable() {
 
 }

@@ -72,17 +72,17 @@ namespace TabUI_Locals {
 			thisMod = ModuleMgr::getInstance()->findModule("TabUI");
 		}
 
-		if(thisMod->isEnabled()) {
+		if(thisMod->IsEnabled()) {
 			if(tabLocX < BASE_PADDING) {
 				tabLocX += renderer->GetDeltaTime() * (ANIM_SPEED*5);
 			} else {
 				tabLocX = BASE_PADDING;
 			}
 		} else {
-			if(tabLocX > -200) {
+			if(tabLocX > -100) {
 				tabLocX -= renderer->GetDeltaTime() * (ANIM_SPEED*5);
 			} else {
-				tabLocX = -200;
+				tabLocX = -100;
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace TabUI_Locals {
 
 		Module* mod = dynamic_cast<Module*>(toRender);
 		bool isHighlighted = toRender == highlightedCat || toRender == highlightedMod;
-		bool isSelected = toRender == selectedCat || (mod != nullptr ? mod->isEnabled() : false);
+		bool isSelected = toRender == selectedCat || (mod != nullptr ? mod->IsEnabled() : false);
 		Color bgColor = COL_BACKGROUND;
 		Color textColor = Color();
 		if(isHighlighted) {
@@ -177,7 +177,7 @@ namespace TabUI_Locals {
 							}
 							Module* mod = cat->getItem(currentSelection);
 							if(mod != nullptr) {
-								mod->toggle();
+								mod->Toggle();
 							}
 						}
 						break;
@@ -185,25 +185,28 @@ namespace TabUI_Locals {
 						currentSelection++;
 						resetAnim();
 						break;
-					case VK_TAB:
-						thisMod->toggle();
-						break;
 				}
 			}
 		}
 		sanitizeSelection();
 	}
 }
-TabUI::TabUI() : Module("TabUI") {
-	this->setEnabled(true);
+TabUI::TabUI() : Module("TabUI", VK_TAB) {
+	this->SetEnabled(true);
+	//Register this event here, it will never be unregistered
+	//If this goes in on enable, since its never unregistered, it will register again, causing it to draw multiple times/frame
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, TabUI_Locals::onRender);
+}
+
+void TabUI::OnEnable() {
+	//Enable code
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
 }
 
-void TabUI::onEnable() {
-	//Enable code
-}
-
-void TabUI::onDisable() {
+void TabUI::OnDisable() {
 	//Disable code
+	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
+	TabUI_Locals::highlightedCat = ModuleMgr::getInstance()->getItem(0);
+	TabUI_Locals::selectedCat = nullptr;
+	TabUI_Locals::currentSelection = 0;
 }

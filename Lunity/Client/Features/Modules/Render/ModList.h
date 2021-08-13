@@ -6,8 +6,8 @@
 class ModList : public Module {
 public:
 	ModList();
-	void onEnable() override;
-	void onDisable() override;
+	void OnEnable() override;
+	void OnDisable() override;
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_MODULES_RENDER_MODLIST */
