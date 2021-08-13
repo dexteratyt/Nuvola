@@ -2,12 +2,13 @@
 #include "IPatch.h"
 #include <iostream>
 
-#include "Global/KeyPressHook.h"
-#include "ClientInstance/UpdateHook.h"
-#include "LocalPlayer/SetYHeadRotHook.h"
 #include "Actor/SetRotHook.h"
-#include "ScreenView/SetupAndRenderHook.h"
+#include "ClientInstance/UpdateHook.h"
+#include "Global/KeyPressHook.h"
+#include "LocalPlayer/SetYHeadRotHook.h"
 #include "MeshHelpers/RenderMeshHook.h"
+#include "ScreenView/SetupAndRenderHook.h"
+#include "SurvivalMode/TickHook.h"
 
 void PatchManager::ApplyAll()
 {
@@ -23,6 +24,9 @@ void PatchManager::ApplyAll()
 	/* Both patches are needed for changing where LP is facing */
 	PatchManager::ApplyPatch(new SetYHeadRotHook()); // This func has head & camera math
 	PatchManager::ApplyPatch(new SetRotHook()); // This has for up & down rotation which is shared across the whole body, however only the head moves.
+
+	/* Tick hook */
+	PatchManager::ApplyPatch(new TickHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)
@@ -42,11 +46,9 @@ auto PatchManager::RemoveAll() -> bool {
 	for(auto patch : *PatchManager::patches) {
 		PatchManager::RemovePatch(patch);
 	}
-	Utils::DebugF("PATCHMANAGER 47");
 	return true;
 }
 auto PatchManager::RemovePatch(class IPatch* toRemove) -> bool {
 	delete toRemove;
-	Utils::DebugF("PATCHMANAGER 51");
 	return true;
 }

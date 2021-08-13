@@ -15,11 +15,17 @@ void Module::OnDisable() {
 
 }
 
+void Module::OnTick() {
+
+}
+
+
 void Module::OnLunityTick() {
 	if(enabled) {
 		if(!wasEnabled) {
 			this->OnEnable();
 		}
+		this->OnTick();
 	} else {
 		if(wasEnabled) {
 			this->OnDisable();

@@ -13,16 +13,12 @@ IPatch::~IPatch() {
 	for(auto* elem : *this->signatures) {
 		delete elem;
 	}
-	Utils::DebugF("IPATCH 13");
 	this->signatures->clear();
 	delete this->signatures;
-	Utils::DebugF("IPATCH 16");
 
 	//Clear hook & unhook
 	detourHook->unHook();
-	Utils::DebugF("IPATCH 20");
 	delete detourHook;
-	Utils::DebugF("IPATCH 22");
 }
 auto IPatch::ManualCleanup() -> bool {
 	return false;

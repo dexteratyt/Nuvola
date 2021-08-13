@@ -411,5 +411,239 @@
 		],
 		"Functions":[],
 		"Virtuals":[]
+	},
+	{
+		"ClassName": "GameMode",
+		"Extends": null,
+		"Fields":[
+			{
+				"Name": "player",
+				"Offset": "8",
+				"Type": {
+					"TypeName": "class Player*",
+					"TypeSize": 8
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[
+			{
+				"Name": "startDestroyBlock",
+				"Offset": "1",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFace",
+						"Type": "char"
+					},
+					{
+						"Name": "param_3",
+						"Type": "bool"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "destroyBlock",
+				"Offset": "2",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFace",
+						"Type": "char"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "continueDestroyBlock",
+				"Offset": "3",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFace",
+						"Type": "char"
+					},
+					{
+						"Name": "param_3",
+						"Type": "Vector3<float>*"
+					},
+					{
+						"Name": "param_4",
+						"Type": "bool"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "stopDestroyBlock",
+				"Offset": "4",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					}
+				],
+				"Type": "void"
+			},
+			{
+				"Name": "startBuildBlock",
+				"Offset": "5",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFace",
+						"Type": "char"
+					}
+				],
+				"Type": "void"
+			},
+			{
+				"Name": "buildBlock",
+				"Offset": "6",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFacee",
+						"Type": "char"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "continueBuildBlock",
+				"Offset": "7",
+				"Parameters": [
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFace",
+						"Type": "char"
+					}
+				],
+				"Type": "void"
+			},
+			{
+				"Name": "stopBuildBlock",
+				"Offset": "8",
+				"Parameters": [],
+				"Type": "void"
+			},
+			{
+				"Name": "tick",
+				"Offset": "9",
+				"Parameters": [],
+				"Type": "void"
+			},
+			{
+				"Name": "getPickRange",
+				"Offset": "10",
+				"Parameters": [
+					{
+						"Name": "inputMode",
+						"Type": "class InputMode*"
+					},
+					{
+						"Name": "param_2",
+						"Type": "bool"
+					}
+				],
+				"Type": "float"
+			},
+			{
+				"Name": "useItem",
+				"Offset": "11",
+				"Parameters": [
+					{
+						"Name": "itemStack",
+						"Type": "class ItemStack*"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "useItemOn",
+				"Offset": "12",
+				"Parameters": [
+					{
+						"Name": "itemStack",
+						"Type": "class ItemStack*"
+					},
+					{
+						"Name": "pos",
+						"Type": "class BlockPos*"
+					},
+					{
+						"Name": "blockFace",
+						"Type": "char"
+					},
+					{
+						"Name": "param_4",
+						"Type": "Vector3<float>*"
+					},
+					{
+						"Name": "block",
+						"Type": "class Block*"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "interact",
+				"Offset": "13",
+				"Parameters": [
+					{
+						"Name": "actor",
+						"Type": "class Actor*"
+					},
+					{
+						"Name": "pos",
+						"Type": "Vector3<float>*"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "attack",
+				"Offset": "14",
+				"Parameters": [
+					{
+						"Name": "actor",
+						"Type": "class Actor*"
+					}
+				],
+				"Type": "bool"
+			},
+			{
+				"Name": "releaseUsingItem",
+				"Offset": "15",
+				"Parameters": [],
+				"Type": "void"
+			}
+		]
+	},
+	{
+		"ClassName": "SurvivalMode",
+		"Extends": "GameMode",
+		"Fields":[],
+		"Functions":[],
+		"Virtuals":[]
 	}
 ]

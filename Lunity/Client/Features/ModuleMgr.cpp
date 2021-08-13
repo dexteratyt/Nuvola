@@ -5,6 +5,7 @@
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
 //Motion
+#include "Modules/Motion/Airjump.h"
 //Player
 //Misc
 #include "Modules/Misc/Uninject.h"
@@ -40,6 +41,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 	render->addItem(new ModList());
 	render->addItem(new TabUI());
     //Motion
+	motion->addItem(new Airjump());
     //Player
     //Misc
 	misc->addItem(new Uninject());
