@@ -4,7 +4,6 @@
 
 #include "Global/KeyPressHook.h"
 #include "ClientInstance/UpdateHook.h"
-#include "Dx11/SwapChainHook.h"
 #include "LocalPlayer/SetYHeadRotHook.h"
 #include "Actor/SetRotHook.h"
 #include "ScreenView/SetupAndRenderHook.h"
