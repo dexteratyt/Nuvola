@@ -60,7 +60,7 @@
         "Extends": null,
         "Fields": [
 			{
-				"Name": "LookingVec",
+				"Name": "lookingVec",
 				"Offset": "140",
 				"Type": {
 					"TypeName": "Vector2<float>",
@@ -68,7 +68,7 @@
 				}
 			},
 			{
-				"Name": "OnGround",
+				"Name": "onGround",
 				"Offset": "1E0",
 				"Type": {
 					"TypeName": "bool",
@@ -76,10 +76,26 @@
 				}
 			},
 			{
-				"Name": "WorldSource",
+				"Name": "blockSource",
 				"Offset": "368",
 				"Type":{
 					"TypeName": "class BlockSource*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "dimension",
+				"Offset": "370",
+				"Type":{
+					"TypeName": "class Dimension*",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "level",
+				"Offset": "378",
+				"Type":{
+					"TypeName": "class Level*",
 					"TypeSize": 8
 				}
 			}
@@ -100,7 +116,7 @@
         "Extends": "Actor",
         "Fields": [
               {
-                    "Name": "YHeadRot",
+                    "Name": "yHeadRot",
                     "Offset": "728",
                     "Type": {
                         "TypeName": "float",
@@ -645,5 +661,26 @@
 		"Fields":[],
 		"Functions":[],
 		"Virtuals":[]
+	},
+	{
+		"ClassName": "BlockSource",
+		"Extends": null,
+		"Fields":[],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "Level",
+		"Extends": null,
+		"Fields":[],
+		"Functions":[],
+		"Virtuals":[
+			{
+				"Name": "getGlobalEntities",
+				"Offset": "294",
+				"Parameters": [],
+				"Type": "std::unordered_set<gsl::not_null<Actor*>>*"
+			}
+		]
 	}
 ]

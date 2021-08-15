@@ -14,7 +14,7 @@ void Airjump::OnTick() {
 	if(client) {
 		LocalPlayer* player = client->clientPlayer;
 		if(player) {
-			player->OnGround = true;
+			player->onGround = true;
 		}
 	}
 }

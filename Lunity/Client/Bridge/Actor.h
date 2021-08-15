@@ -6,11 +6,13 @@
 struct Actor {
 	/* Fields */
 	char padding_320[312];
-	Vector2<float> LookingVec;
+	Vector2<float> lookingVec;
 	char padding_480[152];
-	bool OnGround;
+	bool onGround;
 	char padding_872[391];
-	class BlockSource* WorldSource;
+	class BlockSource* blockSource;
+	class Dimension* dimension;
+	class Level* level;
 	/* Virtuals */
 	virtual void virt_pad_0() {};
 	virtual void virt_pad_1() {};
