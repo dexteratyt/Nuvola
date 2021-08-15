@@ -1,5 +1,5 @@
 # Lunity
-A Minecraft: Bedrock Edition internal C++ Utility Mod
+A Minecraft: Windows 10 Edition anticheat penetration testing and toolkit framework
 
 [Discord](https://go-kys.lol/)
 
