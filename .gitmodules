@@ -7,6 +7,9 @@
 [submodule "Lunity/Lib/PolyHook_2_0"]
 	path = Lunity/Lib/PolyHook_2_0
 	url = https://github.com/stevemk14ebr/PolyHook_2_0.git
+[submodule "Lunity/Lib/GSL"]
+	path = Lunity/Lib/GSL
+	url = https://github.com/microsoft/GSL.git
 [submodule "ClassBuilder"]
 	path = ClassBuilder
 	url = https://github.com/DisabledMallis/ClassBuilder.git
