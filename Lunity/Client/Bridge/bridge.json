@@ -330,11 +330,15 @@
 					},
 					{
 						"Name": "primitiveMode",
-						"Type": "int"
+						"Type": "char"
 					},
 					{
 						"Name": "vertCount",
 						"Type": "int"
+					},
+					{
+						"Name": "param_4",
+						"Type": "char"
 					}
                 ],
                 "Type": "void",
