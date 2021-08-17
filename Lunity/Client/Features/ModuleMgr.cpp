@@ -7,6 +7,7 @@
 #include "Modules/Render/ClickGui.h"
 //Motion
 #include "Modules/Motion/Airjump.h"
+#include "Modules/Motion/TestFly.h"
 //Player
 //Misc
 #include "Modules/Misc/Uninject.h"
@@ -44,6 +45,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 	render->addItem(new ClickGui());
     //Motion
 	motion->addItem(new Airjump());
+	motion->addItem(new TestFly());
     //Player
     //Misc
 	misc->addItem(new Uninject());

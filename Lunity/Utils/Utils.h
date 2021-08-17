@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include "../Client/Bridge/ClientInstance.h"
+#include <gsl/gsl>
 
 class Utils {
 	static inline ClientInstance* clientInstance;

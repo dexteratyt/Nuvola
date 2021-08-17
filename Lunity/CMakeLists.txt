@@ -23,6 +23,7 @@ add_subdirectory(Lib)
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/PolyHook_2_0/_install/include/")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/cpp-httplib/")
 target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/HTTPRequest/include/")
+target_include_directories(Lunity PRIVATE "${CMAKE_CURRENT_LIST_DIR}/Lib/GSL/include/")
 
 message("${CMAKE_CURRENT_LIST_DIR}")
 

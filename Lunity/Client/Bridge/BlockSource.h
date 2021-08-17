@@ -1,13 +1,10 @@
-#ifndef GUARD_Mob
-#define GUARD_Mob
+#ifndef GUARD_BlockSource
+#define GUARD_BlockSource
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
-#include "Actor.h"
-struct Mob : public Actor {
+struct BlockSource {
 	/* Fields */
-	char padding_1832[936];
-	float yHeadRot;
 	/* Virtuals */
 	/* Functions */
 };

@@ -4,6 +4,11 @@
 #include "../../ModuleMgr.h"
 #include <Windows.h>
 
+#include <gsl/gsl>
+#include "../../../Bridge/LocalPlayer.h"
+#include <unordered_set>
+#include "../../../Bridge/Level.h"
+
 /* Tab GUI constants*/
 #define BRAND std::string("Lunity")
 
