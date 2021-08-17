@@ -2,18 +2,29 @@
 #include "IPatch.h"
 #include <iostream>
 
+//Actor
 #include "Actor/SetRotHook.h"
-#include "ClientInstance/UpdateHook.h"
-#include "Global/KeyPressHook.h"
+//Player
+#include "Player/NormalTickHook.h"
+//Localplayer
 #include "LocalPlayer/SetYHeadRotHook.h"
+//ClientInstance
+#include "ClientInstance/UpdateHook.h"
+//Global or Unknown
+#include "Global/KeyPressHook.h"
+#include "Global/MouseActionHook.h"
+//MeshHelpers
 #include "MeshHelpers/RenderMeshHook.h"
+//ScreenView
 #include "ScreenView/SetupAndRenderHook.h"
+//SurvivalMode
 #include "SurvivalMode/TickHook.h"
 
 void PatchManager::ApplyAll()
 {
 	/* Input hooking */
 	PatchManager::ApplyPatch(new KeyPressHook());
+	PatchManager::ApplyPatch(new MouseActionHook());
 
 	/* ClientInstance reference receiver hook */
 	PatchManager::ApplyPatch(new UpdateHook());
@@ -27,6 +38,7 @@ void PatchManager::ApplyAll()
 
 	/* Tick hook */
 	PatchManager::ApplyPatch(new TickHook());
+	PatchManager::ApplyPatch(new NormalTickHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)

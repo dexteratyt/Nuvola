@@ -150,6 +150,37 @@ namespace TabUI_Locals {
 			renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)selectedCat, modulesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
 		}
 
+/*
+		std::string error = "";
+		int entityCount = 0;
+		ClientInstance* client = Utils::GetClientInstance();
+		if(client) {
+			LocalPlayer* player = client->clientPlayer;
+			if(player) {
+				Level* level = player->level;
+				if(level) {
+					std::unordered_set<gsl::not_null<Actor*>>* entities = level->getGlobalEntities();
+					if(entities) {
+						entityCount = entities->size();
+					} else {
+						error = "Cant reach entities";
+					}
+				}
+				else {
+					error = "Cant reach level";
+				}
+			}
+			else {
+				error = "Cant reach player";
+			}
+		}
+		else {
+			error = "Cant reach client";
+		}
+		
+		e->GetRenderWrapper()->DrawString(error + std::to_string(entityCount), Vector2<float>(0,0));
+*/
+
 		updateAnimVars(e->GetRenderWrapper());
 	}
 

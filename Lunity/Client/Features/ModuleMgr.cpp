@@ -4,6 +4,7 @@
 //Render
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
+#include "Modules/Render/ClickGui.h"
 //Motion
 #include "Modules/Motion/Airjump.h"
 //Player
@@ -40,6 +41,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Render
 	render->addItem(new ModList());
 	render->addItem(new TabUI());
+	render->addItem(new ClickGui());
     //Motion
 	motion->addItem(new Airjump());
     //Player
