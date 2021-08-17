@@ -50,6 +50,14 @@
 					"TypeName": "class LocalPlayer*",
 					"TypeSize": 8
 				}
+			},
+			{
+				"Name": "guiData",
+				"Offset": "4D8",
+				"Type": {
+					"TypeName": "class GuiData*",
+					"TypeSize": 8
+				}
 			}
 		],
 		"Functions": [],
@@ -682,5 +690,45 @@
 				"Type": "std::unordered_set<gsl::not_null<Actor*>>*"
 			}
 		]
+	},
+	{
+		"ClassName": "GuiData",
+		"Extends": null,
+		"Fields":[
+			{
+				"Name": "resolution",
+				"Offset": "18",
+				"Type": {
+					"TypeName": "Vector2<float>",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "scaledResolution",
+				"Offset": "28",
+				"Type": {
+					"TypeName": "Vector2<float>",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "scale",
+				"Offset": "38",
+				"Type": {
+					"TypeName": "float",
+					"TypeSize": 4
+				}
+			},
+			{
+				"Name": "mousePos",
+				"Offset": "52",
+				"Type": {
+					"TypeName": "Vector2<short>",
+					"TypeSize": 4
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
 	}
 ]

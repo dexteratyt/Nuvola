@@ -9,6 +9,8 @@ struct ClientInstance {
 	class MinecraftGame* minecraftGame;
 	char padding_320[144];
 	class LocalPlayer* clientPlayer;
+	char padding_1240[912];
+	class GuiData* guiData;
 	/* Virtuals */
 	/* Functions */
 };

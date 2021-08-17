@@ -1,11 +1,14 @@
 #include "TabUI.h"
 #include "../../../Events/Renderer/UIRenderEvent.h"
 #include "../../../Events/Global/KeyPressEvent.h"
+#include "../../../Events/Global/MouseEvent.h"
 #include "../../ModuleMgr.h"
 #include <Windows.h>
 
 #include <gsl/gsl>
 #include "../../../Bridge/LocalPlayer.h"
+#include "../../../Bridge/ClientInstance.h"
+#include "../../../Bridge/GuiData.h"
 #include <unordered_set>
 #include "../../../Bridge/Level.h"
 
@@ -29,6 +32,10 @@ namespace TabUI_Locals {
 
 	float bgAnimWidthX = 0;
 	float maxBgAnimWidthX = 0;
+	float brandWidth = 0;
+
+	Vector2<short> mousePos;
+	bool clickBuff = false;
 
 	float tabLocX = 0;
 	auto getTabLocX() -> float {
@@ -98,8 +105,34 @@ namespace TabUI_Locals {
 		}
 	}
 
-	void renderItem(MinecraftRenderer* renderer, ManagedItem* toRender, Vector2<float> location, Vector2<float> size) {
+	void renderItem(MinecraftRenderer* renderer, ManagedItem* toRender, Vector2<float> location, Vector2<float> size, bool isModule) {
 		renderer->Fill(RectangleArea(location, size), COL_BACKGROUND);
+
+/*
+		GuiData* guiData = Utils::GetClientInstance()->guiData;
+
+		Vector2<short> mousePosScaled = Vector2<short>(mousePos.x * guiData->scale, mousePos.y * guiData->scale);
+		bool mouseOver = location.x < mousePosScaled.x && location.y < mousePosScaled.y && size.x+location.x > mousePosScaled.x && size.y+location.y > mousePosScaled.y;
+
+		
+		if(mouseOver) {
+			if(selectedCat) {
+				highlightedMod = toRender;
+			} else {
+				highlightedCat = toRender;
+			}
+		}
+		//if the click input buffer is waiting and this is highlighted
+		if(clickBuff && mouseOver) {
+			if(selectedCat && isModule) {
+				((Module*)toRender)->Toggle();
+			}
+			else {
+				selectedCat = toRender;
+			}
+			clickBuff = false;
+		}
+*/
 
 		Module* mod = dynamic_cast<Module*>(toRender);
 		bool isHighlighted = toRender == highlightedCat || toRender == highlightedMod;
@@ -122,15 +155,15 @@ namespace TabUI_Locals {
 		renderer->DrawString(toRender->getName(), location, textColor);
 	}
 
-	void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vector2<float> location, Vector2<float> size) {
+	void renderMgr(MinecraftRenderer* renderer, Manager<ManagedItem>* toRender, Vector2<float> location, Vector2<float> size, bool isModule) {
 		for(auto item : *toRender->getItems()) {
-			renderItem(renderer, item, location, size);
+			renderItem(renderer, item, location, size, isModule);
 			location.y += TEXT_HEIGHT;
 		}
 	}
 
 	auto renderBranding(MinecraftRenderer* renderer, Vector2<float> location) -> float {
-		float brandWidth = renderer->MeasureText(BRAND);
+		brandWidth = renderer->MeasureText(BRAND);
 		renderer->Fill(RectangleArea(location/2, Vector2<float>(brandWidth, TEXT_HEIGHT)), COL_BACKGROUND);
 		renderer->DrawString(BRAND, location/2, COL_BRAND);
 		return brandWidth;
@@ -148,11 +181,11 @@ namespace TabUI_Locals {
 		if(highlightedCat == nullptr) {
 			highlightedCat = moduleMgr->getItem(0);
 		}
-		renderMgr(e->GetRenderWrapper(), moduleMgr, categoriesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
+		renderMgr(e->GetRenderWrapper(), moduleMgr, categoriesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE, false);
 		if(selectedCat != nullptr) {
 			Vector2<float> modulesLoc = categoriesLoc;
 			modulesLoc.x += maxBgAnimWidthX;
-			renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)selectedCat, modulesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE);
+			renderMgr(e->GetRenderWrapper(), (Manager<ManagedItem>*)selectedCat, modulesLoc, Vector2<float>(maxBgAnimWidthX, TEXT_HEIGHT) * CATEGORY_SCALE, true);
 		}
 
 /*
@@ -185,7 +218,11 @@ namespace TabUI_Locals {
 		
 		e->GetRenderWrapper()->DrawString(error + std::to_string(entityCount), Vector2<float>(0,0));
 */
-
+		GuiData* guiData = Utils::GetClientInstance()->guiData;
+		Vector2<short> mousePosScaled = Vector2<short>(mousePos.x * guiData->scale, mousePos.y * guiData->scale);
+		e->GetRenderWrapper()->DrawString(std::to_string(mousePos.x) + std::string(", ") + std::to_string(mousePos.y), Vector2<float>(0,0));
+		e->GetRenderWrapper()->DrawString(std::to_string(mousePosScaled.x) + std::string(", ") + std::to_string(mousePosScaled.y), Vector2<float>(0,10));
+		e->GetRenderWrapper()->DrawString(std::to_string(guiData->scale), Vector2<float>(0,20));
 		updateAnimVars(e->GetRenderWrapper());
 	}
 
@@ -226,6 +263,42 @@ namespace TabUI_Locals {
 		}
 		sanitizeSelection();
 	}
+	void onMouse(EventData* event) {
+		MouseEvent* e = event->as<MouseEvent>();
+		mousePos = e->GetMousePos();
+		GuiData* guiData = Utils::GetClientInstance()->guiData;
+
+		Vector2<float> uiLoc = Vector2<float>(BASE_PADDING, BASE_PADDING);
+		Vector2<float> uiSize = Vector2<float>(brandWidth/guiData->scale + (selectedCat != nullptr ? brandWidth/guiData->scale : 0), (BASE_PADDING * BRAND_SCALE) + (CATEGORY_SCALE * TEXT_HEIGHT) + ((CATEGORY_SCALE * TEXT_HEIGHT) * ModuleMgr::getInstance()->getAllModules()->size()));
+
+		Vector2<short> mousePosScaled = Vector2<short>(mousePos.x * guiData->scale, mousePos.y * guiData->scale);
+		bool mouseOver = uiLoc.x < mousePosScaled.x && uiLoc.y < mousePosScaled.y && uiSize.x+uiLoc.x > mousePosScaled.x && uiSize.y+uiLoc.y > mousePosScaled.y;
+		if(mouseOver) {
+			if(e->GetAction() == MouseAction::PRESS && e->GetButton() == MouseButton::LEFT) {
+				if(selectedCat == nullptr) {
+					selectedCat = highlightedCat;
+					currentSelection = 0;
+				} else {
+					//If is category section
+					if(mousePosScaled.x < uiLoc.x + (uiSize.x-(brandWidth/guiData->scale))) {
+						//treat as deselect
+						selectedCat = nullptr;
+						return;
+					}
+					Category* cat = ((Category*)selectedCat);
+					if(cat->getItems()->size() < 1) {
+						return;
+					}
+					Module* mod = cat->getItem(currentSelection);
+					if(mod != nullptr) {
+						mod->Toggle();
+					}
+				}
+			}
+			currentSelection = floor(((mousePosScaled.y+1) - (BASE_PADDING * BRAND_SCALE))/10)-1;
+			sanitizeSelection();
+		}
+	}
 }
 TabUI::TabUI() : Module("TabUI", VK_TAB) {
 	this->SetEnabled(true);
@@ -237,11 +310,13 @@ TabUI::TabUI() : Module("TabUI", VK_TAB) {
 void TabUI::OnEnable() {
 	//Enable code
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
+	EventHandler::GetInstance()->ListenFor(EVENT_ID::MOUSE_INPUT_EVENT, TabUI_Locals::onMouse);
 }
 
 void TabUI::OnDisable() {
 	//Disable code
 	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
+	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::MOUSE_INPUT_EVENT, TabUI_Locals::onMouse);
 	TabUI_Locals::highlightedCat = ModuleMgr::getInstance()->getItem(0);
 	TabUI_Locals::selectedCat = nullptr;
 	TabUI_Locals::currentSelection = 0;
