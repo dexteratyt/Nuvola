@@ -686,11 +686,19 @@
 		"Extends": null,
 		"Fields":[
 			{
+				"Name": "players",
+				"Offset": "70",
+				"Type": {
+					"TypeName": "std::vector<Player*>",
+					"TypeSize": 24
+				}
+			},
+			{
 				"Name": "actors",
 				"Offset": "26E0",
 				"Type": {
 					"TypeName": "std::vector<Actor*>",
-					"TypeSize": 16
+					"TypeSize": 24
 				}
 			}
 		],

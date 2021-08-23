@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "../Client/Bridge/ClientInstance.h"
 #include <gsl/gsl>
 

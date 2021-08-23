@@ -7,7 +7,6 @@
 #include "../../../Bridge/Tessellator.h"
 #include "../../../Bridge/ClientInstance.h"
 #include "../../../Bridge/LocalPlayer.h"
-#include <vector>
 #include <sstream>
 #include "../../../Bridge/Level.h"
 
@@ -39,9 +38,11 @@ namespace ClickGui_Globals {
 		if(player) {
 			Level* level = player->level;
 			if(level) {
-				size_t count = level->actors.size();
-				wrapper->DrawString(std::to_string(count), Vector2<float>(0,0));
-				wrapper->DrawString(to_hex_string((size_t)&testVec), Vector2<float>(0,10));
+				size_t player_count = level->players.size();
+				size_t actor_count = level->actors.size();
+				wrapper->DrawString(std::to_string(player_count), Vector2<float>(0,0));
+				wrapper->DrawString(std::to_string(actor_count), Vector2<float>(0,10));
+				wrapper->DrawString(to_hex_string((size_t)&testVec), Vector2<float>(0,20));
 			}
 		}
 	}

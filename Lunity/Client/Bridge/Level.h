@@ -5,7 +5,9 @@
 #include "../../Mem/Mem.h"
 struct Level {
 	/* Fields */
-	char padding_9952[9952];
+	char padding_112[112];
+	std::vector<Player*> players;
+	char padding_9952[9816];
 	std::vector<Actor*> actors;
 	/* Virtuals */
 	/* Functions */
