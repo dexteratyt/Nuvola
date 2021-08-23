@@ -27,6 +27,8 @@
 #define COL_CAT COL_CAT_SELECT //Color(0.02,0.03,0.05)
 #define COL_CHOSEN Color(89, 44, 68)
 
+//#define MOUSE_SUPPORT
+
 //I made a namespace here because I don't want to deal with conflicting names in the future
 namespace TabUI_Locals {
 
@@ -218,11 +220,13 @@ namespace TabUI_Locals {
 		
 		e->GetRenderWrapper()->DrawString(error + std::to_string(entityCount), Vector2<float>(0,0));
 */
+#ifdef MOUSE_SUPPORT
 		GuiData* guiData = Utils::GetClientInstance()->guiData;
 		Vector2<short> mousePosScaled = Vector2<short>(mousePos.x * guiData->scale, mousePos.y * guiData->scale);
 		e->GetRenderWrapper()->DrawString(std::to_string(mousePos.x) + std::string(", ") + std::to_string(mousePos.y), Vector2<float>(0,0));
 		e->GetRenderWrapper()->DrawString(std::to_string(mousePosScaled.x) + std::string(", ") + std::to_string(mousePosScaled.y), Vector2<float>(0,10));
 		e->GetRenderWrapper()->DrawString(std::to_string(guiData->scale), Vector2<float>(0,20));
+#endif
 		updateAnimVars(e->GetRenderWrapper());
 	}
 
@@ -263,6 +267,7 @@ namespace TabUI_Locals {
 		}
 		sanitizeSelection();
 	}
+#ifdef MOUSE_SUPPORT
 	void onMouse(EventData* event) {
 		MouseEvent* e = event->as<MouseEvent>();
 		mousePos = e->GetMousePos();
@@ -299,6 +304,7 @@ namespace TabUI_Locals {
 			sanitizeSelection();
 		}
 	}
+#endif
 }
 TabUI::TabUI() : Module("TabUI", VK_TAB) {
 	this->SetEnabled(true);
@@ -310,13 +316,17 @@ TabUI::TabUI() : Module("TabUI", VK_TAB) {
 void TabUI::OnEnable() {
 	//Enable code
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
+#ifdef MOUSE_SUPPORT
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::MOUSE_INPUT_EVENT, TabUI_Locals::onMouse);
+#endif
 }
 
 void TabUI::OnDisable() {
 	//Disable code
 	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
+#ifdef MOUSE_SUPPORT
 	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::MOUSE_INPUT_EVENT, TabUI_Locals::onMouse);
+#endif
 	TabUI_Locals::highlightedCat = ModuleMgr::getInstance()->getItem(0);
 	TabUI_Locals::selectedCat = nullptr;
 	TabUI_Locals::currentSelection = 0;
