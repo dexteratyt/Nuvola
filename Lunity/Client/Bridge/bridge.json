@@ -684,16 +684,18 @@
 	{
 		"ClassName": "Level",
 		"Extends": null,
-		"Fields":[],
-		"Functions":[],
-		"Virtuals":[
+		"Fields":[
 			{
-				"Name": "getGlobalEntities",
-				"Offset": "294",
-				"Parameters": [],
-				"Type": "std::unordered_set<gsl::not_null<Actor*>>*"
+				"Name": "actors",
+				"Offset": "26E0",
+				"Type": {
+					"TypeName": "std::vector<Actor*>",
+					"TypeSize": 16
+				}
 			}
-		]
+		],
+		"Functions":[],
+		"Virtuals":[]
 	},
 	{
 		"ClassName": "GuiData",
