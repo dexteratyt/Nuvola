@@ -1,6 +1,7 @@
 #include "ModuleMgr.h"
 
 //Combat
+#include "Modules/Combat/Killaura.h"
 //Render
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
@@ -39,6 +40,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     auto* misc   = new Category("Misc");
 
     //Combat
+	combat->addItem(new Killaura());
     //Render
 	render->addItem(new ModList());
 	render->addItem(new TabUI());

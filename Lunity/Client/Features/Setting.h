@@ -3,7 +3,8 @@
 #include "ManagedItem.h"
 
 enum class SettingType{
-    TOGGLE
+    TOGGLE,
+	SLIDER
 };
 
 class Setting : ManagedItem {

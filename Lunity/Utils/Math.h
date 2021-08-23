@@ -3,13 +3,13 @@
 #ifndef LUNITY_UTILS_MATH
 #define LUNITY_UTILS_MATH
 
-
 template<typename T>
 struct Vector1
 {
     T x = 0;
     Vector1() = default;
     Vector1(T x) : x(x) { }
+	float DistanceTo(Vector1<T>& other) const { return other.x - this->x; }
     Vector1<T> operator+(Vector1<T>& other) const { return Vector1<T>(this->x + other.x); }
     Vector1<T> operator-(Vector1<T>& other) const { return Vector1<T>(this->x - other.x); }
     Vector1<T> operator*(Vector1<T>& other) const { return Vector1<T>(this->x * other.x); }
@@ -35,6 +35,7 @@ struct Vector2 : public Vector1<T>
     T y = 0;
     Vector2() = default;
     Vector2(T x, T y) : Vector1<T>(x), y(y) { }
+	float DistanceTo(Vector2<T>& other) const { return sqrt(pow(other.x - this->x, 2) + pow(other.y - this->y, 2)); }
     Vector2<T> operator+(Vector2<T>& other) const { return Vector2<T>(this->x + other.x, this->y + other.y); }
     Vector2<T> operator-(Vector2<T>& other) const { return Vector2<T>(this->x - other.x, this->y - other.y); }
     Vector2<T> operator*(Vector2<T>& other) const { return Vector2<T>(this->x * other.x, this->y * other.y); }
@@ -60,6 +61,7 @@ struct Vector3 : public Vector2<T>
     T z = 0;
     Vector3() = default;
     Vector3(T x, T y, T z) : Vector2<T>(x, y), z(z) { }
+	float DistanceTo(Vector3<T>& other) const { return sqrt(pow(other.x - this->x, 2) + pow(other.y - this->y, 2) + pow(other.z - this->z, 2)); }
     Vector3<T> operator+(Vector3<T>& other) const { return Vector3<T>(this->x + other.x, this->y + other.y, this->z + other.z); }
     Vector3<T> operator-(Vector3<T>& other) const { return Vector3<T>(this->x - other.x, this->y - other.y, this->z - other.z); }
     Vector3<T> operator*(Vector3<T>& other) const { return Vector3<T>(this->x * other.x, this->y * other.y, this->z * other.z); }
@@ -85,6 +87,7 @@ struct Vector4 : public Vector3<T>
     T w = 0;
     Vector4() = default;
     Vector4(T x, T y, T z, T w) : Vector3<T>(x, y, z), w(w) { }
+	float DistanceTo(Vector4<T>& other) const { return sqrt(pow(other.x - this->x, 2) + pow(other.y - this->y, 2) + pow(other.z - this->z, 2) + pow(other.w - this->w, 2)); }
     Vector4<T> operator+(Vector4<T>& other) const { return Vector4(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w); }
     Vector4<T> operator-(Vector4<T>& other) const { return Vector4(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w); }
     Vector4<T> operator*(Vector4<T>& other) const { return Vector4(this->x * other.x, this->y * other.y, this->z * other.z, this->w * other.w); }
