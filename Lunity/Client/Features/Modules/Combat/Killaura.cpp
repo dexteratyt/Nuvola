@@ -1,11 +1,12 @@
 #include "Killaura.h"
 #include "../../../Patches/PatchManager.h"
 #include "../../../Events/LocalPlayer/UpdateHeadYEvent.h"
+#include "../../../Events/Actor/SetRotEvent.h"
 #include "../../../Events/Renderer/UIRenderEvent.h"
 #include "../../../Bridge/ClientInstance.h"
 #include "../../../Bridge/Level.h"
 
-float reachVal = 3;
+float reachVal = 4;
 float minimumReach = 0;
 float maximumReach = 8;
 
@@ -48,38 +49,67 @@ auto getClosestPlayer(Actor* first) -> Player* {
 	Actor* closest = nullptr;
 	Level* level = first->level;
 	std::vector<Player*> players = level->players;
+	std::vector<Actor*> actors = std::vector<Actor*>();
+	for(auto player : players) {
+		actors.push_back(player);
+	}
 	
-	return (Player*)getClosestActorFromVector(first, *(std::vector<Actor*>*)&players);
+	return (Player*)getClosestActorFromVector(first, actors);
 }
 
-void headUpdateY(EventData* event) {
-	UpdateHeadYEvent* e = event->as<UpdateHeadYEvent>();
-}
+float distance = 0;
+Actor* theTarget = nullptr;
+void setRotEvent(EventData* event) {
+	SetRotEvent* e = event->as<SetRotEvent>();
 
-void onRender(EventData* event) {
-	UIRenderEvent* e = event->as<UIRenderEvent>();
-	MinecraftRenderer* wrapper = e->GetRenderWrapper();
-	ClientInstance* client = e->GetRenderContext()->clientInstance;
+	ClientInstance* client = Utils::GetClientInstance();
 	LocalPlayer* player = client->clientPlayer;
 	if(player) {
 		Actor* closestActor = getClosestActor(player);
 		Player* closestPlayer = getClosestPlayer(player);
 		
-		float distanceActor = 0;
-		float distancePlayer = 0;
-		float distance = 0;
 		if(closestActor != nullptr) {
 			distance = getDistance(player, closestActor);
+			theTarget = closestActor;
 		}
 		if(closestPlayer != nullptr) {
-			distance = getDistance(player, closestActor);
+			float playerDist = getDistance(player, closestPlayer);
+			if(distance < playerDist) {
+				distance = playerDist;
+				theTarget = closestPlayer;
+			}
 		}
-		if(closestPlayer != nullptr && closestActor != nullptr) {
-			distance = (distanceActor < distancePlayer ? distanceActor : distancePlayer);
+		if(closestActor == nullptr && closestPlayer == nullptr) {
+			distance = 0;
+			theTarget = nullptr;
 		}
+		
 
-		wrapper->DrawString(std::to_string(distance), Vector2<float>(0,0));
+		if(theTarget != nullptr) {
+			if(distance < reachVal) {
+				Vector3<float> enemyPos = *theTarget->getPos();
+				Vector3<float> playerPos = *player->getPos();
+				Vector3<float> targetPos = enemyPos - playerPos;
+
+				float hypo = sqrt(pow(targetPos.x, 2) + pow(targetPos.y, 2) + pow(targetPos.z, 2));
+
+				float newYaw = atan(targetPos.y/targetPos.x);
+				float newPitch = acos(targetPos.z/hypo);
+
+				e->SetCancelled(true);
+				player->lookingVec.x = newYaw;
+				player->lookingVec.y = newPitch;
+			}
+		}
 	}
+}
+
+void onRender(EventData* event) {
+	UIRenderEvent* e = event->as<UIRenderEvent>();
+	MinecraftRenderer* wrapper = e->GetRenderWrapper();
+	
+	wrapper->DrawString(std::to_string(distance), Vector2<float>(0,0));
+	wrapper->DrawString(std::to_string((uintptr_t)theTarget), Vector2<float>(0,10));
 }
 
 Killaura::Killaura() : Module("Killaura") {
@@ -88,10 +118,10 @@ Killaura::Killaura() : Module("Killaura") {
 
 void Killaura::OnEnable() {
 	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, onRender);
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::LOCALPLAYER_UPDATE_HEAD_Y, headUpdateY);
+	EventHandler::GetInstance()->ListenFor(EVENT_ID::ACTOR_SET_ROT, setRotEvent);
 };
 
 void Killaura::OnDisable() {
 	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::RENDER_EVENT, onRender);
-	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::LOCALPLAYER_UPDATE_HEAD_Y, headUpdateY);
+	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::ACTOR_SET_ROT, setRotEvent);
 };

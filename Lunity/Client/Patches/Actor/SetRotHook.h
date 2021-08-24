@@ -6,7 +6,7 @@
 #include "../../Bridge/Mob.h"
 
 class SetRotHook : public IPatch {
-	static void __fastcall SetRotCallback_1_17_10_4(Actor* actor, Vector2<float>* vector);
+	static void __fastcall SetRotCallback_1_17_11_1(Actor* actor, Vector2<float>* vector);
 public:
 	static inline uintptr_t funcOriginal = 0;
 	SetRotHook();
