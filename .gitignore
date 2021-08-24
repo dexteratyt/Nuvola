@@ -31,3 +31,5 @@ node_modules/
 package-lock.json
 .idea/
 out/
+cmake-build-debug/
+cmake-build-release/
