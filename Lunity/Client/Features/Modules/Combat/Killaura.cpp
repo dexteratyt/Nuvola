@@ -57,6 +57,20 @@ auto getClosestPlayer(Actor* first) -> Player* {
 	return (Player*)getClosestActorFromVector(first, actors);
 }
 
+
+Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
+{
+    Vector2<float> vec2;
+	float dX = localPos.x - targetPos.x;
+	float dY = localPos.y - targetPos.y;
+	float dZ = localPos.z - targetPos.z;
+	double distance = sqrt(dX * dX + dY * dY + dZ * dZ);
+	vec2.x = -((float)atan2(dY, (float)distance) * (float)3.13810205 / (float)3.141592653589793);
+	vec2.y = -((float)atan2(dZ, dX) * (float)3.13810205 / (float)3.141592653589793) + (float)1.569051027;
+	return vec2;
+}
+
+
 float distance = 0;
 Actor* theTarget = nullptr;
 void setRotEvent(EventData* event) {
@@ -88,17 +102,16 @@ void setRotEvent(EventData* event) {
 		if(theTarget != nullptr) {
 			if(distance < reachVal) {
 				Vector3<float> enemyPos = *theTarget->getPos();
+				Utils::DebugF("Enemy: "+enemyPos.to_string());
 				Vector3<float> playerPos = *player->getPos();
-				Vector3<float> targetPos = enemyPos - playerPos;
-
-				float hypo = sqrt(pow(targetPos.x, 2) + pow(targetPos.y, 2) + pow(targetPos.z, 2));
-
-				float newYaw = atan(targetPos.y/targetPos.x);
-				float newPitch = acos(targetPos.z/hypo);
+				Utils::DebugF("Player: "+playerPos.to_string());
+				
+				Vector2<float> angles = CalcAngle(playerPos, enemyPos) * (180.0/3.141592653589793238463);
 
 				e->SetCancelled(true);
-				player->lookingVec.x = newYaw;
-				player->lookingVec.y = newPitch;
+				player->lookingVec.x = angles.x;
+				player->lookingVec.y = angles.y;
+				Utils::DebugF("Looking: "+player->lookingVec.to_string());
 			}
 		}
 	}

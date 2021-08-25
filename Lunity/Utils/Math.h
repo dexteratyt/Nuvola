@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <string>
 
 #ifndef LUNITY_UTILS_MATH
 #define LUNITY_UTILS_MATH
@@ -10,6 +11,7 @@ struct Vector1
     Vector1() = default;
     Vector1(T x) : x(x) { }
 	float DistanceTo(Vector1<T>& other) const { return other.x - this->x; }
+	std::string to_string() const { return std::to_string(this->x); }
     Vector1<T> operator+(Vector1<T>& other) const { return Vector1<T>(this->x + other.x); }
     Vector1<T> operator-(Vector1<T>& other) const { return Vector1<T>(this->x - other.x); }
     Vector1<T> operator*(Vector1<T>& other) const { return Vector1<T>(this->x * other.x); }
@@ -36,6 +38,7 @@ struct Vector2 : public Vector1<T>
     Vector2() = default;
     Vector2(T x, T y) : Vector1<T>(x), y(y) { }
 	float DistanceTo(Vector2<T>& other) const { return sqrt(pow(other.x - this->x, 2) + pow(other.y - this->y, 2)); }
+	std::string to_string() const { return Vector1<T>::to_string() + "," + std::to_string(y); }
     Vector2<T> operator+(Vector2<T>& other) const { return Vector2<T>(this->x + other.x, this->y + other.y); }
     Vector2<T> operator-(Vector2<T>& other) const { return Vector2<T>(this->x - other.x, this->y - other.y); }
     Vector2<T> operator*(Vector2<T>& other) const { return Vector2<T>(this->x * other.x, this->y * other.y); }
@@ -62,6 +65,7 @@ struct Vector3 : public Vector2<T>
     Vector3() = default;
     Vector3(T x, T y, T z) : Vector2<T>(x, y), z(z) { }
 	float DistanceTo(Vector3<T>& other) const { return sqrt(pow(other.x - this->x, 2) + pow(other.y - this->y, 2) + pow(other.z - this->z, 2)); }
+	std::string to_string() const { return Vector2<T>::to_string() + "," + std::to_string(z); }
     Vector3<T> operator+(Vector3<T>& other) const { return Vector3<T>(this->x + other.x, this->y + other.y, this->z + other.z); }
     Vector3<T> operator-(Vector3<T>& other) const { return Vector3<T>(this->x - other.x, this->y - other.y, this->z - other.z); }
     Vector3<T> operator*(Vector3<T>& other) const { return Vector3<T>(this->x * other.x, this->y * other.y, this->z * other.z); }
@@ -88,6 +92,7 @@ struct Vector4 : public Vector3<T>
     Vector4() = default;
     Vector4(T x, T y, T z, T w) : Vector3<T>(x, y, z), w(w) { }
 	float DistanceTo(Vector4<T>& other) const { return sqrt(pow(other.x - this->x, 2) + pow(other.y - this->y, 2) + pow(other.z - this->z, 2) + pow(other.w - this->w, 2)); }
+	std::string to_string() const { return Vector3<T>::to_string() + "," + std::to_string(w); }
     Vector4<T> operator+(Vector4<T>& other) const { return Vector4(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w); }
     Vector4<T> operator-(Vector4<T>& other) const { return Vector4(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w); }
     Vector4<T> operator*(Vector4<T>& other) const { return Vector4(this->x * other.x, this->y * other.y, this->z * other.z, this->w * other.w); }

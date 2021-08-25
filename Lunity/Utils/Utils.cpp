@@ -1,6 +1,15 @@
 #include "Utils.h"
+#include <iostream>
+
+//#define LOG_FILE
+#define LOG_CONSOLE
 
 void Utils::DebugF(const char* out) {
+#ifdef LOG_CONSOLE
+	std::cout << out << std::endl;
+#endif
+
+#ifdef LOG_FILE
     std::string fPath = std::string("Lunity_Output.txt");
 	std::string dirP = getenv("APPDATA") + std::string("\\..\\Local\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\RoamingState\\" + std::string(fPath));
 
@@ -10,6 +19,7 @@ void Utils::DebugF(const char* out) {
 	fileOutput.open(dirP.c_str(), std::ios_base::app);
 	fileOutput << out << std::endl;
 	fileOutput.close();
+#endif
 };
 
 void Utils::DebugF(std::string out) {

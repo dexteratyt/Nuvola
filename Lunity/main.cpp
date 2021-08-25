@@ -1,6 +1,7 @@
 #include <thread>
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "Mem/Mem.h"
 #include "Utils/Utils.h"
@@ -13,6 +14,12 @@
 #include "Client/Bridge/Actor.h"
 
 void init() {
+	AllocConsole();
+	FILE *fDummy;
+    freopen_s(&fDummy, "CONIN$", "r", stdin);
+    freopen_s(&fDummy, "CONOUT$", "w", stderr);
+    freopen_s(&fDummy, "CONOUT$", "w", stdout);
+
 	Utils::DebugF(std::string("Initialized Lunity"));
 
 	//Apply all patches
