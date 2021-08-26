@@ -1,9 +1,9 @@
 #ifndef LUNITY_CLIENT_EVENTS_GLOBAL_MOUSEEVENT
 #define LUNITY_CLIENT_EVENTS_GLOBAL_MOUSEEVENT
 
-#include "../../../Utils/Math.h"
-#include "../EventData.h"
-#include "../Cancellable.h"
+#include "../../Utils/Math.h"
+#include "Event.h"
+#include "Cancellable.h"
 
 enum class MouseButton {
 	NONE = 0,
@@ -19,7 +19,7 @@ enum class MouseAction {
 	SCROLL_DOWN
 };
 
-class MouseEvent : public EventData, public Cancellable {
+class MouseEvent : public Event, public Cancellable {
 	MouseButton button;
 	MouseAction action;
 	short mouseX;
@@ -27,7 +27,7 @@ class MouseEvent : public EventData, public Cancellable {
 	short movementX;
 	short movementY;
 public:
-	MouseEvent(char button, char action, short mouseX, short mouseY, short movementX, short movementY) : EventData() {
+	MouseEvent(char button, char action, short mouseX, short mouseY, short movementX, short movementY) : Event() {
 		this->button = (MouseButton)button;
 		this->SetActionFromChar(action);
 		this->mouseX = mouseX;

@@ -1,19 +1,19 @@
-#ifndef LUNITY_CLIENT_EVENTS_GLOBAL_KEYPRESSEVENT
-#define LUNITY_CLIENT_EVENTS_GLOBAL_KEYPRESSEVENT
+#ifndef LUNITY_CLIENT_EVENTS_KEYPRESSEVENT
+#define LUNITY_CLIENT_EVENTS_KEYPRESSEVENT
 
-#include "../EventData.h"
-#include "../Cancellable.h"
+#include "Event.h"
+#include "Cancellable.h"
 
 enum class KeyAction {
 	PRESSED,
 	RELEASED
 };
 
-class KeyPressEvent : public EventData, public Cancellable {
+class KeyPressEvent : public Event, public Cancellable {
 	int key;
 	KeyAction action;
 public:
-	KeyPressEvent(int key, int action) : EventData() {
+	KeyPressEvent(int key, int action) : Event() {
 		this->key = key;
 		this->action = (KeyAction)action;
 	};
@@ -32,4 +32,4 @@ public:
 	}
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_GLOBAL_KEYPRESSEVENT */
+#endif /* LUNITY_CLIENT_EVENTS_KEYPRESSEVENT */

@@ -1,8 +1,3 @@
 target_sources(Lunity PRIVATE
-	"EventHandler.cpp"
+	"Event.cpp"
 )
-add_subdirectory(Actor)
-add_subdirectory(Global)
-add_subdirectory(Interaction)
-add_subdirectory(LocalPlayer)
-add_subdirectory(Renderer)

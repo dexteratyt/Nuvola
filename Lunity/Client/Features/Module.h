@@ -5,9 +5,9 @@
 #include <utility>
 #include "Manager.h"
 #include "Setting.h"
-#include "../Events/EventHandler.h"
+#include "../Events/Listener.h"
 
-class Module : public Manager<Setting> {
+class Module : public Manager<Setting>, public Listener {
 	bool enabled;
 	bool wasEnabled;
 	int hotkey;
