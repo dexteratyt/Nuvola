@@ -1,8 +1,5 @@
 #include "Killaura.h"
 #include "../../../Patches/PatchManager.h"
-#include "../../../Events/LocalPlayer/UpdateHeadYEvent.h"
-#include "../../../Events/Actor/SetRotEvent.h"
-#include "../../../Events/Renderer/UIRenderEvent.h"
 #include "../../../Bridge/ClientInstance.h"
 #include "../../../Bridge/Level.h"
 
@@ -73,9 +70,7 @@ Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
 
 float distance = 0;
 Actor* theTarget = nullptr;
-void setRotEvent(EventData* event) {
-	SetRotEvent* e = event->as<SetRotEvent>();
-
+void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 	ClientInstance* client = Utils::GetClientInstance();
 	LocalPlayer* player = client->clientPlayer;
 	if(player) {
@@ -108,18 +103,17 @@ void setRotEvent(EventData* event) {
 				
 				Vector2<float> angles = CalcAngle(playerPos, enemyPos) * (180.0/3.141592653589793238463);
 
-				e->SetCancelled(true);
-				player->lookingVec.x = angles.x;
-				player->lookingVec.y = angles.y;
+				event.SetCancelled(true);
+				event.SetYaw(angles.x);
+				event.SetYaw(angles.y);
 				Utils::DebugF("Looking: "+player->lookingVec.to_string());
 			}
 		}
 	}
 }
 
-void onRender(EventData* event) {
-	UIRenderEvent* e = event->as<UIRenderEvent>();
-	MinecraftRenderer* wrapper = e->GetRenderWrapper();
+void Killaura::onRenderEvent(RenderEvent& event) {
+	MinecraftRenderer* wrapper = event.GetRenderWrapper();
 	
 	wrapper->DrawString(std::to_string(distance), Vector2<float>(0,0));
 	wrapper->DrawString(std::to_string((uintptr_t)theTarget), Vector2<float>(0,10));
@@ -130,11 +124,9 @@ Killaura::Killaura() : Module("Killaura") {
 };
 
 void Killaura::OnEnable() {
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, onRender);
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::ACTOR_SET_ROT, setRotEvent);
+	EventHandler::registerListener(this);
 };
 
 void Killaura::OnDisable() {
-	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::RENDER_EVENT, onRender);
-	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::ACTOR_SET_ROT, setRotEvent);
+	EventHandler::unregisterListener(this);
 };

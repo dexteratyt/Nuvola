@@ -14,15 +14,14 @@
 #include "Modules/Misc/Uninject.h"
 
 //Events
-#include "../Events/Global/KeyPressEvent.h"
+#include "../Events/EventHandler.h"
+#include "../Events/KeyPressEvent.h"
 
-void checkHotkeys(EventData* event) {
-	KeyPressEvent* e = event->as<KeyPressEvent>();
-
-	if(e->GetAction() == KeyAction::PRESSED) {
+void ModuleMgr::onKeyEvent(KeyPressEvent& event) {
+	if(event.GetAction() == KeyAction::PRESSED) {
 		ModuleMgr* mgr = ModuleMgr::getInstance();
 		for(auto mod : *mgr->getAllModules()) {
-			if(mod->GetHotkey() == e->GetKey()) {
+			if(mod->GetHotkey() == event.GetKey()) {
 				mod->Toggle();
 			}
 		}
@@ -59,7 +58,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     this->addItem(player);
     this->addItem(misc);
 
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, checkHotkeys);
+	EventHandler::registerListener(this);
 
     //LogFile::log("Created ModuleManager instance!");
 }

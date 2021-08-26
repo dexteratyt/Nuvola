@@ -4,14 +4,17 @@
 #include <vector>
 #include "Category.h"
 #include "Module.h"
+#include "../Events/Listener.h"
 
-class ModuleMgr : public Manager<Category> {
+class ModuleMgr : public Manager<Category>, public Listener {
     static ModuleMgr * instance;
 public:
     ModuleMgr();
     static ModuleMgr * getInstance();
     std::vector<Module*>* getAllModules();
 	Module* findModule(std::string name);
+
+	void onKeyEvent(KeyPressEvent& event) override;
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_MODULEMGR */

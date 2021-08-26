@@ -1,6 +1,5 @@
 #include "ClickGui.h"
 
-#include "../../../Events/Renderer/UIRenderEvent.h"
 #include "../../../Bridge/MinecraftUIRenderContext.h"
 #include "../../../Bridge/ScreenContext.h"
 #include "../../../Bridge/MeshHelpers.h"
@@ -10,50 +9,38 @@
 #include <sstream>
 #include "../../../Bridge/Level.h"
 
-namespace ClickGui_Globals {
+std::vector<void*> testVec;
 
-	std::vector<void*> testVec;
+std::string to_hex_string( size_t i ) {
+	std::stringstream s;
+	s << "0x" << std::hex << i;
+	return s.str();
+}
 
-	std::string to_hex_string( size_t i ) {
-		std::stringstream s;
-		s << "0x" << std::hex << i;
-		return s.str();
-	}
+void ClickGui::onRenderEvent(RenderEvent& event) {
+	MinecraftUIRenderContext* context = event.GetRenderContext();
+	MinecraftRenderer* wrapper = event.GetRenderWrapper();
 
-	void onRender(EventData* event) {
-		UIRenderEvent* e = event->as<UIRenderEvent>();
-		MinecraftUIRenderContext* context = e->GetRenderContext();
-		MinecraftRenderer* wrapper = e->GetRenderWrapper();
-		// Tessellator* tess = context->screenContext->tessellator;
-		// tess->begin(1, 4, 0);
-		// tess->vertex(0, 0, 0);
-		// tess->vertex(0, 100, 0);
-		// tess->vertex(100, 100, 0);
-		// tess->vertex(100, 0, 0);
-		// MeshHelpers::renderMeshImmediately(context->screenContext, tess, Utils::GetUIMaterialPtr());
-
-
-		ClientInstance* client = e->GetRenderContext()->clientInstance;
-		LocalPlayer* player = client->clientPlayer;
-		if(player) {
-			Level* level = player->level;
-			if(level) {
-				size_t player_count = level->players.size();
-				size_t actor_count = level->actors.size();
-				wrapper->DrawString(std::to_string(player_count), Vector2<float>(0,0));
-				wrapper->DrawString(std::to_string(actor_count), Vector2<float>(0,10));
-				wrapper->DrawString(to_hex_string((size_t)&testVec), Vector2<float>(0,20));
-			}
+	ClientInstance* client = event.GetRenderContext()->clientInstance;
+	LocalPlayer* player = client->clientPlayer;
+	if(player) {
+		Level* level = player->level;
+		if(level) {
+			size_t player_count = level->players.size();
+			size_t actor_count = level->actors.size();
+			wrapper->DrawString(std::to_string(player_count), Vector2<float>(0,0));
+			wrapper->DrawString(std::to_string(actor_count), Vector2<float>(0,10));
+			wrapper->DrawString(to_hex_string((size_t)&testVec), Vector2<float>(0,20));
 		}
 	}
 }
 
 ClickGui::ClickGui() : Module("ClickGui") {
-	ClickGui_Globals::testVec.push_back(&ClickGui_Globals::testVec);
+	testVec.push_back(&testVec);
 }
 void ClickGui::OnEnable() {
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, ClickGui_Globals::onRender);
+	EventHandler::registerListener(this);
 }
 void ClickGui::OnDisable() {
-	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::RENDER_EVENT, ClickGui_Globals::onRender);
+	EventHandler::unregisterListener(this);
 }

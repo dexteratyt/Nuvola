@@ -1,14 +1,21 @@
 #include  "SetRotHook.h"
 
-#include "../../Events/Actor/SetRotEvent.h"
+#include <vector>
+
+#include "../../Bridge/Actor.h"
+#include "../../Events/ActorRotateEvent.h"
+#include "../../Events/EventHandler.h"
 
 void __fastcall SetRotHook::SetRotCallback_1_17_11_1(Actor* actor, Vector2<float>* vector) {
-	SetRotEvent event(actor, vector);
-	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::ACTOR_SET_ROT, &event);
+	ActorRotateEvent event(actor, *vector);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		listener->onActorRotateEvent(event);
+	}
 	if(event.IsCancelled()) {
 		return;
 	}
-	PLH::FnCast(funcOriginal, &SetRotCallback_1_17_11_1)(event.GetActor(), event.GetNewVector());
+	PLH::FnCast(funcOriginal, &SetRotCallback_1_17_11_1)(event.GetActor(), &event.GetRotation());
 }
 
 SetRotHook::SetRotHook() : IPatch::IPatch("Actor::SetRot") {

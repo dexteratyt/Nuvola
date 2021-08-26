@@ -1,15 +1,12 @@
 #include "TabUI.h"
-#include "../../../Events/Renderer/UIRenderEvent.h"
-#include "../../../Events/Global/KeyPressEvent.h"
-#include "../../../Events/Global/MouseEvent.h"
 #include "../../ModuleMgr.h"
 #include <Windows.h>
 
 #include <gsl/gsl>
+#include <unordered_set>
 #include "../../../Bridge/LocalPlayer.h"
 #include "../../../Bridge/ClientInstance.h"
 #include "../../../Bridge/GuiData.h"
-#include <unordered_set>
 #include "../../../Bridge/Level.h"
 
 /* Tab GUI constants*/
@@ -306,27 +303,22 @@ namespace TabUI_Locals {
 	}
 #endif
 }
+
+void onRenderEvent(RenderEvent& event) {
+	TabUI_Locals::onRender(&event);
+};
+
 TabUI::TabUI() : Module("TabUI", VK_TAB) {
 	this->SetEnabled(true);
 	//Register this event here, it will never be unregistered
 	//If this goes in on enable, since its never unregistered, it will register again, causing it to draw multiple times/frame
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::RENDER_EVENT, TabUI_Locals::onRender);
+	EventHandler::registerListener(this);
 }
 
 void TabUI::OnEnable() {
-	//Enable code
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
-#ifdef MOUSE_SUPPORT
-	EventHandler::GetInstance()->ListenFor(EVENT_ID::MOUSE_INPUT_EVENT, TabUI_Locals::onMouse);
-#endif
 }
 
 void TabUI::OnDisable() {
-	//Disable code
-	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::KEYPRESS_EVENT, TabUI_Locals::onKey);
-#ifdef MOUSE_SUPPORT
-	EventHandler::GetInstance()->UnlistenFor(EVENT_ID::MOUSE_INPUT_EVENT, TabUI_Locals::onMouse);
-#endif
 	TabUI_Locals::highlightedCat = ModuleMgr::getInstance()->getItem(0);
 	TabUI_Locals::selectedCat = nullptr;
 	TabUI_Locals::currentSelection = 0;
