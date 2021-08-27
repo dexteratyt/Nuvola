@@ -11,6 +11,8 @@ public:
 	void OnDisable() override;
 
 	void onRenderEvent(RenderEvent& event) override;
+	void onMouseEvent(MouseEvent& event) override;
+	void onKeyEvent(KeyEvent& event) override;
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_MODULES_TABUI */

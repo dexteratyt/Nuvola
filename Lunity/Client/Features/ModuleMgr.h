@@ -14,7 +14,7 @@ public:
     std::vector<Module*>* getAllModules();
 	Module* findModule(std::string name);
 
-	void onKeyEvent(KeyPressEvent& event) override;
+	void onKeyEvent(KeyEvent& event) override;
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_MODULEMGR */

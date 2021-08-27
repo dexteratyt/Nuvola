@@ -1,9 +1,6 @@
 #include "Utils.h"
 #include <iostream>
 
-//#define LOG_FILE
-#define LOG_CONSOLE
-
 void Utils::DebugF(const char* out) {
 #ifdef LOG_CONSOLE
 	std::cout << out << std::endl;

@@ -2,7 +2,7 @@
 #define LUNITY_CLIENT_EVENTS_LISTENER
 
 #include "Event.h"
-#include "KeyPressEvent.h"
+#include "KeyEvent.h"
 #include "MouseEvent.h"
 #include "PlayerTickEvent.h"
 #include "RenderEvent.h"
@@ -11,7 +11,7 @@
 class Listener {
 public:
 	virtual void onEvent(Event& event) {};
-	virtual void onKeyEvent(KeyPressEvent& event) {};
+	virtual void onKeyEvent(KeyEvent& event) {};
 	virtual void onMouseEvent(MouseEvent& event) {};
 	virtual void onPlayerTickEvent(PlayerTickEvent& event) {};
 	virtual void onRenderEvent(RenderEvent& event) {};

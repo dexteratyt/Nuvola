@@ -18,7 +18,7 @@
 //ScreenView
 #include "ScreenView/SetupAndRenderHook.h"
 //SurvivalMode
-#include "SurvivalMode/TickHook.h"
+// #include "SurvivalMode/TickHook.h"
 
 void PatchManager::ApplyAll()
 {
@@ -37,7 +37,7 @@ void PatchManager::ApplyAll()
 	PatchManager::ApplyPatch(new SetRotHook()); // This has for up & down rotation which is shared across the whole body, however only the head moves.
 
 	/* Tick hook */
-	PatchManager::ApplyPatch(new TickHook());
+	//PatchManager::ApplyPatch(new TickHook());
 	PatchManager::ApplyPatch(new NormalTickHook());
 }
 

@@ -6,8 +6,10 @@ Uninject::Uninject() : Module("Uninject") {};
 void Uninject::OnEnable() {
 	//Uninject here
 
+#ifdef LOG_CONSOLE
 	//Free console window if in use
 	FreeConsole();
+#endif
 	
 	//Clean up hooks
 	PatchManager::RemoveAll();

@@ -168,8 +168,7 @@ namespace TabUI_Locals {
 		return brandWidth;
 	}
 
-	void onRender(EventData* event) {
-		UIRenderEvent* e = event->as<UIRenderEvent>();
+	void onRender(RenderEvent* e) {
 		e->GetRenderWrapper()->SetScale(BRAND_SCALE);
 		float width = renderBranding(e->GetRenderWrapper(), Vector2<float>(getTabLocX(), BASE_PADDING));
 
@@ -227,9 +226,7 @@ namespace TabUI_Locals {
 		updateAnimVars(e->GetRenderWrapper());
 	}
 
-	void onKey(EventData* event) {
-		KeyPressEvent* e = event->as<KeyPressEvent>();
-
+	void onKey(KeyEvent* e) {
 		if(e->GetAction() == KeyAction::PRESSED) {
 			if(thisMod) {
 				switch(e->GetKey()) {
@@ -304,9 +301,21 @@ namespace TabUI_Locals {
 #endif
 }
 
-void onRenderEvent(RenderEvent& event) {
+void TabUI::onRenderEvent(RenderEvent& event) {
 	TabUI_Locals::onRender(&event);
 };
+void TabUI::onMouseEvent(MouseEvent& event) {
+#ifdef MOUSE_SUPPORT
+	if(this->IsEnabled()) {
+		TabUI_Locals::onMouseEvent(&event);
+	}
+#endif
+}
+void TabUI::onKeyEvent(KeyEvent& event) {
+	if(this->IsEnabled()) {
+		TabUI_Locals::onKey(&event);
+	}
+}
 
 TabUI::TabUI() : Module("TabUI", VK_TAB) {
 	this->SetEnabled(true);

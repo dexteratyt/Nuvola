@@ -1,10 +1,14 @@
 #include "KeyPressHook.h"
 
-#include "../../Events/Global/KeyPressEvent.h"
+#include "../../Events/KeyEvent.h"
+#include "../../Events/EventHandler.h"
 
 void KeyPressHook::keyPressCallback_1_17_10_4(int key, int action) {
-	KeyPressEvent event(key, action);
-	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::KEYPRESS_EVENT, &event);
+	KeyEvent event(key, action);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		listener->onKeyEvent(event);
+	}
 	if(!event.IsCancelled()) {
 		PLH::FnCast(funcOriginal, keyPressCallback_1_17_10_4)(event.GetKey(), (int)event.GetAction());
 	}

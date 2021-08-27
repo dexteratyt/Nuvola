@@ -9,11 +9,11 @@ enum class KeyAction {
 	RELEASED
 };
 
-class KeyPressEvent : public Event, public Cancellable {
+class KeyEvent : public Event, public Cancellable {
 	int key;
 	KeyAction action;
 public:
-	KeyPressEvent(int key, int action) : Event() {
+	KeyEvent(int key, int action) : Event() {
 		this->key = key;
 		this->action = (KeyAction)action;
 	};

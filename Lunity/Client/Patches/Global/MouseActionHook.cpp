@@ -1,10 +1,14 @@
 #include "MouseActionHook.h"
 
-#include "../../Events/Global/MouseEvent.h"
+#include "../../Events/MouseEvent.h"
+#include "../../Events/EventHandler.h"
 
 void MouseActionHook::mouseActionHookCallback_1_17_11_1(void* param_1,char button, char action, short mouseX, short mouseY, short movementX, short movementY, char param_8) {
 	MouseEvent event(button, action, mouseX, mouseY, movementX, movementY);
-	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::MOUSE_INPUT_EVENT, &event);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		listener->onMouseEvent(event);
+	}
 	if(!event.IsCancelled()) {
 		PLH::FnCast(funcOriginal, mouseActionHookCallback_1_17_11_1)(param_1, button, action, mouseX, mouseY, movementX, movementY, param_8);
 	}

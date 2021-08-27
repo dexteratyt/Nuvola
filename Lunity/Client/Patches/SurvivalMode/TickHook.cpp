@@ -1,6 +1,6 @@
 #include "TickHook.h"
 
-#include "../../Events/Interaction/TickEvent.h"
+#include "../../Events/TickEvent.h"
 
 void __fastcall TickHook::tickCallback_1_17_11_1(SurvivalMode* gameMode) {
 	PLH::FnCast(tickOriginal, tickCallback_1_17_11_1);

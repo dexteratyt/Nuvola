@@ -15,9 +15,8 @@
 
 //Events
 #include "../Events/EventHandler.h"
-#include "../Events/KeyPressEvent.h"
 
-void ModuleMgr::onKeyEvent(KeyPressEvent& event) {
+void ModuleMgr::onKeyEvent(KeyEvent& event) {
 	if(event.GetAction() == KeyAction::PRESSED) {
 		ModuleMgr* mgr = ModuleMgr::getInstance();
 		for(auto mod : *mgr->getAllModules()) {

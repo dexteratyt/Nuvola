@@ -15,7 +15,7 @@ void __fastcall SetRotHook::SetRotCallback_1_17_11_1(Actor* actor, Vector2<float
 	if(event.IsCancelled()) {
 		return;
 	}
-	PLH::FnCast(funcOriginal, &SetRotCallback_1_17_11_1)(event.GetActor(), &event.GetRotation());
+	PLH::FnCast(funcOriginal, &SetRotCallback_1_17_11_1)(event.GetActor(), vector);
 }
 
 SetRotHook::SetRotHook() : IPatch::IPatch("Actor::SetRot") {

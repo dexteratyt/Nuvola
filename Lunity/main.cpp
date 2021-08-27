@@ -14,11 +14,13 @@
 #include "Client/Bridge/Actor.h"
 
 void init() {
+#ifdef LOG_CONSOLE
 	AllocConsole();
 	FILE *fDummy;
     freopen_s(&fDummy, "CONIN$", "r", stdin);
     freopen_s(&fDummy, "CONOUT$", "w", stderr);
     freopen_s(&fDummy, "CONOUT$", "w", stdout);
+#endif
 
 	Utils::DebugF(std::string("Initialized Lunity"));
 

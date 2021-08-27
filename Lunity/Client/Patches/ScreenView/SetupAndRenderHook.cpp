@@ -6,7 +6,8 @@
 
 #include "../../../Render/IAnimWrapper.h"
 #include "../../../Render/RenderContext/MinecraftRenderer.h"
-#include "../../Events/Renderer/UIRenderEvent.h"
+#include "../../Events/EventHandler.h"
+#include "../../Events/RenderEvent.h"
 
 bool other = false;
 void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class ScreenView* screenView, class MinecraftUIRenderContext* renderContext) {
@@ -15,8 +16,11 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	IAnimWrapper::NewFrame();
 
 	MinecraftRenderer renderer = MinecraftRenderer(renderContext);
-	UIRenderEvent event(renderContext, &renderer);
-	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::RENDER_EVENT, &event);
+	RenderEvent event(renderContext, &renderer);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		listener->onRenderEvent(event);
+	}
 /*
 	Vector4<float> rect = Vector4<float>(0, 100, 0, 100);
 	float test[4];

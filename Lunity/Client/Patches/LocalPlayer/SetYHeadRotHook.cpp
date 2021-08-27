@@ -1,17 +1,15 @@
 #include  "SetYHeadRotHook.h"
 
-#include "../../Events/LocalPlayer/UpdateHeadYEvent.h"
+//#include "../../Events/UpdateHeadYEvent.h"
+#include "../../Events/EventHandler.h"
 
 void __fastcall SetYHeadRotHook::SetYHeadRotHookCallback_1_17_10_4(LocalPlayer* localPlayer, Actor* camera) {
 	PLH::FnCast(funcOriginal, &SetYHeadRotHookCallback_1_17_10_4)(localPlayer, camera);
-	UpdateHeadYEvent event(localPlayer, camera);
-	EventHandler::GetInstance()->DispatchEvent(EVENT_ID::LOCALPLAYER_UPDATE_HEAD_Y, &event);
-	// ClientInstance* client = Utils::GetClientInstance();
-	// LocalPlayer* lPlayer = client->ClientPlayer();
-	// if(lPlayer) {
-	// 	float rot = lPlayer->YHeadRot();
-	// 	lPlayer->YHeadRot(0);
-	// }
+	//UpdateHeadYEvent event(localPlayer, camera);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		//listener->onHeadRotateEvent(event);
+	}
 }
 
 SetYHeadRotHook::SetYHeadRotHook() : IPatch::IPatch("LocalPlayer::SetYHeadRot") {
