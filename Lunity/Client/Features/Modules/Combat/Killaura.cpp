@@ -62,8 +62,8 @@ Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
 	float dY = localPos.y - targetPos.y;
 	float dZ = localPos.z - targetPos.z;
 	double distance = sqrt(dX * dX + dY * dY + dZ * dZ);
-	vec2.x = -((float)atan2(dY, (float)distance) * (float)3.13810205 / (float)3.141592653589793);
-	vec2.y = -((float)atan2(dZ, dX) * (float)3.13810205 / (float)3.141592653589793) + (float)1.569051027;
+	vec2.x = ((float)atan2(dY, (float)distance) * (float)3.13810205 / (float)3.141592653589793);
+	vec2.y = ((float)atan2(dZ, dX) * (float)3.13810205 / (float)3.141592653589793) + (float)1.569051027;
 	return vec2;
 }
 
@@ -104,8 +104,9 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 				Vector2<float> angles = CalcAngle(playerPos, enemyPos) * (180.0/3.141592653589793238463);
 
 				event.SetCancelled(true);
-				event.SetYaw(angles.x);
-				event.SetYaw(angles.y);
+				player->lookingVec = angles;
+				// event.SetYaw(angles.x);
+				// event.SetPitch(angles.y);
 				Utils::DebugF("Looking: "+player->lookingVec.to_string());
 			}
 		}
