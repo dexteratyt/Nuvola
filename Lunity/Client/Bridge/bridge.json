@@ -74,6 +74,8 @@
 	{
 		"ClassName": "LoopbackPacketSender",
 		"Extends": null,
+		"Fields": [],
+		"Functions": [],
         "Virtuals": [
             {
                 "Name": "send",
