@@ -44,6 +44,14 @@
 				}
 			},
 			{
+				"Name": "loopbackPacketSender",
+				"Offset": "D0",
+				"Type": {
+					"TypeName": "class LoopbackPacketSender*",
+					"TypeSize": 8
+				}
+			},
+			{
 				"Name": "clientPlayer",
 				"Offset": "140",
 				"Type": {
@@ -62,6 +70,23 @@
 		],
 		"Functions": [],
 		"Virtuals": []
+	},
+	{
+		"ClassName": "LoopbackPacketSender",
+		"Extends": null,
+        "Virtuals": [
+            {
+                "Name": "send",
+				"Offset": "1",
+				"Parameters": [
+					{
+						"Name": "packet",
+						"Type": "void*"
+					}
+				],
+				"Type": "void"
+            }
+        ]
 	},
     {
         "ClassName": "Actor",
