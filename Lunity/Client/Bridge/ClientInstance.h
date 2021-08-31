@@ -7,7 +7,9 @@ struct ClientInstance {
 	/* Fields */
 	char padding_168[168];
 	class MinecraftGame* minecraftGame;
-	char padding_320[144];
+	char padding_208[32];
+	class LoopbackPacketSender* loopbackPacketSender;
+	char padding_320[104];
 	class LocalPlayer* clientPlayer;
 	char padding_1240[912];
 	class GuiData* guiData;
