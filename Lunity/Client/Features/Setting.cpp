@@ -1,20 +1,29 @@
 #include "Setting.h"
 
-Setting::Setting(std::string name, SettingType type, void* defaultValue, void* minimumValue, void* maximumValue) : ManagedItem(name) {
+template <class T>
+Setting<T>::Setting(std::string name, SettingType type, T* value, T minimumValue, T maximumValue) : ManagedItem(name) {
     this->type         = type;
     this->maximumValue = maximumValue;
     this->minimumValue = minimumValue;
-    this->value        = defaultValue;
+    this->value        = value;
 }
 
-void *Setting::getValue() {
+template <class T>
+void* Setting<T>::getValue() {
     return this->value;
 }
 
-void *Setting::getMinimum() {
+template <class T>
+void Setting<T>::setValue(T value) {
+	*this->value = value;
+}
+
+template <class T>
+T Setting<T>::getMinimum() {
     return this->minimumValue;
 }
 
-void *Setting::getMaximum() {
+template <class T>
+T Setting<T>::getMaximum() {
     return this->maximumValue;
 }

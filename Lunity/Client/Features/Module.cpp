@@ -1,7 +1,7 @@
 #include "Module.h"
 
 Module::Module(std::string name)  : Module(name, 0) {};
-Module::Module(std::string name, int key) : Manager<Setting>(name) {
+Module::Module(std::string name, int key) : Manager<ISetting>(name) {
 	this->wasEnabled = false;
 	this->SetEnabled(false);
 	this->SetHotkey(key);

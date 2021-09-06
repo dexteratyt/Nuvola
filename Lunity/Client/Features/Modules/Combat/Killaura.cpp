@@ -121,7 +121,8 @@ void Killaura::onRenderEvent(RenderEvent& event) {
 }
 
 Killaura::Killaura() : Module("Killaura") {
-	this->addItem(new Setting("Reach", SettingType::SLIDER, &reachVal, &minimumReach, &maximumReach));
+	this->addItem(new Setting<float>("Reach", SettingType::SLIDER, &reachVal, minimumReach, maximumReach));
+    //this->addItem(new Setting("Interval", SettingType::SLIDER, &interval, 1, 10));
 };
 
 void Killaura::OnEnable() {

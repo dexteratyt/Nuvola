@@ -7,7 +7,7 @@
 #include "Setting.h"
 #include "../Events/Listener.h"
 
-class Module : public Manager<Setting>, public Listener {
+class Module : public Manager<ISetting>, public Listener {
 	bool enabled;
 	bool wasEnabled;
 	int hotkey;
