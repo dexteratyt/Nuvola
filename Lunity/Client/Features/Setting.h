@@ -9,18 +9,30 @@ enum class SettingType{
 };
 
 
-template <class T>
-class Setting : public ISetting, public ManagedItem {
+template <class T> class Setting : public ISetting, public ManagedItem {
     T minimumValue;
     T maximumValue;
     SettingType type;
 public:
     T* value;
-    Setting(std::string name, SettingType type, T* defaultValue, T minimumValue, T maximumValue);
-	void* getValue() override;
-	void setValue(T value);
-    T getMinimum();
-    T getMaximum();
+    explicit Setting(std::string name, SettingType type, T* defaultValue, T minimumValue, T maximumValue) : ManagedItem(name), ISetting() {
+		this->type         = type;
+		this->maximumValue = maximumValue;
+		this->minimumValue = minimumValue;
+		this->value        = value;
+	}
+	void* getValue() override {
+		return this->value;
+	}
+	void setValue(T value) {
+		*this->value = value;
+	}
+    T getMinimum() {
+		return this->minimumValue;
+	}
+    T getMaximum() {
+		return this->maximumValue;
+	}
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_SETTING */

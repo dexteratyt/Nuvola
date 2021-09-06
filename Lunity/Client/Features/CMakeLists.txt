@@ -7,7 +7,6 @@ target_sources(Lunity PRIVATE
 	"ManagedItem.cpp"
 	"Module.cpp"
 	"ModuleMgr.cpp"
-	"Setting.cpp"
 )
 
 add_subdirectory(Modules)

@@ -3,7 +3,9 @@
 
 class ISetting {
 public:
-	virtual void* getValue();
+	virtual void* getValue() {
+		return nullptr;
+	}
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_ISETTING */
