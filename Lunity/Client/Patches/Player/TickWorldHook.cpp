@@ -1,0 +1,22 @@
+#include  "TickWorldHook.h"
+
+#include "../../Events/Listener.h"
+#include "../../Events/EventHandler.h"
+
+void __fastcall TickWorldHook::TickWorldHookCallback_1_17_11_1(Player* player, class Tick* tick) {
+	PLH::FnCast(funcOriginal, &TickWorldHookCallback_1_17_11_1)(player, tick);
+	LocalPlayer* localPlayer = Utils::GetClientInstance()->clientPlayer;
+	PlayerTickEvent event(player->gameMode, player, localPlayer==player);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		listener->onPlayerTickWorldEvent(event);
+	}
+}
+
+TickWorldHook::TickWorldHook() : IPatch::IPatch("Player::TickWorld") {
+	this->AddSignature(new SigInfo(new std::string("89 ?? ?? ?? 55 56 57 41 ?? 41 ?? 41 ?? 41 ?? 48 ?? ?? ?? ?? 48 81 ?? ?? ?? ?? ?? ?? 29 ?? ?? ?? ?? ?? ?? 48 8B ?? ?? ?? ?? ?? 48 33 ?? ?? 89 ?? ?? ?? 89 ?? ?? 48 8B ?? 41"), -1));
+}
+
+auto TickWorldHook::Apply() -> bool {
+	return this->AutoPatch(&TickWorldHookCallback_1_17_11_1, &funcOriginal);
+}

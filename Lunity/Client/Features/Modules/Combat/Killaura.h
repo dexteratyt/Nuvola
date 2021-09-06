@@ -4,6 +4,7 @@
 #include "../../Module.h"
 #include "../../../Events/Listener.h"
 #include "../../../Events/EventHandler.h"
+#include "../../../Bridge/LocalPlayer.h"
 
 class Killaura : public Module {
 public:
@@ -11,6 +12,7 @@ public:
 	void OnEnable() override;
 	void OnDisable() override;
 
+	void onPlayerTickWorldEvent(PlayerTickEvent& event) override;
 	void onActorRotateEvent(ActorRotateEvent& event) override;
 	void onRenderEvent(RenderEvent& event) override;
 };

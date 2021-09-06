@@ -7,7 +7,7 @@
 #include "../Client/Bridge/ClientInstance.h"
 #include <gsl/gsl>
 
-//#define LOG_FILE
+#define LOG_FILE
 //#define LOG_CONSOLE
 
 class Utils {

@@ -4,8 +4,9 @@
 
 //Actor
 #include "Actor/SetRotHook.h"
+#include "Actor/NormalTickHook.h"
 //Player
-#include "Player/NormalTickHook.h"
+#include "Player/TickWorldHook.h"
 //Localplayer
 #include "LocalPlayer/SetYHeadRotHook.h"
 //ClientInstance
@@ -32,13 +33,15 @@ void PatchManager::ApplyAll()
 	/* Graphics hooking */
 	PatchManager::ApplyPatch(new SetupAndRenderHook());
 
-	/* Both patches are needed for changing where LP is facing */
+	/* LocalPlayer patches */
 	PatchManager::ApplyPatch(new SetYHeadRotHook()); // This func has head & camera math
-	PatchManager::ApplyPatch(new SetRotHook()); // This has for up & down rotation which is shared across the whole body, however only the head moves.
 
-	/* Tick hook */
-	//PatchManager::ApplyPatch(new TickHook());
-	PatchManager::ApplyPatch(new NormalTickHook());
+	/* Actor patches */
+	PatchManager::ApplyPatch(new SetRotHook()); // This has for up & down rotation which is shared across the whole body, however only the head moves.
+	//PatchManager::ApplyPatch(new NormalTickHook());
+
+	/* Player patches */
+	PatchManager::ApplyPatch(new TickWorldHook());
 }
 
 void PatchManager::ApplyPatch(IPatch* toAdd)
