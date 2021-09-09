@@ -75,8 +75,10 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(!event.IsLocalPlayer()) {return;}
 
 	GameMode* gm = event.GetGameMode();
+	Player* lp = event.GetPlayer();
 	if(theTarget != nullptr) {
 		if(distance < reachVal) {
+			lp->swing();
 			gm->attack(theTarget);
 		}
 	}

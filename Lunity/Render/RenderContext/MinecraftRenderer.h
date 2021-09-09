@@ -1,9 +1,12 @@
-#ifndef LUNITY_UTILS_MINECRAFTRENDERER
-#define LUNITY_UTILS_MINECRAFTRENDERER
+#ifndef LUNITY_RENDER_RENDERCONTEXT_MINECRAFTRENDERER
+#define LUNITY_RENDER_RENDERCONTEXT_MINECRAFTRENDERER
 
 #include "Math.h"
 #include "../../Client/Bridge/MinecraftUIRenderContext.h"
 #include "../../Client/Bridge/MinecraftGame.h"
+#include "../../Client/Bridge/FontRepository.h"
+#include "../../Client/Bridge/FontList.h"
+#include "../../Client/Bridge/FontEntry.h"
 #include <string>
 #include "../IAnimWrapper.h"
 
@@ -40,4 +43,4 @@ public:
 	void Fill(RectangleArea rectangle, Color color);
 };
 
-#endif /* LUNITY_UTILS_MINECRAFTRENDERER */
+#endif /* LUNITY_RENDER_RENDERCONTEXT_MINECRAFTRENDERER */

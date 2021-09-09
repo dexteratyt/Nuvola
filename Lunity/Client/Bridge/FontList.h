@@ -1,11 +1,14 @@
-#ifndef GUARD_LocalPlayer
-#define GUARD_LocalPlayer
+#ifndef GUARD_FontList
+#define GUARD_FontList
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
-#include "Player.h"
-struct LocalPlayer : public Player {
+
+#include "FontEntry.h"
+
+struct FontList {
 	/* Fields */
+	FontEntry fontEntries[9];
 	/* Virtuals */
 	/* Functions */
 };
