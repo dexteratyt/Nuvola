@@ -1,12 +1,12 @@
-#ifndef GUARD_FontList
-#define GUARD_FontList
+#ifndef GUARD_NamespacedKey
+#define GUARD_NamespacedKey
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
-#include "FontEntry.h"
-struct FontList {
+struct NamespacedKey {
 	/* Fields */
-	FontEntry fontEntries[9];
+	std::string name;
+	std::string key;
 	/* Virtuals */
 	/* Functions */
 };

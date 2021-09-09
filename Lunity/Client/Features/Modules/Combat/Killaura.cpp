@@ -42,6 +42,7 @@ auto getClosestActorFromVector(Actor* first, std::vector<Actor*> actors) -> Acto
 
 	return closest;
 }
+/*
 auto getClosestActor(Actor* first) -> Actor* {
 	Actor* closest = nullptr;
 	Level* level = first->level;
@@ -60,6 +61,7 @@ auto getClosestPlayer(Actor* first) -> Player* {
 	
 	return (Player*)getClosestActorFromVector(first, actors);
 }
+*/
 
 
 Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
@@ -91,7 +93,6 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	}
 }
 
-//TODO: write this algorithm
 auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	//Get the level
 	Level* level = sourceActor->level;
@@ -101,9 +102,28 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	//Merge the vectors to get a complete list to iterate
 	allActors.insert(allActors.end(), allPlayers.begin(), allPlayers.end());
 
+	//Remove the source actor from the list. We can't attack ourselves!
+	allActors.erase(std::find(allActors.begin(), allActors.end(), sourceActor), allActors.end());
+
+	//Remove non-qualifying actors
+	allActors.erase(std::remove_if(allActors.begin(), allActors.end(),
+		[]
+		(const Actor* ent) {
+			//If the actor is a player & we want to target it:
+			if(targetPlayers && ent->type.key == "player") {
+				//Dont remove it
+				return false;
+			}
+
+			//Doesn't meet any criteria, we don't have enough info on this target. Remove it.
+			return true;
+		}
+	), allActors.end());
+
 	//Loop the list
 	for(Actor* actor : allActors) {
-		//TODO: Check the settings, and also make sure best criteria is met.
+		//Return the closest
+		return getClosestActorFromVector(sourceActor, allActors);
 	}
 
 	//None was found
@@ -117,37 +137,7 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 	if(rotatingActor != player) {return;}; //If the actor isnt the player, don't do anything.
 	//Check if player is actually valid
 	if(player) {
-		//Get the closest player and actor
-		//They are stored in 2 different lists, so we must check both.
-		Actor* closestActor = getClosestActor(player);
-		Player* closestPlayer = getClosestPlayer(player);
-		
-		//Goofy statements to see who is actually closer
-		//Check if the closest actor is valid
-		if(closestActor != nullptr) {
-			//if so, calc that distance
-			distance = getDistance(player, closestActor);
-			//set it to the target
-			theTarget = closestActor;
-		}
-		//Check if the player is valid
-		if(closestPlayer != nullptr) {
-			//Get that distance
-			float playerDist = getDistance(player, closestPlayer);
-			//If the distance is greater than the player dist
-			if(distance > playerDist) {
-				//target the player
-				distance = playerDist;
-				theTarget = closestPlayer;
-			}
-		}
-		//If both failed
-		if(closestActor == nullptr && closestPlayer == nullptr) {
-			//Make the target null and distance 0.
-			//We can check these in our attack code later
-			distance = 0;
-			theTarget = nullptr;
-		}
+		theTarget = findTarget(player);
 		
 		//Check if the target is valid
 		if(theTarget != nullptr) {

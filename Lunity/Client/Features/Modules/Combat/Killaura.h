@@ -4,6 +4,7 @@
 #include "../../Module.h"
 #include "../../../Events/Listener.h"
 #include "../../../Events/EventHandler.h"
+#include "../../../Bridge/NamespacedKey.h"
 #include "../../../Bridge/LocalPlayer.h"
 
 class Killaura : public Module {

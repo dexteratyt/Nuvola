@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_BRIDGE_MINECRAFTGAME
-#define LUNITY_CLIENT_BRIDGE_MINECRAFTGAME
+#ifndef GUARD_MinecraftGame
+#define GUARD_MinecraftGame
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
@@ -18,4 +18,4 @@ struct MinecraftGame {
 	/* Virtuals */
 	/* Functions */
 };
-#endif /* LUNITY_CLIENT_BRIDGE_MINECRAFTGAME */
+#endif

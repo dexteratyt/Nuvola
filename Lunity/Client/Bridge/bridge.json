@@ -90,9 +90,36 @@
             }
         ]
 	},
+	{
+		"ClassName": "NamespacedKey",
+		"Extends": null,
+		"Fields": [
+			{
+				"Name": "name",
+				"Offset": 0,
+				"Type": {
+					"TypeName": "std::string",
+					"TypeSize": 32
+				}
+			},
+			{
+				"Name": "key",
+				"Offset": 20,
+				"Type": {
+					"TypeName": "std::string",
+					"TypeSize": 32
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
     {
         "ClassName": "Actor",
         "Extends": null,
+		"Includes": [
+			"NamespacedKey"
+		],
         "Fields": [
 			{
 				"Name": "lookingVec",
@@ -133,6 +160,14 @@
 					"TypeName": "class Level*",
 					"TypeSize": 8
 				}
+			},
+			{
+				"Name": "type",
+				"Offset": "3F0",
+				"Type":{
+					"TypeName": "NamespacedKey",
+					"TypeSize": 64
+				}
 			}
         ],
 		"Functions": [
@@ -150,14 +185,14 @@
         "ClassName": "Mob",
         "Extends": "Actor",
         "Fields": [
-              {
-                    "Name": "yHeadRot",
-                    "Offset": "728",
-                    "Type": {
-                        "TypeName": "float",
-                        "TypeSize": 4
-                    }
-              }
+			{
+				"Name": "yHeadRot",
+				"Offset": "728",
+				"Type": {
+					"TypeName": "float",
+					"TypeSize": 4
+				}
+			}
         ],
 		"Functions": [],
 		"Virtuals": [
@@ -457,6 +492,9 @@
 	{
 		"ClassName": "FontList",
 		"Extends": null,
+		"Includes": [
+			"FontEntry"
+		],
 		"Fields":[
 			{
 				"Name": "fontEntries[9]",
