@@ -12,6 +12,8 @@ public:
 	void OnEnable() override;
 	void OnDisable() override;
 
+	auto findTarget(Actor* sourceActor) -> Actor*;
+
 	void onPlayerTickWorldEvent(PlayerTickEvent& event) override;
 	void onActorRotateEvent(ActorRotateEvent& event) override;
 	void onRenderEvent(RenderEvent& event) override;

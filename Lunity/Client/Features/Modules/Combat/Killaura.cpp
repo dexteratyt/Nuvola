@@ -7,6 +7,13 @@ float reachVal = 4;
 float minimumReach = 0;
 float maximumReach = 8;
 
+bool noSwing = false;
+
+bool targetPlayers = true;
+bool targetMobs = false;
+bool targetAnimals = false;
+bool targetActors = false;
+
 auto getDistance(Actor* first, Actor* second) -> float {
 	return first->getPos()->DistanceTo(*second->getPos());
 }
@@ -84,6 +91,25 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	}
 }
 
+//TODO: write this algorithm
+auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
+	//Get the level
+	Level* level = sourceActor->level;
+	//Get the actors & players
+	std::vector<Actor*> allActors = level->actors;
+	std::vector<Player*> allPlayers = level->players;
+	//Merge the vectors to get a complete list to iterate
+	allActors.insert(allActors.end(), allPlayers.begin(), allPlayers.end());
+
+	//Loop the list
+	for(Actor* actor : allActors) {
+		//TODO: Check the settings, and also make sure best criteria is met.
+	}
+
+	//None was found
+	return nullptr;
+}
+
 void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 	ClientInstance* client = Utils::GetClientInstance();
 	LocalPlayer* player = client->clientPlayer;
@@ -158,6 +184,12 @@ void Killaura::onRenderEvent(RenderEvent& event) {
 
 Killaura::Killaura() : Module("Killaura") {
 	this->addItem(new Setting("Reach", SettingType::SLIDER, &reachVal, minimumReach, maximumReach));
+	this->addItem(new Setting("NoSwing", SettingType::TOGGLE, &noSwing, false, true));
+
+	this->addItem(new Setting("Target Players", SettingType::TOGGLE, &targetPlayers, false, true));
+	this->addItem(new Setting("Target Mobs", SettingType::TOGGLE, &targetMobs, false, true));
+	this->addItem(new Setting("Target Animals", SettingType::TOGGLE, &targetAnimals, false, true));
+	this->addItem(new Setting("Target Actors", SettingType::TOGGLE, &targetActors, false, true));
     //this->addItem(new Setting("Interval", SettingType::SLIDER, &interval, 1, 10));
 };
 
