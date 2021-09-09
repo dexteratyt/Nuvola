@@ -3,14 +3,15 @@
 #include "../../Events/Listener.h"
 #include "../../Events/EventHandler.h"
 
-void __fastcall TickWorldHook::TickWorldHookCallback_1_17_11_1(Player* player, class Tick* tick) {
-	PLH::FnCast(funcOriginal, &TickWorldHookCallback_1_17_11_1)(player, tick);
+void* __fastcall TickWorldHook::TickWorldHookCallback_1_17_11_1(Player* player, class Tick* tick) {
+	void* ret = PLH::FnCast(funcOriginal, &TickWorldHookCallback_1_17_11_1)(player, tick);
 	LocalPlayer* localPlayer = Utils::GetClientInstance()->clientPlayer;
 	PlayerTickEvent event(player->gameMode, player, localPlayer==player);
 	std::vector<Listener*> listeners = EventHandler::getListeners();
 	for(auto listener : listeners) {
 		listener->onPlayerTickWorldEvent(event);
 	}
+	return ret;
 }
 
 TickWorldHook::TickWorldHook() : IPatch::IPatch("Player::TickWorld") {

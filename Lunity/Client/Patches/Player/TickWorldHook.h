@@ -5,7 +5,7 @@
 #include "../../Bridge/LocalPlayer.h"
 
 class TickWorldHook : public IPatch {
-	static void __fastcall TickWorldHookCallback_1_17_11_1(Player* player, class Tick* tick);
+	static void* __fastcall TickWorldHookCallback_1_17_11_1(Player* player, class Tick* tick);
 public:
 	static inline uintptr_t funcOriginal = 0;
 	TickWorldHook();
