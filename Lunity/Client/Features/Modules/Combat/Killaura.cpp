@@ -93,7 +93,7 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(theTarget != nullptr) {
 		if(distance < reachVal) {
 			lp->swing();
-			//gm->attack(theTarget);
+			gm->attack(theTarget);
 		}
 	}
 }
@@ -115,6 +115,10 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 		[sourceActor]
 		(Actor* ent) {
 
+			if(!ent->isAlive()) {
+				return true;
+			}
+
 			//Get the distance to the possible target
 			float distance = getDistance(sourceActor, ent);
 			if(distance > reachVal) {
@@ -128,19 +132,17 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 				return false;
 			}
 
+			if(targetPlayers && ent->type.key == "pig") {
+				//Dont remove it
+				return false;
+			}
+
 			//Doesn't meet any criteria, we don't have enough info on this target. Remove it.
 			return true;
 		}
 	), allActors.end());
 
-	//Loop the list
-	for(Actor* actor : allActors) {
-		//Return the closest that meet criteria
-		return getClosestActorFromVector(sourceActor, allActors);
-	}
-
-	//None was found
-	return nullptr;
+	return getClosestActorFromVector(sourceActor, allActors);
 }
 
 //The tick should do any repetitive heavy work, and leave the results ready for the game thread.
@@ -203,12 +205,10 @@ Killaura::Killaura() : Module("Killaura") {
 
 void Killaura::OnEnable() {
 	EventHandler::registerListener(this);
-	Utils::DebugF("Enabled kIllaura");
 };
 
 void Killaura::OnDisable() {
 	theTarget = nullptr;
 	distance = 0;
 	EventHandler::unregisterListener(this);
-	Utils::DebugF("Disabked kIllaura");
 };
