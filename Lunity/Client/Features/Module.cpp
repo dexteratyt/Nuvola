@@ -26,7 +26,8 @@ void Module::OnLunityTick() {
 			this->OnEnable();
 		}
 		this->OnTick();
-	} else {
+	} 
+	if(!enabled) {
 		if(wasEnabled) {
 			this->OnDisable();
 		}

@@ -7,6 +7,11 @@ float reachVal = 4;
 float minimumReach = 0;
 float maximumReach = 8;
 
+//Interval in ticks
+int interval = 1;
+int minimumInterval = 0; //(run every tick)
+int maximumInterval = 20; //Once/second
+
 bool noSwing = false;
 
 bool targetPlayers = true;
@@ -88,7 +93,7 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(theTarget != nullptr) {
 		if(distance < reachVal) {
 			lp->swing();
-			gm->attack(theTarget);
+			//gm->attack(theTarget);
 		}
 	}
 }
@@ -107,8 +112,16 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 
 	//Remove non-qualifying actors
 	allActors.erase(std::remove_if(allActors.begin(), allActors.end(),
-		[]
-		(const Actor* ent) {
+		[sourceActor]
+		(Actor* ent) {
+
+			//Get the distance to the possible target
+			float distance = getDistance(sourceActor, ent);
+			if(distance > reachVal) {
+				//The entity is out of reach
+				return true;
+			}
+
 			//If the actor is a player & we want to target it:
 			if(targetPlayers && ent->type.key == "player") {
 				//Dont remove it
@@ -122,12 +135,26 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 
 	//Loop the list
 	for(Actor* actor : allActors) {
-		//Return the closest
+		//Return the closest that meet criteria
 		return getClosestActorFromVector(sourceActor, allActors);
 	}
 
 	//None was found
 	return nullptr;
+}
+
+//The tick should do any repetitive heavy work, and leave the results ready for the game thread.
+//The tick runs only when the module is enabled
+void Killaura::OnTick() {
+	//Ensure client is valid
+	ClientInstance* client = Utils::GetClientInstance();
+	if(!client) { return; }
+	//Ensure the player is valid
+	LocalPlayer* player = client->clientPlayer;
+	if(!player) { return; }
+
+	//Set the target
+	theTarget = findTarget(player);
 }
 
 void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
@@ -137,30 +164,20 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 	if(rotatingActor != player) {return;}; //If the actor isnt the player, don't do anything.
 	//Check if player is actually valid
 	if(player) {
-		theTarget = findTarget(player);
-		
 		//Check if the target is valid
 		if(theTarget != nullptr) {
-			//Check if the target is within reach distance
-			if(distance < reachVal) {
-				//Get the positions
-				Vector3<float> enemyPos = *theTarget->getPos();
-				Utils::DebugF("Enemy: "+enemyPos.to_string());
-				Vector3<float> playerPos = *player->getPos();
-				Utils::DebugF("Player: "+playerPos.to_string());
-				
-				//Get the desired view angles (Where the player has to face)
-				//this is basically just aimbot math
-				Vector2<float> angles = CalcAngle(playerPos, enemyPos) * (180.0/3.141592653589793238463);
+			//Get the positions
+			Vector3<float> enemyPos = *theTarget->getPos();
+			Vector3<float> playerPos = *player->getPos();
+			
+			//Get the desired view angles (Where the player has to face)
+			//this is basically just aimbot math
+			Vector2<float> angles = CalcAngle(playerPos, enemyPos) * (180.0/3.141592653589793238463);
 
-				//Cancel the rotation, we are going to handle that manually
-				event.SetCancelled(true);
-				//rotate the player to face the desired angles
-				player->lookingVec = angles;
-				// event.SetYaw(angles.x);
-				// event.SetPitch(angles.y);
-				Utils::DebugF("Looking: "+player->lookingVec.to_string());
-			}
+			//Cancel the rotation, we are going to handle that manually
+			event.SetCancelled(true);
+			//rotate the player to face the desired angles
+			player->lookingVec = angles;
 		}
 	}
 }
@@ -173,6 +190,7 @@ void Killaura::onRenderEvent(RenderEvent& event) {
 }
 
 Killaura::Killaura() : Module("Killaura") {
+	this->addItem(new Setting("Interval", SettingType::SLIDER, &interval, minimumInterval, maximumInterval));
 	this->addItem(new Setting("Reach", SettingType::SLIDER, &reachVal, minimumReach, maximumReach));
 	this->addItem(new Setting("NoSwing", SettingType::TOGGLE, &noSwing, false, true));
 
@@ -180,13 +198,17 @@ Killaura::Killaura() : Module("Killaura") {
 	this->addItem(new Setting("Target Mobs", SettingType::TOGGLE, &targetMobs, false, true));
 	this->addItem(new Setting("Target Animals", SettingType::TOGGLE, &targetAnimals, false, true));
 	this->addItem(new Setting("Target Actors", SettingType::TOGGLE, &targetActors, false, true));
-    //this->addItem(new Setting("Interval", SettingType::SLIDER, &interval, 1, 10));
+    
 };
 
 void Killaura::OnEnable() {
 	EventHandler::registerListener(this);
+	Utils::DebugF("Enabled kIllaura");
 };
 
 void Killaura::OnDisable() {
+	theTarget = nullptr;
+	distance = 0;
 	EventHandler::unregisterListener(this);
+	Utils::DebugF("Disabked kIllaura");
 };

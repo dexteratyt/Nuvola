@@ -12,6 +12,7 @@ public:
 	Killaura();
 	void OnEnable() override;
 	void OnDisable() override;
+	void OnTick() override;
 
 	auto findTarget(Actor* sourceActor) -> Actor*;
 
