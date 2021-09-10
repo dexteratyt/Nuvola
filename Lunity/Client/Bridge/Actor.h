@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "NamespacedKey.h"
 struct Actor {
 	/* Fields */
 	char padding_320[312];

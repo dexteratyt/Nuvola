@@ -89,10 +89,14 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(!event.IsLocalPlayer()) {return;}
 
 	GameMode* gm = event.GetGameMode();
-	Player* lp = event.GetPlayer();
+	Player* player = event.GetPlayer();
+
+	//Set the target
+	theTarget = findTarget(player);
+
 	if(theTarget != nullptr) {
 		if(distance < reachVal) {
-			lp->swing();
+			player->swing();
 			gm->attack(theTarget);
 		}
 	}
@@ -143,20 +147,6 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	), allActors.end());
 
 	return getClosestActorFromVector(sourceActor, allActors);
-}
-
-//The tick should do any repetitive heavy work, and leave the results ready for the game thread.
-//The tick runs only when the module is enabled
-void Killaura::OnTick() {
-	//Ensure client is valid
-	ClientInstance* client = Utils::GetClientInstance();
-	if(!client) { return; }
-	//Ensure the player is valid
-	LocalPlayer* player = client->clientPlayer;
-	if(!player) { return; }
-
-	//Set the target
-	theTarget = findTarget(player);
 }
 
 void Killaura::onActorRotateEvent(ActorRotateEvent& event) {

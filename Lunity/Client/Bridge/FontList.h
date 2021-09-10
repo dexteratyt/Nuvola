@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "FontEntry.h"
 struct FontList {
 	/* Fields */
 	FontEntry fontEntries[9];
