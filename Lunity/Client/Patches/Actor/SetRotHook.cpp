@@ -7,7 +7,7 @@
 #include "../../Events/EventHandler.h"
 
 void __fastcall SetRotHook::SetRotCallback_1_17_11_1(Actor* actor, Vector2<float>* vector) {
-	ActorRotateEvent event(actor, *vector);
+	ActorRotateEvent event(actor, vector, RotationType::CORPSE);
 	std::vector<Listener*> listeners = EventHandler::getListeners();
 	for(auto listener : listeners) {
 		listener->onActorRotateEvent(event);

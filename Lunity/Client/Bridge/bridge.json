@@ -114,11 +114,30 @@
 		"Functions":[],
 		"Virtuals":[]
 	},
+	{
+		"ClassName": "ActorType",
+		"Extends": null,
+		"Includes": [
+			"NamespacedKey"
+		],
+		"Fields":[
+			{
+				"Name": "type",
+				"Offset": "8",
+				"Type": {
+					"TypeName": "NamespacedKey",
+					"TypeSize": 64
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
     {
         "ClassName": "Actor",
         "Extends": null,
 		"Includes": [
-			"NamespacedKey"
+			"ActorType"
 		],
         "Fields": [
 			{
@@ -162,16 +181,15 @@
 				}
 			},
 			{
-				"Name": "type",
-				"Offset": "3F0",
+				"Name": "entityTypeId",
+				"Offset": "3E8",
 				"Type":{
-					"TypeName": "NamespacedKey",
-					"TypeSize": 64
+					"TypeName": "ActorType",
+					"TypeSize": 72
 				}
 			}
         ],
-		"Functions": [
-        ],
+		"Functions": [],
         "Virtuals": [
             {
                 "Name": "getPos",

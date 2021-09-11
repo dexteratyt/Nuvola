@@ -3,7 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
-#include "NamespacedKey.h"
+#include "ActorType.h"
 struct Actor {
 	/* Fields */
 	char padding_320[312];
@@ -14,8 +14,8 @@ struct Actor {
 	class BlockSource* blockSource;
 	class Dimension* dimension;
 	class Level* level;
-	char padding_1008[112];
-	NamespacedKey type;
+	char padding_1000[104];
+	ActorType entityTypeId;
 	/* Virtuals */
 	virtual void virt_pad_0() {};
 	virtual void virt_pad_1() {};

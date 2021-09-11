@@ -3,7 +3,7 @@
 #include <string>
 
 enum SupportedVersion {
-	MC_1_17_2_1,
+	MC_1_17_11_1,
 	MC_UNSUPPORTED
 };
 

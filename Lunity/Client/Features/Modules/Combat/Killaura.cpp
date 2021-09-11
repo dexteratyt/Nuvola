@@ -3,7 +3,7 @@
 #include "../../../Bridge/ClientInstance.h"
 #include "../../../Bridge/Level.h"
 
-float reachVal = 4;
+float reachVal = 12;
 float minimumReach = 0;
 float maximumReach = 8;
 
@@ -15,7 +15,8 @@ int maximumInterval = 20; //Once/second
 bool noSwing = false;
 
 bool targetPlayers = true;
-bool targetMobs = false;
+bool targetNeutrals = false;
+bool targetMobs = true;
 bool targetAnimals = false;
 bool targetActors = false;
 
@@ -68,7 +69,7 @@ auto getClosestPlayer(Actor* first) -> Player* {
 }
 */
 
-
+//Returns in RADIANS
 Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
 {
     Vector2<float> vec2;
@@ -83,6 +84,70 @@ Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
 
 float distance = 0;
 Actor* theTarget = nullptr;
+#pragma region EntityDefs
+std::string monsters[] = {
+	"blaze",
+	"cave_spider",
+	"creeper",
+	"drowned",
+	"elder_guardian",
+	"elder_guardian_ghost",
+	"ender_dragon",
+	"enderman",
+	"endermite",
+	"evocation_illager",
+	"ghast",
+	"guardian",
+	"hoglin",
+	"husk",
+	"magma_cube",
+	"phantom",
+	"piglin_brute",
+	"pillager",
+	"ravager",
+	"shulker",
+	"spider",
+	"stray",
+	"vex",
+	"vindicator",
+	"witch",
+	"wither",
+	"wither_skeleton",
+	"zoglin",
+	"zombie"
+};
+std::string animals[] = {
+	"axolotl",
+	"bat",
+	"bee",
+	"cat",
+	"chicken",
+	"cod",
+	"cow",
+	"dolphin",
+	"donkey",
+	"fox",
+	"glow_squid",
+	"goat",
+	"horse",
+	"llama",
+	"mooshroom",
+	"mule"
+	"ocelot",
+	"panda",
+	"parrot",
+	"pig",
+	"polar_bear",
+	"pufferfish",
+	"rabbit",
+	"salmon",
+	"sheep",
+	"squid",
+	"tropicalfish",
+	"turtle",
+	"wolf"
+};
+#pragma endregion
 
 void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(!this->IsEnabled()) {return;}
@@ -131,14 +196,26 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 			}
 
 			//If the actor is a player & we want to target it:
-			if(targetPlayers && ent->type.key == "player") {
+			if(targetPlayers && ent->entityTypeId.type.key == "player") {
 				//Dont remove it
 				return false;
 			}
 
-			if(targetPlayers && ent->type.key == "pig") {
-				//Dont remove it
-				return false;
+			if(targetMobs) {
+				for(auto monster : monsters) {
+					if(ent->entityTypeId.type.key == monster) {
+						//Dont remove it
+						return false;
+					}
+				}
+			}
+
+			if(targetAnimals) {
+				for(auto animal : animals) {
+					if(ent->entityTypeId.type.key == animal) {
+						return false;
+					}
+				}
 			}
 
 			//Doesn't meet any criteria, we don't have enough info on this target. Remove it.
@@ -164,12 +241,24 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 			
 			//Get the desired view angles (Where the player has to face)
 			//this is basically just aimbot math
-			Vector2<float> angles = CalcAngle(playerPos, enemyPos) * (180.0/3.141592653589793238463);
+			Vector2<float> anglesRad = CalcAngle(playerPos, enemyPos); //180/PI gives degrees
+			Vector2<float> anglesDeg = anglesRad * (180.0/3.141592653589793238463); //180/PI gives degrees
 
 			//Cancel the rotation, we are going to handle that manually
-			event.SetCancelled(true);
+			if(event.GetRotationType() == RotationType::HEAD) {
+				//event.SetCancelled(true);
+			}
+
 			//rotate the player to face the desired angles
-			player->lookingVec = angles;
+			event.SetRotation(anglesDeg);
+			/*
+			if(event.GetRotationType() == RotationType::HEAD) {
+				event.SetRotation(anglesDeg);
+			}
+			if(event.GetRotationType() == RotationType::CORPSE) {
+				event.SetRotation(anglesDeg);
+			}
+			*/
 		}
 	}
 }

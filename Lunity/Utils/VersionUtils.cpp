@@ -7,16 +7,16 @@
 
 auto VersionUtils::strToVer(std::string str) -> SupportedVersion {
 
-    if(str == "1.17.2.1") {
-        return MC_1_17_2_1;
+    if(str == "1.17.11.1") {
+        return MC_1_17_11_1;
     }
 
     return MC_UNSUPPORTED;
 }
 auto VersionUtils::verToStr(SupportedVersion ver) -> std::string {
     switch(ver) {
-    case MC_1_17_2_1:
-        return "1.17.2.1";
+    case MC_1_17_11_1:
+        return "1.17.11.1";
     default:
         return "Unsupported";
     }
