@@ -149,7 +149,7 @@ std::string animals[] = {
 };
 #pragma endregion
 
-void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
+void __declspec(dllexport) Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(!this->IsEnabled()) {return;}
 	if(!event.IsLocalPlayer()) {return;}
 
@@ -159,10 +159,13 @@ void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	//Set the target
 	theTarget = findTarget(player);
 
-	if(theTarget != nullptr) {
-		if(distance < reachVal) {
-			player->swing();
-			gm->attack(theTarget);
+	if(gm != nullptr) {
+		if(theTarget != nullptr) {
+			if(distance < reachVal) {
+				if(!noSwing)
+					player->swing();
+				gm->attack(theTarget);
+			}
 		}
 	}
 }
@@ -226,11 +229,12 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	return getClosestActorFromVector(sourceActor, allActors);
 }
 
+/*
 static_assert(sizeof(AABB)==28, "AABB isnt 28 bytes");
 static_assert(offsetof(Player, gameMode)==0x12E8, "gameMode is misaligned at {0}");
 static_assert(offsetof(Mob, yHeadRot)==0x728, "yHeadRot is misaligned at {0}");
 static_assert(offsetof(Actor, velocity)==0x50C, "velocity is misaligned at {0}");
-
+*/
 
 
 void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
@@ -260,11 +264,20 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 	}
 }
 
+#include <sstream>
+template< typename T >
+std::string int_to_hex( T i )
+{
+  std::stringstream stream;
+  stream << std::hex << i;
+  return stream.str();
+}
+
 void Killaura::onRenderEvent(RenderEvent& event) {
 	MinecraftRenderer* wrapper = event.GetRenderWrapper();
 	
 	wrapper->DrawString(std::to_string(distance), Vector2<float>(0,0));
-	wrapper->DrawString(std::to_string((uintptr_t)theTarget), Vector2<float>(0,10));
+	wrapper->DrawString(int_to_hex((uintptr_t)theTarget), Vector2<float>(0,10));
 }
 
 Killaura::Killaura() : Module("Killaura") {
