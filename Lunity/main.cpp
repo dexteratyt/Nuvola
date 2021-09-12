@@ -9,6 +9,9 @@
 #include "Client/Features/Module.h"
 #include "Client/Features/ModuleMgr.h"
 
+#include "Client/Features/Command.h"
+#include "Client/Features/CommandMgr.h"
+
 #include "Client/Patches/PatchManager.h"
 
 #include "Client/Bridge/Actor.h"
@@ -36,6 +39,9 @@ void init() {
 	for(auto mod : *allMods) {
 		Utils::DebugF(mod->getName());
 	}
+
+	//Get Command Manager instance
+	CommandMgr* commandManager = CommandMgr::getInstance();
 
 	//Web panel gui
 	//Doesnt work & idk why

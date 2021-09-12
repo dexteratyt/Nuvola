@@ -4,6 +4,8 @@
 
 target_sources(Lunity PRIVATE
 	"Category.cpp"
+	"Command.cpp"
+	"CommandMgr.cpp"
 	"ManagedItem.cpp"
 	"Module.cpp"
 	"ModuleMgr.cpp"

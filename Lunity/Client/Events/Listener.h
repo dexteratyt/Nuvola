@@ -8,6 +8,7 @@
 #include "PlayerTickEvent.h"
 #include "RenderEvent.h"
 #include "ActorRotateEvent.h"
+#include "ChatEvent.h"
 
 class Listener {
 public:
@@ -18,6 +19,7 @@ public:
 	virtual void onPlayerTickWorldEvent(PlayerTickEvent& event) {};
 	virtual void onRenderEvent(RenderEvent& event) {};
 	virtual void onActorRotateEvent(ActorRotateEvent& event) {};
+	virtual void onChatEvent(ChatEvent& event) {};
 };
 
 #endif /* LUNITY_CLIENT_EVENTS_LISTENER */

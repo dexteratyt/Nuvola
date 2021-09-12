@@ -1,6 +1,19 @@
 #include "SendChatMessageHook.h"
 
+#include "../../Features/CommandMgr.h"
+#include "../../Events/EventHandler.h"
+
 void __fastcall SendChatMessageHook::clientInstanceCallback_1_17_11_1(class ClientInstanceScreenModel* screenModel, std::string* text) {
+
+	ChatEvent event(*text);
+	std::vector<Listener*> listeners = EventHandler::getListeners();
+	for(auto listener : listeners) {
+		listener->onChatEvent(event);
+	}
+	if(event.IsCancelled()) {
+		return;
+	}
+	
     PLH::FnCast(funcOriginal, &clientInstanceCallback_1_17_11_1)(screenModel, text);
 }
 
