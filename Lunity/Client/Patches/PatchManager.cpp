@@ -11,6 +11,8 @@
 #include "LocalPlayer/SetYHeadRotHook.h"
 //ClientInstance
 #include "ClientInstance/UpdateHook.h"
+//ClientInstanceScreenModel
+#include "ClientInstanceScreenModel/SendChatMessageHook.h"
 //Global or Unknown
 #include "Global/KeyPressHook.h"
 #include "Global/MouseActionHook.h"
@@ -29,6 +31,9 @@ void PatchManager::ApplyAll()
 
 	/* ClientInstance reference receiver hook */
 	PatchManager::ApplyPatch(new UpdateHook());
+
+	/* Command shit */
+	PatchManager::ApplyPatch(new SendChatMessageHook());
 
 	/* Graphics hooking */
 	PatchManager::ApplyPatch(new SetupAndRenderHook());

@@ -4,6 +4,7 @@ target_sources(Lunity PRIVATE
 )
 add_subdirectory(Actor)
 add_subdirectory(ClientInstance)
+add_subdirectory(ClientInstanceScreenModel)
 add_subdirectory(Global)
 add_subdirectory(LocalPlayer)
 add_subdirectory(MeshHelpers)
