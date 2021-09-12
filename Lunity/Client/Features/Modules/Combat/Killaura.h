@@ -15,7 +15,7 @@ public:
 
 	auto findTarget(Actor* sourceActor) -> Actor*;
 
-	void __declspec(dllexport) onPlayerTickWorldEvent(PlayerTickEvent& event) override;
+	void onPlayerTickWorldEvent(PlayerTickEvent& event) override;
 	void onActorRotateEvent(ActorRotateEvent& event) override;
 	void onRenderEvent(RenderEvent& event) override;
 };

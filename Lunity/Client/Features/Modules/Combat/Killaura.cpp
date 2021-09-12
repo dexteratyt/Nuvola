@@ -3,7 +3,7 @@
 #include "../../../Bridge/ClientInstance.h"
 #include "../../../Bridge/Level.h"
 
-float reachVal = 12;
+float reachVal = 4;
 float minimumReach = 0;
 float maximumReach = 8;
 
@@ -149,7 +149,7 @@ std::string animals[] = {
 };
 #pragma endregion
 
-void __declspec(dllexport) Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
+void Killaura::onPlayerTickWorldEvent(PlayerTickEvent& event) {
 	if(!this->IsEnabled()) {return;}
 	if(!event.IsLocalPlayer()) {return;}
 
