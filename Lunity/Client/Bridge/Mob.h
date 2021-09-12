@@ -6,7 +6,7 @@
 #include "Actor.h"
 struct Mob : public Actor {
 	/* Fields */
-	char padding_1832[752];
+	char padding_1832[520];
 	float yHeadRot;
 	/* Virtuals */
 	virtual void virt_pad_98() {};

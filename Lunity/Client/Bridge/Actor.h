@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "AABB.h"
 #include "ActorType.h"
 struct Actor {
 	/* Fields */
@@ -16,6 +17,12 @@ struct Actor {
 	class Level* level;
 	char padding_1000[104];
 	ActorType entityTypeId;
+	char padding_1232[160];
+	AABB hitbox;
+	Vector2<float> size;
+	Vector3<float> position;
+	Vector3<float> oldPos;
+	Vector3<float> velocity;
 	/* Virtuals */
 	virtual void virt_pad_0() {};
 	virtual void virt_pad_1() {};

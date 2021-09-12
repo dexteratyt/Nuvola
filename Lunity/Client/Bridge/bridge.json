@@ -32,6 +32,38 @@
 		"Virtuals":[]
 	},
 	{
+		"ClassName": "AABB",
+		"Extends": null,
+		"Fields": [
+			{
+				"Name": "firstCorner",
+				"Offset": "0",
+				"Type": {
+					"TypeName": "Vector3<float>",
+					"TypeSize": 12
+				}
+			},
+			{
+				"Name": "secondCorner",
+				"Offset": "C",
+				"Type": {
+					"TypeName": "Vector3<float>",
+					"TypeSize": 12
+				}
+			},
+			{
+				"Name": "allZero",
+				"Offset": "10",
+				"Type": {
+					"TypeName": "bool",
+					"TypeSize": 1
+				}
+			}
+		],
+		"Functions": [],
+		"Virtuals": []
+	},
+	{
 		"ClassName": "ClientInstance",
 		"Extends": null,
 		"Fields":[
@@ -137,6 +169,7 @@
         "ClassName": "Actor",
         "Extends": null,
 		"Includes": [
+			"AABB",
 			"ActorType"
 		],
         "Fields": [
@@ -186,6 +219,46 @@
 				"Type":{
 					"TypeName": "ActorType",
 					"TypeSize": 72
+				}
+			},
+			{
+				"Name": "hitbox",
+				"Offset": "4D0",
+				"Type": {
+					"TypeName": "AABB",
+					"TypeSize": 28
+				}
+			},
+			{
+				"Name": "size",
+				"Offset": "4EC",
+				"Type": {
+					"TypeName": "Vector2<float>",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "position",
+				"Offset": "4F4",
+				"Type": {
+					"TypeName": "Vector3<float>",
+					"TypeSize": 12
+				}
+			},
+			{
+				"Name": "oldPos",
+				"Offset": "500",
+				"Type": {
+					"TypeName": "Vector3<float>",
+					"TypeSize": 12
+				}
+			},
+			{
+				"Name": "velocity",
+				"Offset": "50C",
+				"Type": {
+					"TypeName": "Vector3<float>",
+					"TypeSize": 12
 				}
 			}
         ],

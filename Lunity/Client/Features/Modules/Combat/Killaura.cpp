@@ -226,7 +226,16 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	return getClosestActorFromVector(sourceActor, allActors);
 }
 
+static_assert(sizeof(AABB)==28, "AABB isnt 28 bytes");
+static_assert(offsetof(Player, gameMode)==0x12E8, "gameMode is misaligned at {0}");
+static_assert(offsetof(Mob, yHeadRot)==0x728, "yHeadRot is misaligned at {0}");
+static_assert(offsetof(Actor, velocity)==0x50C, "velocity is misaligned at {0}");
+
+
+
 void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
+	//if(event.GetRotationType() == RotationType::CORPSE) { return; }
+	
 	ClientInstance* client = Utils::GetClientInstance();
 	LocalPlayer* player = client->clientPlayer;
 	Actor* rotatingActor = event.GetActor();
@@ -237,6 +246,7 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 		if(theTarget != nullptr) {
 			//Get the positions
 			Vector3<float> enemyPos = *theTarget->getPos();
+			//enemyPos.y += theTarget->size.y / 2.0f;
 			Vector3<float> playerPos = *player->getPos();
 			
 			//Get the desired view angles (Where the player has to face)
@@ -244,21 +254,8 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 			Vector2<float> anglesRad = CalcAngle(playerPos, enemyPos); //180/PI gives degrees
 			Vector2<float> anglesDeg = anglesRad * (180.0/3.141592653589793238463); //180/PI gives degrees
 
-			//Cancel the rotation, we are going to handle that manually
-			if(event.GetRotationType() == RotationType::HEAD) {
-				//event.SetCancelled(true);
-			}
-
 			//rotate the player to face the desired angles
 			event.SetRotation(anglesDeg);
-			/*
-			if(event.GetRotationType() == RotationType::HEAD) {
-				event.SetRotation(anglesDeg);
-			}
-			if(event.GetRotationType() == RotationType::CORPSE) {
-				event.SetRotation(anglesDeg);
-			}
-			*/
 		}
 	}
 }
