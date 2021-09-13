@@ -9,7 +9,7 @@ class Command : public ManagedItem {
 public:
 	Command(std::string name);
 
-	auto Execute(std::vector<std::string> params) -> bool;
+	virtual auto Execute(std::vector<std::string> params) -> bool;
 };
 
 #endif /* LUNITY_CLIENT_FEATURES_COMMAND */

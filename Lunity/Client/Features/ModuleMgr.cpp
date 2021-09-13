@@ -10,6 +10,7 @@
 #include "Modules/Motion/Airjump.h"
 #include "Modules/Motion/TestFly.h"
 //Player
+#include "Modules/Player/NoSwing.h"
 //Misc
 #include "Modules/Misc/Uninject.h"
 
@@ -47,6 +48,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 	motion->addItem(new Airjump());
 	motion->addItem(new TestFly());
     //Player
+	player->addItem(new NoSwing());
     //Misc
 	misc->addItem(new Uninject());
 

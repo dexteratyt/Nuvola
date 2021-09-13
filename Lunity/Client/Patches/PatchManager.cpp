@@ -5,6 +5,8 @@
 //Actor
 #include "Actor/SetRotHook.h"
 #include "Actor/NormalTickHook.h"
+//Mob
+#include "Mob/SwingHook.h"
 //Player
 #include "Player/TickWorldHook.h"
 //Localplayer
@@ -44,6 +46,9 @@ void PatchManager::ApplyAll()
 	/* Actor patches */
 	PatchManager::ApplyPatch(new SetRotHook()); // This has for up & down rotation which is shared across the whole body, however only the head moves.
 	//PatchManager::ApplyPatch(new NormalTickHook());
+
+	/* Mob patches */
+	PatchManager::ApplyPatch(new SwingHook());
 
 	/* Player patches */
 	PatchManager::ApplyPatch(new TickWorldHook());

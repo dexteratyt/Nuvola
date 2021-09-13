@@ -2,14 +2,16 @@
 
 #include "../Events/EventHandler.h"
 
+#include "Commands/SwingCommand.h"
+
 CommandMgr::CommandMgr() : Manager<Command>("CommandManager") {
     //Set instance
     instance = this;
     //Initialize commands
-	auto* command = new Command("help");
+	auto* swingCommand = new SwingCommand();
 
 	//Register commands
-	this->addItem(command);
+	this->addItem(swingCommand);
 
 	EventHandler::registerListener(this);
 }
@@ -54,6 +56,7 @@ void CommandMgr::parseAndInterpret(std::string message) {
 		}
 		newWord += c;
 	}
+	words.push_back(newWord);
 
 	std::string cmdStr = words[0];
 	words.erase(words.begin());
@@ -61,6 +64,8 @@ void CommandMgr::parseAndInterpret(std::string message) {
 	Command* cmd = this->findCommand(cmdStr);
 	if(cmd != nullptr) {
 		cmd->Execute(words);
+	} else {
+		//No command found
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "RenderEvent.h"
 #include "ActorRotateEvent.h"
 #include "ChatEvent.h"
+#include "MobSwingEvent.h"
 
 class Listener {
 public:
@@ -20,6 +21,7 @@ public:
 	virtual void onRenderEvent(RenderEvent& event) {};
 	virtual void onActorRotateEvent(ActorRotateEvent& event) {};
 	virtual void onChatEvent(ChatEvent& event) {};
+	virtual void onMobSwingEvent(MobSwingEvent& event) {};
 };
 
 #endif /* LUNITY_CLIENT_EVENTS_LISTENER */
