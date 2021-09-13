@@ -106,6 +106,7 @@ std::string monsters[] = {
 	"pillager",
 	"ravager",
 	"shulker",
+	"skeleton",
 	"spider",
 	"stray",
 	"vex",
