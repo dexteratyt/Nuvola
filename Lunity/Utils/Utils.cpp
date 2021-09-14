@@ -1,6 +1,10 @@
 #include "Utils.h"
 #include <iostream>
 
+#ifdef LOG_GAME
+#include "../Client/Bridge/GuiData.h"
+#endif
+
 void Utils::DebugF(const char* out) {
 #ifdef LOG_CONSOLE
 	std::cout << out << std::endl;
@@ -17,10 +21,26 @@ void Utils::DebugF(const char* out) {
 	fileOutput << out << std::endl;
 	fileOutput.close();
 #endif
+
+#ifdef LOG_GAME
+	ClientInstance* client = Utils::GetClientInstance();
+	if(!client) {return;}
+	GuiData* gd = client->guiData;
+	if(!gd) {return;}
+	gd->displayClientMessage(std::string(out));
+#endif
 };
 
 void Utils::DebugF(std::string out) {
     DebugF(out.c_str());
+}
+
+lun::ostream* Utils::omcout;
+auto Utils::mcout() -> lun::ostream& {
+	if(Utils::omcout == nullptr) {
+		Utils::omcout = new lun::ostream();
+	}
+	return *Utils::omcout;
 }
 
 void Utils::SetClientInstance(uintptr_t address) {
