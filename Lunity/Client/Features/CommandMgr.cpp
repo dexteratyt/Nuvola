@@ -2,15 +2,18 @@
 
 #include "../Events/EventHandler.h"
 
+#include "Commands/HelpCommand.h"
 #include "Commands/SwingCommand.h"
 
 CommandMgr::CommandMgr() : Manager<Command>("CommandManager") {
     //Set instance
     instance = this;
     //Initialize commands
+	auto* helpCommand = new HelpCommand();
 	auto* swingCommand = new SwingCommand();
 
 	//Register commands
+	this->addItem(helpCommand);
 	this->addItem(swingCommand);
 
 	EventHandler::registerListener(this);
@@ -25,7 +28,7 @@ CommandMgr* CommandMgr::getInstance() {
     return instance;
 }
 
-Command* CommandMgr::findCommand(std::string name) {
+auto CommandMgr::findCommand(std::string name) -> Command* {
 	std::vector<Command*>* allCommands = this->getItems();
 	for(auto cmd : *allCommands) {
 		if(cmd->getName() == name) {

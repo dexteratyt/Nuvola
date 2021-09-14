@@ -69,19 +69,6 @@ auto getClosestPlayer(Actor* first) -> Player* {
 }
 */
 
-//Returns in RADIANS
-Vector2<float> CalcAngle(Vector3<float> localPos, Vector3<float> targetPos)
-{
-    Vector2<float> vec2;
-	float dX = localPos.x - targetPos.x;
-	float dY = localPos.y - targetPos.y;
-	float dZ = localPos.z - targetPos.z;
-	double distance = sqrt(dX * dX + dY * dY + dZ * dZ);
-	vec2.x = ((float)atan2(dY, (float)distance) * (float)3.13810205 / (float)3.141592653589793);
-	vec2.y = ((float)atan2(dZ, dX) * (float)3.13810205 / (float)3.141592653589793) + (float)1.569051027;
-	return vec2;
-}
-
 float distance = 0;
 Actor* theTarget = nullptr;
 #pragma region EntityDefs
@@ -178,7 +165,9 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	std::vector<Actor*> allActors = level->actors;
 	std::vector<Player*> allPlayers = level->players;
 	//Merge the vectors to get a complete list to iterate
-	allActors.insert(allActors.end(), allPlayers.begin(), allPlayers.end());
+	for(auto player : allPlayers) {
+		allActors.push_back(player);
+	}
 
 	//Remove the source actor from the list. We can't attack ourselves!
 	allActors.erase(std::find(allActors.begin(), allActors.end(), sourceActor), allActors.end());
@@ -256,8 +245,7 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 			
 			//Get the desired view angles (Where the player has to face)
 			//this is basically just aimbot math
-			Vector2<float> anglesRad = CalcAngle(playerPos, enemyPos); //180/PI gives degrees
-			Vector2<float> anglesDeg = anglesRad * (180.0/3.141592653589793238463); //180/PI gives degrees
+			Vector2<float> anglesDeg = playerPos.CalcAngle(enemyPos);
 
 			//rotate the player to face the desired angles
 			event.SetRotation(anglesDeg);

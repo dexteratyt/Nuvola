@@ -11,8 +11,10 @@ class CommandMgr : public Manager<Command>, public Listener {
 public:
     CommandMgr();
     static CommandMgr* getInstance();
-    std::vector<Command*>* getAllCommands();
-	Command* findCommand(std::string name);
+    auto getAllCommands() -> std::vector<Command*>* {
+		return this->getItems();
+	}
+	auto findCommand(std::string name) -> Command*;
 private:
 	void parseAndInterpret(std::string message);
 	void onChatEvent(ChatEvent& event) override;

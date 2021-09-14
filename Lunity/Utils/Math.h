@@ -83,6 +83,27 @@ struct Vector3 : public Vector2<T>
     Vector3<T>& operator*=(T other) { this->x *= other; this->y *= other; this->z *= other; return *this; }
     Vector3<T>& operator/=(T other) { this->x /= other; this->y /= other; this->z /= other; return *this; }
     T& operator[](int index) { *(this + (index * sizeof(T))); }
+	//Returns in RADIANS
+	Vector2<T> CalcAngleRad(Vector3<T> target)
+	{
+		Vector2<T> vec2;
+		T dX = this->x - target.x;
+		T dY = this->y - target.y;
+		T dZ = this->z - target.z;
+		double distance = sqrt(dX * dX + dY * dY + dZ * dZ);
+		vec2.x = ((T)atan2(dY, (float)distance) * (float)3.13810205 / (float)3.141592653589793);
+		vec2.y = ((T)atan2(dZ, dX) * (float)3.13810205 / (float)3.141592653589793) + (float)1.569051027;
+		return vec2;
+	}
+	//Returns in DEGREES
+	Vector2<T> CalcAngleDeg(Vector3<T> target)
+	{
+		return CalcAngleRad(target) * (180.0/3.141592653589793238463);
+	}
+	//Also returns in Degrees
+	Vector2<T> CalcAngle(Vector3<T> target) {
+		return CalcAngleDeg(target);
+	}
 };
 
 template<typename T>

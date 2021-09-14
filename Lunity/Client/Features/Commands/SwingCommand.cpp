@@ -14,7 +14,5 @@ auto SwingCommand::Execute(std::vector<std::string> params) -> bool {
 
 	player->swing();
 
-	DisplayMessage("&cLunity &ais &ki&rcool&ki&r!");
-
 	return true;
 };

@@ -14,6 +14,7 @@ public:
 	Command(std::string name);
 
 	virtual auto Execute(std::vector<std::string> params) -> bool;
+	virtual auto GetDescription() -> std::string;
 	void DisplayMessage(std::string message);
 	auto GetOut() -> lun::ostream&;
 };

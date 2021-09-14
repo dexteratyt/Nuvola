@@ -8,30 +8,30 @@ auto Command::GetGuiData() -> GuiData* {
 	return Utils::GetClientInstance()->guiData;
 }
 
-std::string formatCodes[] = {
-	"0", //Black
-	"1", //Dark blue
-	"2", //Dark green
-	"3", //Dark aqua
-	"4", //Dark red
-	"5", //Dark purple
-	"6", //Gold
-	"7", //Gray
-	"8", //Dark gray
-	"9", //Blue
-	"a", //Green
-	"b", //Aqua
-	"c", //Red
-	"d", //Light purple
-	"e", //Yellow
-	"f", //White
-	"g", //Minecoin gold
-	"k", //Obfuscated
-	"l", //Bold
-	"m", //Strikethrough
-	"n", //Underline
-	"o", //Italic
-	"r"  //Reset
+char formatCodes[] = {
+	'0', //Black
+	'1', //Dark blue
+	'2', //Dark green
+	'3', //Dark aqua
+	'4', //Dark red
+	'5', //Dark purple
+	'6', //Gold
+	'7', //Gray
+	'8', //Dark gray
+	'9', //Blue
+	'a', //Green
+	'b', //Aqua
+	'c', //Red
+	'd', //Light purple
+	'e', //Yellow
+	'f', //White
+	'g', //Minecoin gold
+	'k', //Obfuscated
+	'l', //Bold
+	'm', //Strikethrough
+	'n', //Underline
+	'o', //Italic
+	'r'  //Reset
 };
 void Command::DisplayMessage(std::string message) {
 	std::string newMessage;
@@ -48,7 +48,7 @@ void Command::DisplayMessage(std::string message) {
 		}
 		if(checkFormat) {
 			for(auto formatCode : formatCodes) {
-				if(c == formatCode[0]) {
+				if(c == formatCode) {
 					newMessage += "§";
 					checkFormat = false;
 					goto append;
@@ -69,4 +69,7 @@ auto Command::GetOut() -> lun::ostream& {
 
 auto Command::Execute(std::vector<std::string> params) -> bool {
 	return false;
+}
+auto Command::GetDescription() -> std::string {
+	return "No description provided";
 }
