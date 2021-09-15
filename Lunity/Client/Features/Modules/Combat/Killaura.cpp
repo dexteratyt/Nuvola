@@ -257,16 +257,9 @@ void Killaura::onActorRotateEvent(ActorRotateEvent& event) {
 template< typename T >
 std::string int_to_hex( T i )
 {
-  std::stringstream stream;
-  stream << std::hex << i;
-  return stream.str();
-}
-
-void Killaura::onRenderEvent(RenderEvent& event) {
-	MinecraftRenderer* wrapper = event.GetRenderWrapper();
-	
-	wrapper->DrawString(std::to_string(distance), Vector2<float>(0,0));
-	wrapper->DrawString(int_to_hex((uintptr_t)theTarget), Vector2<float>(0,10));
+	std::stringstream stream;
+	stream << std::hex << i;
+	return stream.str();
 }
 
 Killaura::Killaura() : Module("Killaura") {

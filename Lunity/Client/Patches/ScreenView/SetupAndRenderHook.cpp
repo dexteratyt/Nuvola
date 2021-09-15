@@ -6,6 +6,7 @@
 
 #include "../../../Render/IAnimWrapper.h"
 #include "../../../Render/RenderContext/MinecraftRenderer.h"
+#include "../../../Render/Custom/Renderer.h"
 #include "../../Events/EventHandler.h"
 #include "../../Events/RenderEvent.h"
 
@@ -15,83 +16,20 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 
 	IAnimWrapper::NewFrame();
 
+	Renderer::Setup(renderContext);
 	MinecraftRenderer renderer = MinecraftRenderer(renderContext);
 	RenderEvent event(renderContext, &renderer);
 	std::vector<Listener*> listeners = EventHandler::getListeners();
 	for(auto listener : listeners) {
 		listener->onRenderEvent(event);
 	}
-/*
-	Vector4<float> rect = Vector4<float>(0, 100, 0, 100);
-	float test[4];
-	test[0] = rect.x;
-	test[1] = rect.z;
-	test[2] = rect.y;
-	test[3] = rect.z;
-	Color color = Color(1, 1, 1, .5, false);
-	float col[4];
-	col[0] = color.r;
-	col[1] = color.g;
-	col[2] = color.b;
-	col[3] = color.a;
-	renderContext->fillRectangle((float*)&rect, (float*)&color, .5);
-	size_t mcGameAddr = (size_t)renderContext->clientInstance->minecraftGame;
-	float one = 1.0f;
-	RectangleArea area = RectangleArea(0,0);
-	TextMeasureData measureData = TextMeasureData(1.0f);
-	CaretMeasureData caretData = CaretMeasureData();
-	std::string text = "Lunity";
-	class BitmapFont* font = renderContext->clientInstance->minecraftGame->mcFontA;
-	renderContext->drawText(font, &area, &text, &color, 1.0f, nullptr, &measureData, &caretData);
-	Utils::DebugF("Drawn text");
-	renderContext->flushText(0);
-	Utils::DebugF("Flushed");
-*/
-/*
-	ScreenContext* screenCtx = renderContext->screenContext;
-	Tessellator* tess = screenCtx->tessellator;
-	Utils::DebugF("Grabbed tess: "+std::to_string((uintptr_t)tess));
-	class MaterialPtr* mat = (class MaterialPtr*)Utils::GetUIMaterialPtr();
-	if(!mat) {
-		Utils::DebugF("Failed to get material");
-		return;
-	}
-	//class MaterialPtr* matPtr = (class MaterialPtr*)(((size_t)Utils::GetUIMaterialPtr())+0x10);
-	screenCtx->shaderColor->r = 1;
-	screenCtx->shaderColor->g = 1;
-	screenCtx->shaderColor->b = 1;
-	screenCtx->shaderColor->a = 1;
-	Utils::DebugF("Got mat*: " + std::to_string((uintptr_t)mat));
-	Utils::DebugF("Starting render");
-	tess->begin(3, 3);
-	Utils::DebugF("Began");
-	tess->vertex(0,0,0);
-	Utils::DebugF("Vert #1");
-	tess->vertex(0, 100, 0);
-	Utils::DebugF("Vert #2");
-	tess->vertex(100, 100, 0);
-	Utils::DebugF("Vert #3");
-	MeshHelpers::renderMeshImmediately(screenCtx, tess, mat);
-	Utils::DebugF("Rendered mesh");
-	*/
-/*
-	float x = 0;
-	float y = 1000;
-	float z = 0;
-	float w = 1000;
-	ScreenContext* screenCtx = renderContext->screenContext;
-	screenCtx->shaderColor->r = 1;
-	screenCtx->shaderColor->g = 1;
-	screenCtx->shaderColor->b = 1;
-	screenCtx->shaderColor->a = 1;
-	Tessellator* tessellator = screenCtx->tessellator;
-	tessellator->begin(4,0); 			//Tessellator::begin(tessellator,4,0);
-	tessellator->vertex(x, w, 0.0); 	//Tessellator::vertex(tessellator,x,w,0.0);
-	tessellator->vertex(z, w, 0.0); 	//Tessellator::vertex(tessellator,z,w,0.0);
-	tessellator->vertex(z, y, 0.0); 	//Tessellator::vertex(tessellator,z,y,0.0);
-	tessellator->vertex(x, y, 0.0); 	//Tessellator::vertex(tessellator,x,y,0.0);
-	MeshHelpers::renderMeshImmediately(screenCtx, tessellator, Utils::GetUIMaterialPtr());
-	*/
+
+	Renderer::Begin();
+	Renderer::Vertex2D(0, 0);
+	Renderer::Vertex2D(100, 0);
+	Renderer::Vertex2D(100, 100);
+	Renderer::Vertex2D(0, 100);
+	Renderer::End();
 }
 
 SetupAndRenderHook::SetupAndRenderHook() : IPatch::IPatch("ScreenView::setupAndRender") {

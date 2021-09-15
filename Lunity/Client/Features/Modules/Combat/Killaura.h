@@ -17,7 +17,6 @@ public:
 
 	void onPlayerTickWorldEvent(PlayerTickEvent& event) override;
 	void onActorRotateEvent(ActorRotateEvent& event) override;
-	void onRenderEvent(RenderEvent& event) override;
 };
 
 

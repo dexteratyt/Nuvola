@@ -9,9 +9,14 @@
 // simply and efficiently using this renderer as a base
 
 #include "../../Utils/Math.h"
+#include <vector>
 
 class Renderer {
+	static inline int vertCount = 0;
+	static inline std::vector<Vector2<float>> vectors;
 public:
+	static void Setup(class MinecraftUIRenderContext* renderContext);
+
 	//TODO: Implement!!!
 	//Begin & End
 	static void Begin();
@@ -19,6 +24,7 @@ public:
 
 	//How the shape should look
 	static void SetLineWidth(float width);
+	
 	static void SetColor(Vector3<float>);
 	static void SetColor(float r, float g, float b);
 	static void SetColor(Vector4<float>);

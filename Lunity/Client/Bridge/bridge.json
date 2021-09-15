@@ -492,15 +492,11 @@
 					},
 					{
 						"Name": "primitiveMode",
-						"Type": "char"
+						"Type": "int"
 					},
 					{
 						"Name": "vertCount",
 						"Type": "int"
-					},
-					{
-						"Name": "param_4",
-						"Type": "char"
 					}
                 ],
                 "Type": "void",
