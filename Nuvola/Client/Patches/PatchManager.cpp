@@ -2,6 +2,9 @@
 #include "IPatch.h"
 #include <iostream>
 
+#define USE_PATCH(folder, filename) #include "folder##/filename##.h"\
+PatchManager::ApplyPatch(new filename) 
+
 //Actor
 #include "Actor/SetRotHook.h"
 #include "Actor/NormalTickHook.h"
@@ -27,6 +30,8 @@
 
 void PatchManager::ApplyAll()
 {
+
+	USE_PATCH(Global, KeyPressHook);
 	/* Input hooking */
 	PatchManager::ApplyPatch(new KeyPressHook());
 	PatchManager::ApplyPatch(new MouseActionHook());
