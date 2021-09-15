@@ -2,11 +2,11 @@
 
 :: Turn echo off
 @echo off
-echo Welcome to the epic gaming Lunity build script
+echo Welcome to the epic gaming Nuvola build script
 :: Main selection section
 :main
 echo Please select a choice below
-echo 1) Build Lunity (x64 only)
+echo 1) Build Nuvola (x64 only)
 echo 2) Inject
 echo 3) Clean project
 :: Reset the choice var
@@ -31,11 +31,11 @@ cd ClassBuilder
 cmake .
 cmake --build . --config Release
 cd Release
-ClassBuilder.exe --proj "../../Lunity/Client/Bridge/bridge.json" --gen CppGen --output "../../Lunity/Client/Bridge/"
+ClassBuilder.exe --proj "../../Nuvola/Client/Bridge/bridge.json" --gen CppGen --output "../../Nuvola/Client/Bridge/"
 cd ..
 cd ..
 ::Setup submodules
-cd Lunity
+cd Nuvola
 cd Lib
 cd PolyHook_2_0
 :: Build polyhook
@@ -44,19 +44,19 @@ cmake --build "./_build" --config Release --target INSTALL
 cd ..
 cd ..
 cd ..
-:: Build all of Lunity (Injector, Client, Etc)
+:: Build all of Nuvola (Injector, Client, Etc)
 cmake .
 cmake --build . --config Release
 :: Put everything in an output folder
 mkdir Output
 copy /y Injector\Release\Injector.exe Output\Injector.exe
-copy /y Lunity\Release\Lunity.dll Output\Lunity.dll
+copy /y Nuvola\Release\Nuvola.dll Output\Nuvola.dll
 goto end
 
 :: Call the injector program
 :inject
 cd Output
-Injector.exe -i Lunity.dll -n Minecraft.Windows
+Injector.exe -i Nuvola.dll -n Minecraft.Windows
 cd ..
 goto end
 
@@ -71,8 +71,8 @@ del /q "*.csproj"
 del /q /s "cmake_install.cmake"
 del /q /s "CMakeCache.txt"
 FOR /d /r . %%d IN (CMakeFiles) DO @IF EXIST "%%d" rd /s /q "%%d"
-rmdir /s /q "Lunity\Lunity.dir"
-rmdir /s /q "Lunity\Release"
+rmdir /s /q "Nuvola\Nuvola.dir"
+rmdir /s /q "Nuvola\Release"
 rmdir /s /q "Injector\Injector.dir"
 rmdir /s /q "Injector\Release"
 rmdir /s /q "Injector\obj"
