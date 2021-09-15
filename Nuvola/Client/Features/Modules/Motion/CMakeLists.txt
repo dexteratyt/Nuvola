@@ -1,4 +1,4 @@
-target_sources(Lunity PRIVATE
+target_sources(Nuvola PRIVATE
 	"Airjump.cpp"
 	"TestFly.cpp"
 )

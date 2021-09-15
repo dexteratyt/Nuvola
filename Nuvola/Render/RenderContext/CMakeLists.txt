@@ -1,3 +1,3 @@
-target_sources(Lunity PRIVATE
+target_sources(Nuvola PRIVATE
 	"MinecraftRenderer.cpp"
 )
