@@ -1,18 +1,18 @@
-[submodule "Lunity/Lib/cpp-httplib"]
-	path = Lunity/Lib/cpp-httplib
+[submodule "Nuvola/Lib/cpp-httplib"]
+	path = Nuvola/Lib/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
-[submodule "Lunity/Lib/HTTPRequest"]
-	path = Lunity/Lib/HTTPRequest
+[submodule "Nuvola/Lib/HTTPRequest"]
+	path = Nuvola/Lib/HTTPRequest
 	url = https://github.com/elnormous/HTTPRequest.git
-[submodule "Lunity/Lib/PolyHook_2_0"]
-	path = Lunity/Lib/PolyHook_2_0
+[submodule "Nuvola/Lib/PolyHook_2_0"]
+	path = Nuvola/Lib/PolyHook_2_0
 	url = https://github.com/stevemk14ebr/PolyHook_2_0.git
-[submodule "Lunity/Lib/GSL"]
-	path = Lunity/Lib/GSL
+[submodule "Nuvola/Lib/GSL"]
+	path = Nuvola/Lib/GSL
 	url = https://github.com/microsoft/GSL.git
 [submodule "ClassBuilder"]
 	path = ClassBuilder
 	url = https://github.com/DisabledMallis/ClassBuilder.git
-[submodule "Lunity/Lib/GSL"]
-	path = Lunity/Lib/GSL
+[submodule "Nuvola/Lib/GSL"]
+	path = Nuvola/Lib/GSL
 	url = https://github.com/microsoft/GSL.git
