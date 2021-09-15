@@ -1,5 +1,5 @@
-#ifndef LUNITY_UTILS_VERSIONUTILS
-#define LUNITY_UTILS_VERSIONUTILS
+#ifndef NUVOLA_UTILS_VERSIONUTILS
+#define NUVOLA_UTILS_VERSIONUTILS
 #include <string>
 
 enum SupportedVersion {
@@ -16,4 +16,4 @@ public:
     static auto verToStr(SupportedVersion) -> std::string;
 };
 
-#endif /* LUNITY_UTILS_VERSIONUTILS */
+#endif /* NUVOLA_UTILS_VERSIONUTILS */

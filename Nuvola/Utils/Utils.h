@@ -1,5 +1,5 @@
-#ifndef LUNITY_UTILS_UTILS
-#define LUNITY_UTILS_UTILS
+#ifndef NUVOLA_UTILS_UTILS
+#define NUVOLA_UTILS_UTILS
 #include <Windows.h>
 #include <fstream>
 #include <string>
@@ -61,4 +61,4 @@ namespace lun {
 	};
 }
 
-#endif /* LUNITY_UTILS_UTILS */
+#endif /* NUVOLA_UTILS_UTILS */

@@ -46,7 +46,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 	render->addItem(new ClickGui());
     //Motion
 	motion->addItem(new Airjump());
-	motion->addItem(new TestFly());
+	//motion->addItem(new TestFly());
     //Player
 	player->addItem(new NoSwing());
     //Misc

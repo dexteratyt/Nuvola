@@ -14,10 +14,6 @@ void Uninject::OnEnable() {
 	//Clean up hooks
 	PatchManager::RemoveAll();
 
-	//Sleep for 1 second to ensure the hooks are
-	//safely removed before we kill our own code
-	//Sleep(1000);
-
 	//Free library
 	FreeLibraryAndExitThread(Mem::GetThisModule(), 0);
 };

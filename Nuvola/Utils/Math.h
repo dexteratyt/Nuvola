@@ -1,8 +1,8 @@
+#ifndef NUVOLA_UTILS_MATH
+#define NUVOLA_UTILS_MATH
+
 #include <stdexcept>
 #include <string>
-
-#ifndef LUNITY_UTILS_MATH
-#define LUNITY_UTILS_MATH
 
 template<typename T>
 struct Vector1
@@ -181,4 +181,4 @@ struct CaretMeasureData {
     };
 };
 
-#endif /* LUNITY_UTILS_MATH */
+#endif /* NUVOLA_UTILS_MATH */
