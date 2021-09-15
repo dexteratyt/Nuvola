@@ -1,7 +1,5 @@
 #include "ModuleMgr.h"
 
-#define 
-
 //Combat
 #include "Modules/Combat/Killaura.h"
 //Render

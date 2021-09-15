@@ -24,7 +24,7 @@ goto main
 
 :: Build section, actually build the project and output the generated files
 :build
-SetupAndBuild.bat
+call SetupAndBuild.bat
 :: Put everything in an output folder
 mkdir Output
 copy /y Injector\Release\Injector.exe Output\Injector.exe
