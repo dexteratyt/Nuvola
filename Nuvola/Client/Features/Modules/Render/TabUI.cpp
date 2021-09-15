@@ -10,7 +10,7 @@
 #include "../../../Bridge/Level.h"
 
 /* Tab GUI constants*/
-#define BRAND std::string("Lunity")
+#define BRAND std::string("Nuvola")
 
 #define BASE_PADDING 10
 #define BRAND_SCALE 2

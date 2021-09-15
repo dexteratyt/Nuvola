@@ -23,13 +23,6 @@ void __fastcall SetupAndRenderHook::setupAndRenderCallback_1_17_10_4(class Scree
 	for(auto listener : listeners) {
 		listener->onRenderEvent(event);
 	}
-
-	Renderer::Begin();
-	Renderer::Vertex2D(0, 0);
-	Renderer::Vertex2D(100, 0);
-	Renderer::Vertex2D(100, 100);
-	Renderer::Vertex2D(0, 100);
-	Renderer::End();
 }
 
 SetupAndRenderHook::SetupAndRenderHook() : IPatch::IPatch("ScreenView::setupAndRender") {

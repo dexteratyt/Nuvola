@@ -25,7 +25,7 @@ void init() {
     freopen_s(&fDummy, "CONOUT$", "w", stdout);
 #endif
 
-	Utils::DebugF(std::string("Initialized Lunity"));
+	Utils::DebugF(std::string("Initialized Nuvola"));
 
 	//Apply all patches
 	PatchManager::ApplyAll();
