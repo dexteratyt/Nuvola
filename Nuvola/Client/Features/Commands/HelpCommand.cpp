@@ -24,11 +24,5 @@ auto HelpCommand::Execute(std::vector<std::string> params) -> bool {
 		DisplayMessage("&e> &7!&b"+command->getName() + " &8- &7" + command->GetDescription());
 	}
 
-	nuv::string* nuvStr = new nuv::string("Hello!");
-	nuv::string* nuvLongStr = new nuv::string("This string is quite long, so reallocation is needed!");
-
-	DisplayMessage("NuvStr-Addr: "+int_to_hex(nuvStr));
-	DisplayMessage("NuvStr-Addr: "+int_to_hex(nuvLongStr));
-
 	return true;
 };
