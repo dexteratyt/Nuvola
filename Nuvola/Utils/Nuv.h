@@ -88,6 +88,19 @@ static_assert(sizeof(textData) == 16, "textData is misaligned!");
 			//This tells us if its a pointer or if we can just copy the bytes
 			return STR_FIRST_ALIGN != this->lengthTillRealign;
 		}
+
+		//C string ==
+		bool operator==(const char* text) {
+			return getString() == text;
+		}
+		//nuv::string ==
+		bool operator==(string text) {
+			return getString() == text.getString();
+		}
+		//std::string ==
+		bool operator==(std::string text) {
+			return getString() == text;
+		}
 	};
 static_assert(sizeof(nuv::string) == 32, "nuv::string is misaligned!");
 
