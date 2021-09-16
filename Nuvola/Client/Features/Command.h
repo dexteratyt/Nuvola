@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_COMMAND
-#define LUNITY_CLIENT_FEATURES_COMMAND
+#ifndef NUVOLA_CLIENT_FEATURES_COMMAND
+#define NUVOLA_CLIENT_FEATURES_COMMAND
 
 #include "ManagedItem.h"
 #include <vector>
@@ -19,4 +19,4 @@ public:
 	auto GetOut() -> lun::ostream&;
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_COMMAND */
+#endif /* NUVOLA_CLIENT_FEATURES_COMMAND */

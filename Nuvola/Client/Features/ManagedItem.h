@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_MANAGEDITEM
-#define LUNITY_CLIENT_FEATURES_MANAGEDITEM
+#ifndef NUVOLA_CLIENT_FEATURES_MANAGEDITEM
+#define NUVOLA_CLIENT_FEATURES_MANAGEDITEM
 #include <iostream>
 #include <string>
 
@@ -14,4 +14,4 @@ public:
     virtual bool isManager();
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_MANAGEDITEM */
+#endif /* NUVOLA_CLIENT_FEATURES_MANAGEDITEM */

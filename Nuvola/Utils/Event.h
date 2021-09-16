@@ -1,5 +1,5 @@
-#ifndef LUNITY_UTILS_EVENT
-#define LUNITY_UTILS_EVENT
+#ifndef NUVOLA_UTILS_EVENT
+#define NUVOLA_UTILS_EVENT
 
 #include <vector>
 #include <functional>
@@ -60,5 +60,4 @@ struct Event
     }
 };
 
-
-#endif //LUNITY_UTILS_EVENT
+#endif /* NUVOLA_UTILS_EVENT */

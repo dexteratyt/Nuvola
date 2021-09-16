@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_PANEL_WEBPANEL
-#define LUNITY_CLIENT_PANEL_WEBPANEL
+#ifndef NUVOLA_CLIENT_PANEL_WEBPANEL
+#define NUVOLA_CLIENT_PANEL_WEBPANEL
 
 //#include <httplib.h>
 #include <HTTPRequest.hpp>
@@ -19,4 +19,4 @@ public:
 	void stop();
 };
 
-#endif /* LUNITY_CLIENT_PANEL_WEBPANEL */
+#endif /* NUVOLA_CLIENT_PANEL_WEBPANEL */

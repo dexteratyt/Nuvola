@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_MODULES_TABUI
-#define LUNITY_CLIENT_FEATURES_MODULES_TABUI
+#ifndef NUVOLA_CLIENT_FEATURES_MODULES_RENDER_TABUI
+#define NUVOLA_CLIENT_FEATURES_MODULES_RENDER_TABUI
 
 #include "../../Module.h"
 #include "../../../Events/EventHandler.h"
@@ -15,4 +15,4 @@ public:
 	void onKeyEvent(KeyEvent& event) override;
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_MODULES_TABUI */
+#endif /* NUVOLA_CLIENT_FEATURES_MODULES_RENDER_TABUI */

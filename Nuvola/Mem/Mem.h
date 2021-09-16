@@ -1,5 +1,5 @@
-#ifndef LUNITY_MEM_MEM
-#define LUNITY_MEM_MEM
+#ifndef NUVOLA_MEM_MEM
+#define NUVOLA_MEM_MEM
 #include <Windows.h>
 #include <Psapi.h>
 #include <vector>
@@ -42,4 +42,4 @@ public:
 #include <polyhook2/Misc.hpp>
 #endif
 
-#endif /* LUNITY_MEM_MEM */
+#endif /* NUVOLA_MEM_MEM */

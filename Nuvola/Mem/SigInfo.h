@@ -1,5 +1,5 @@
-#ifndef LUNITY_MEM_SIGINFO
-#define LUNITY_MEM_SIGINFO
+#ifndef NUVOLA_MEM_SIGINFO
+#define NUVOLA_MEM_SIGINFO
 #include <string>
 struct SigInfo {
     std::string* signature;
@@ -14,4 +14,4 @@ struct SigInfo {
     }
 };
 
-#endif /* LUNITY_MEM_SIGINFO */
+#endif /* NUVOLA_MEM_SIGINFO */

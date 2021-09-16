@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_MANAGER
-#define LUNITY_CLIENT_FEATURES_MANAGER
+#ifndef NUVOLA_CLIENT_FEATURES_MANAGER
+#define NUVOLA_CLIENT_FEATURES_MANAGER
 #include <string>
 #include <vector>
 #include "ManagedItem.h"
@@ -60,4 +60,4 @@ public:
 };
 
 
-#endif /* LUNITY_CLIENT_FEATURES_MANAGER */
+#endif /* NUVOLA_CLIENT_FEATURES_MANAGER */

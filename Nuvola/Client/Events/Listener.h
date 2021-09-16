@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_LISTENER
-#define LUNITY_CLIENT_EVENTS_LISTENER
+#ifndef NUVOLA_CLIENT_EVENTS_LISTENER
+#define NUVOLA_CLIENT_EVENTS_LISTENER
 
 #include "Event.h"
 #include "KeyEvent.h"
@@ -24,4 +24,4 @@ public:
 	virtual void onMobSwingEvent(MobSwingEvent& event) {};
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_LISTENER */
+#endif /* NUVOLA_CLIENT_EVENTS_LISTENER */

@@ -1,5 +1,5 @@
-#ifndef LUNITY_UTILS_IANIMWRAPPER
-#define LUNITY_UTILS_IANIMWRAPPER
+#ifndef NUVOLA_RENDER_IANIMWRAPPER
+#define NUVOLA_RENDER_IANIMWRAPPER
 
 #include <chrono>
 
@@ -11,4 +11,4 @@ public:
 	static auto GetDeltaTime() -> float;
 };
 
-#endif /* LUNITY_UTILS_IANIMWRAPPER */
+#endif /* NUVOLA_RENDER_IANIMWRAPPER */

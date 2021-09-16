@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_MOBEVENT
-#define LUNITY_CLIENT_EVENTS_MOBEVENT
+#ifndef NUVOLA_CLIENT_EVENTS_MOBEVENT
+#define NUVOLA_CLIENT_EVENTS_MOBEVENT
 
 #include "../Bridge/Mob.h"
 #include "Event.h"
@@ -16,4 +16,4 @@ public:
 	};
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_MOBEVENT */
+#endif /* NUVOLA_CLIENT_EVENTS_MOBEVENT */

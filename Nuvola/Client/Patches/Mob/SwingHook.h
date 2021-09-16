@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_PATCHES_MOB_SWINGHOOK
-#define LUNITY_CLIENT_PATCHES_MOB_SWINGHOOK
+#ifndef NUVOLA_CLIENT_PATCHES_MOB_SWINGHOOK
+#define NUVOLA_CLIENT_PATCHES_MOB_SWINGHOOK
 
 #include "../IPatch.h"
 #include "../../Bridge/Mob.h"
@@ -12,4 +12,4 @@ public:
 	auto Apply() -> bool override;
 };
 
-#endif /* LUNITY_CLIENT_PATCHES_MOB_SWINGHOOK */
+#endif /* NUVOLA_CLIENT_PATCHES_MOB_SWINGHOOK */

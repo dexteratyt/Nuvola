@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_CHATEVENT
-#define LUNITY_CLIENT_EVENTS_CHATEVENT
+#ifndef NUVOLA_CLIENT_EVENTS_CHATEVENT
+#define NUVOLA_CLIENT_EVENTS_CHATEVENT
 
 #include "Event.h"
 #include "Cancellable.h"
@@ -19,4 +19,4 @@ public:
 	};
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_CHATEVENT */
+#endif /* NUVOLA_CLIENT_EVENTS_CHATEVENT */

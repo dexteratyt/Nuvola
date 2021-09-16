@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_MOBSWINGEVENT
-#define LUNITY_CLIENT_EVENTS_MOBSWINGEVENT
+#ifndef NUVOLA_CLIENT_EVENTS_MOBSWINGEVENT
+#define NUVOLA_CLIENT_EVENTS_MOBSWINGEVENT
 
 #include "MobEvent.h"
 #include "Cancellable.h"
@@ -9,4 +9,4 @@ public:
 	MobSwingEvent(Mob* mob) : MobEvent(mob), Cancellable() {}
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_MOBSWINGEVENT */
+#endif /* NUVOLA_CLIENT_EVENTS_MOBSWINGEVENT */

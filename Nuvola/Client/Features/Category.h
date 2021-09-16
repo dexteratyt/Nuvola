@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_CATEGORY
-#define LUNITY_CLIENT_FEATURES_CATEGORY
+#ifndef NUVOLA_CLIENT_FEATURES_CATEGORY
+#define NUVOLA_CLIENT_FEATURES_CATEGORY
 #include <string>
 #include <vector>
 #include "Manager.h"
@@ -11,4 +11,4 @@ public:
     explicit Category(const std::string& name);
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_CATEGORY */
+#endif /* NUVOLA_CLIENT_FEATURES_CATEGORY */

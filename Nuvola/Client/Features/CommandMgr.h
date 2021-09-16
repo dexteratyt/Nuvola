@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_COMMANDMGR
-#define LUNITY_CLIENT_FEATURES_COMMANDMGR
+#ifndef NUVOLA_CLIENT_FEATURES_COMMANDMGR
+#define NUVOLA_CLIENT_FEATURES_COMMANDMGR
 
 #include "Manager.h"
 #include "Command.h"
@@ -20,4 +20,4 @@ private:
 	void onChatEvent(ChatEvent& event) override;
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_COMMANDMGR */
+#endif /* NUVOLA_CLIENT_FEATURES_COMMANDMGR */

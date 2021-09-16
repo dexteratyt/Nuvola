@@ -1,5 +1,5 @@
-#ifndef LUNITY_UTILS_RENDERER
-#define LUNITY_UTILS_RENDERER
+#ifndef NUVOLA_RENDER_CUSTOM_RENDERER
+#define NUVOLA_RENDER_CUSTOM_RENDERER
 
 // This renderer is meant to behave like OpenGL
 // in the sense of using Vertexes after a Begin command
@@ -35,4 +35,4 @@ public:
 	static void Vertex2D(Vector2<float>);
 };
 
-#endif /* LUNITY_UTILS_RENDERER */
+#endif /* NUVOLA_RENDER_CUSTOM_RENDERER */

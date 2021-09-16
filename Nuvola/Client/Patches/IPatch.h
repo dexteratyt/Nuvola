@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_PATCHES_IPATCH
-#define LUNITY_CLIENT_PATCHES_IPATCH
+#ifndef NUVOLA_CLIENT_PATCHES_IPATCH
+#define NUVOLA_CLIENT_PATCHES_IPATCH
 
 #include <string>
 #include <polyhook2/Detour/x64Detour.hpp>
@@ -43,4 +43,4 @@ public:
 	auto AutoPatch(void* callback, uintptr_t* original) -> bool;
 };
 
-#endif /* LUNITY_CLIENT_PATCHES_IPATCH */
+#endif /* NUVOLA_CLIENT_PATCHES_IPATCH */

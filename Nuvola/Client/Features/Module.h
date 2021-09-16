@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_MODULE
-#define LUNITY_CLIENT_FEATURES_MODULE
+#ifndef NUVOLA_CLIENT_FEATURES_MODULE
+#define NUVOLA_CLIENT_FEATURES_MODULE
 #include <iostream>
 #include <string>
 #include <utility>
@@ -27,4 +27,4 @@ public:
 };
 
 
-#endif /* LUNITY_CLIENT_FEATURES_MODULE */
+#endif /* NUVOLA_CLIENT_FEATURES_MODULE */

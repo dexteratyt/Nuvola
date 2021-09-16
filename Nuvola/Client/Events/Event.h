@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_EVENT
-#define LUNITY_CLIENT_EVENTS_EVENT
+#ifndef NUVOLA_CLIENT_EVENTS_EVENT
+#define NUVOLA_CLIENT_EVENTS_EVENT
 
 #include <string>
 
@@ -8,4 +8,4 @@ public:
 	Event();
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_EVENT */
+#endif /* NUVOLA_CLIENT_EVENTS_EVENT */

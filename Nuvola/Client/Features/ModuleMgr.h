@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_MODULEMGR
-#define LUNITY_CLIENT_FEATURES_MODULEMGR
+#ifndef NUVOLA_CLIENT_FEATURES_MODULEMGR
+#define NUVOLA_CLIENT_FEATURES_MODULEMGR
 #include <iostream>
 #include <vector>
 #include "Category.h"
@@ -17,4 +17,4 @@ public:
 	void onKeyEvent(KeyEvent& event) override;
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_MODULEMGR */
+#endif /* NUVOLA_CLIENT_FEATURES_MODULEMGR */

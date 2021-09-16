@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_FEATURES_SETTING
-#define LUNITY_CLIENT_FEATURES_SETTING
+#ifndef NUVOLA_CLIENT_FEATURES_SETTING
+#define NUVOLA_CLIENT_FEATURES_SETTING
 #include "ManagedItem.h"
 #include "ISetting.h"
 
@@ -35,4 +35,4 @@ public:
 	}
 };
 
-#endif /* LUNITY_CLIENT_FEATURES_SETTING */
+#endif /* NUVOLA_CLIENT_FEATURES_SETTING */

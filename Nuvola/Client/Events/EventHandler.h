@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_EVENTHANDLER
-#define LUNITY_CLIENT_EVENTS_EVENTHANDLER
+#ifndef NUVOLA_CLIENT_EVENTS_EVENTHANDLER
+#define NUVOLA_CLIENT_EVENTS_EVENTHANDLER
 
 #include <vector>
 
@@ -13,4 +13,4 @@ public:
 	static auto getListeners() -> std::vector<Listener*>;
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_EVENTHANDLER */
+#endif /* NUVOLA_CLIENT_EVENTS_EVENTHANDLER */

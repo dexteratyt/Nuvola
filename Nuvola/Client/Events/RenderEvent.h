@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_EVENTS_RENDEREVENT
-#define LUNITY_CLIENT_EVENTS_RENDEREVENT
+#ifndef NUVOLA_CLIENT_EVENTS_RENDEREVENT
+#define NUVOLA_CLIENT_EVENTS_RENDEREVENT
 
 #include "Event.h"
 #include "../Bridge/MinecraftUIRenderContext.h"
@@ -22,4 +22,4 @@ public:
 	}
 };
 
-#endif /* LUNITY_CLIENT_EVENTS_RENDEREVENT */
+#endif /* NUVOLA_CLIENT_EVENTS_RENDEREVENT */

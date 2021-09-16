@@ -1,5 +1,5 @@
-#ifndef LUNITY_CLIENT_PATCHES_PATCHMANAGER
-#define LUNITY_CLIENT_PATCHES_PATCHMANAGER
+#ifndef NUVOLA_CLIENT_PATCHES_PATCHMANAGER
+#define NUVOLA_CLIENT_PATCHES_PATCHMANAGER
 #include <vector>
 
 class PatchManager
@@ -12,4 +12,4 @@ public:
 	static auto RemovePatch(class IPatch* toRemove) -> bool;
 };
 
-#endif /* LUNITY_CLIENT_PATCHES_PATCHMANAGER */
+#endif /* NUVOLA_CLIENT_PATCHES_PATCHMANAGER */
