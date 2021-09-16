@@ -20,7 +20,7 @@ void Module::OnTick() {
 }
 
 
-void Module::OnLunityTick() {
+void Module::OnNuvolaTick() {
 	if(enabled) {
 		if(!wasEnabled) {
 			this->OnEnable();

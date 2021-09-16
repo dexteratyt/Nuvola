@@ -18,7 +18,7 @@ public:
     virtual void OnEnable();
     virtual void OnDisable();
 	virtual void OnTick();
-	void OnLunityTick();
+	void OnNuvolaTick();
 	auto IsEnabled() -> bool;
 	void SetEnabled(bool enabled);
 	void Toggle();

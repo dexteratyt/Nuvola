@@ -16,6 +16,12 @@ void Uninject::OnEnable() {
 
 	//Free library
 	FreeLibraryAndExitThread(Mem::GetThisModule(), 0);
+
+	//If this code is reach, uninjection failed!
+	//We should re apply the patches and let the user know
+	PatchManager::ApplyAll();
+
+	//TODO: let user know uninjection failed!
 };
 
 void Uninject::OnDisable() {

@@ -50,7 +50,7 @@ void init() {
 	//Lunity tick caller
 	while(true) {
 		for(auto mod : *allMods) {
-			mod->OnLunityTick();
+			mod->OnNuvolaTick();
 		}
 	}
 }
