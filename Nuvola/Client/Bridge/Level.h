@@ -7,9 +7,9 @@
 struct Level {
 	/* Fields */
 	char padding_112[112];
-	nuv::vector<Player*> players;
+	std::vector<Player*> players;
 	char padding_9952[9816];
-	nuv::vector<Actor*> actors;
+	std::vector<Actor*> actors;
 	/* Virtuals */
 	/* Functions */
 };

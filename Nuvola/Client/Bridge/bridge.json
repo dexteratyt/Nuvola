@@ -922,7 +922,7 @@
 				"Name": "players",
 				"Offset": "70",
 				"Type": {
-					"TypeName": "nuv::vector<Player*>",
+					"TypeName": "std::vector<Player*>",
 					"TypeSize": 24
 				}
 			},
@@ -930,7 +930,7 @@
 				"Name": "actors",
 				"Offset": "26E0",
 				"Type": {
-					"TypeName": "nuv::vector<Actor*>",
+					"TypeName": "std::vector<Actor*>",
 					"TypeSize": 24
 				}
 			}
@@ -986,7 +986,7 @@
 					},
 					{
 						"Name": "message",
-						"Type": "std::string"
+						"Type": "nuv::string"
 					}
 				],
 				"Type": "void",
