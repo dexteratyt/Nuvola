@@ -35,7 +35,8 @@ void MinecraftRenderer::DrawString(std::string text, Vector2<float> position, Co
 	RectangleArea rect = RectangleArea(position);
 	TextMeasureData measureData = TextMeasureData(this->GetScale());
 	CaretMeasureData caretData = CaretMeasureData();
-	this->renderContext->drawText(font, &rect, &text, &color, 1.0f, nullptr, &measureData, &caretData);
+	nuv::string nuvText(text);
+	this->renderContext->drawText(font, &rect, &nuvText, &color, 1.0f, nullptr, &measureData, &caretData);
 	this->renderContext->flushText(0);
 }
 
@@ -45,7 +46,8 @@ auto MinecraftRenderer::MeasureText(std::string text) -> float {
 }
 auto MinecraftRenderer::MeasureText(std::string text, float scale) -> float {
 	class BitmapFont* font = MinecraftRenderer::getFont();
-	return this->renderContext->getLineLength(font, &text, scale);
+	nuv::string nuvText(text);
+	return this->renderContext->getLineLength(font, &nuvText, scale);
 }
 
 /* Fill wrappers */

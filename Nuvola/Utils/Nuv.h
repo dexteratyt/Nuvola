@@ -28,14 +28,18 @@ static_assert(sizeof(textData) == 16, "textData is misaligned!");
 			this->lengthTillRealign = STR_FIRST_ALIGN;
 			this->setString(text);
 		}
+		~string() {
+			clearContent();
+		}
 		//setting the string content via std::string
 		void setString(std::string text) {
-			//Clear the contentData, make sure its all null
-			memset(this->text.contentData, 0, STR_FIRST_ALIGN+1);
+			//Clear any existing content
+			clearContent();
 
 			//Check the text length, we may need to reallocate where the content is stored
 			if(text.length() > this->lengthTillRealign) {
 				//If we need to relocate, allocate new memory with the text length + 1
+				//Also is this a memory leak?
 				char* alloc = (char*)malloc(text.length()+1);
 				//Set the content of the allocated memory
 				for(int i = 0; i < text.length(); i++) {
@@ -59,9 +63,8 @@ static_assert(sizeof(textData) == 16, "textData is misaligned!");
 		std::string getString() {
 			//create a new string
 			std::string newStr = "";
-			//Check if the length is greater than 15
-			//This tells us if its a pointer or if we can just copy the bytes
-			if(STR_FIRST_ALIGN != this->lengthTillRealign) {
+			//if the content is in a pointer
+			if(isPtr()) {
 				//Its a pointer, std::string can use a char* to form a new instance
 				newStr = text.contentPtr;
 			} else {
@@ -71,6 +74,19 @@ static_assert(sizeof(textData) == 16, "textData is misaligned!");
 				}
 			}
 			return newStr;
+		}
+		//Free memory allocated
+		void clearContent() {
+			if(isPtr()) {
+				free((void*)text.contentPtr);
+			}
+			//Clear the contentData, make sure its all null
+			memset(this->text.contentData, 0, STR_FIRST_ALIGN+1);
+		}
+		//Tells us if the content for the string is in the pointer
+		bool isPtr() {
+			//This tells us if its a pointer or if we can just copy the bytes
+			return STR_FIRST_ALIGN != this->lengthTillRealign;
 		}
 	};
 static_assert(sizeof(nuv::string) == 32, "nuv::string is misaligned!");

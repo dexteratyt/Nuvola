@@ -138,7 +138,7 @@
 				"Name": "name",
 				"Offset": 0,
 				"Type": {
-					"TypeName": "std::string",
+					"TypeName": "nuv::string",
 					"TypeSize": 32
 				}
 			},
@@ -146,7 +146,7 @@
 				"Name": "key",
 				"Offset": 20,
 				"Type": {
-					"TypeName": "std::string",
+					"TypeName": "nuv::string",
 					"TypeSize": 32
 				}
 			}
@@ -381,7 +381,7 @@
 					},
 					{
 						"Name": "text",
-						"Type": "std::string*"
+						"Type": "nuv::string*"
 					},
 					{
 						"Name": "scale",
@@ -404,7 +404,7 @@
 					},
 					{
 						"Name": "text",
-						"Type": "std::string*"
+						"Type": "nuv::string*"
 					},
 					{
 						"Name": "color",

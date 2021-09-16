@@ -6,8 +6,8 @@
 #include "../../Utils/Nuv.h"
 struct NamespacedKey {
 	/* Fields */
-	std::string name;
-	std::string key;
+	nuv::string name;
+	nuv::string key;
 	/* Virtuals */
 	/* Functions */
 };

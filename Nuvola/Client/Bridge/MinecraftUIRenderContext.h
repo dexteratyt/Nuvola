@@ -14,11 +14,11 @@ struct MinecraftUIRenderContext {
 	class UIScene* uiScene;
 	/* Virtuals */
 	virtual void virt_pad_0() {};
-	virtual auto getLineLength(class BitmapFont* font, std::string* text, float scale) -> float {};
+	virtual auto getLineLength(class BitmapFont* font, nuv::string* text, float scale) -> float {};
 	virtual void virt_pad_2() {};
 	virtual void virt_pad_3() {};
 	virtual void virt_pad_4() {};
-	virtual auto drawText(class BitmapFont* font, class RectangleArea* rectArea, std::string* text, class Color* color, float param_5, class TextAlignment* textAlignment, class TextMeasureData* textMeasureData, class CaretMeasureData* caretMeasureData) -> void {};
+	virtual auto drawText(class BitmapFont* font, class RectangleArea* rectArea, nuv::string* text, class Color* color, float param_5, class TextAlignment* textAlignment, class TextMeasureData* textMeasureData, class CaretMeasureData* caretMeasureData) -> void {};
 	virtual auto flushText(float param_1) -> void {};
 	virtual void virt_pad_7() {};
 	virtual void virt_pad_8() {};
