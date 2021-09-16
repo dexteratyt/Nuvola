@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "../../Utils/Nuv.h"
 struct AABB {
 	/* Fields */
 	Vector3<float> firstCorner;

@@ -3,12 +3,13 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "../../Utils/Nuv.h"
 struct Level {
 	/* Fields */
 	char padding_112[112];
-	std::vector<Player*> players;
+	nuv::vector<Player*> players;
 	char padding_9952[9816];
-	std::vector<Actor*> actors;
+	nuv::vector<Actor*> actors;
 	/* Virtuals */
 	/* Functions */
 };

@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "../../Utils/Nuv.h"
 #include "Mob.h"
 struct Player : public Mob {
 	/* Fields */

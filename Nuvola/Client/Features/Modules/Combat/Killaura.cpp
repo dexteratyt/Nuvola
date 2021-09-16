@@ -162,8 +162,8 @@ auto Killaura::findTarget(Actor* sourceActor) -> Actor* {
 	//Get the level
 	Level* level = sourceActor->level;
 	//Get the actors & players
-	std::vector<Actor*> allActors = level->actors;
-	std::vector<Player*> allPlayers = level->players;
+	nuv::vector<Actor*> allActors = level->actors;
+	nuv::vector<Player*> allPlayers = level->players;
 	//Merge the vectors to get a complete list to iterate
 	for(auto player : allPlayers) {
 		allActors.push_back(player);

@@ -22,4 +22,4 @@ Nuvola (previously known as Lunity) is a Minecraft: Windows 10 Edition anticheat
 
 [Discord](https://go-kys.lol/)
 
-100% Skid free garuntee!
+100% Skid free guarantee!

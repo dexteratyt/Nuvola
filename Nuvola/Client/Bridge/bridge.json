@@ -26,6 +26,14 @@
 					"TypeName": "",
 					"TypeSize": "0"
 				}
+			},
+			{
+				"Name": "../../Utils/Nuv.h",
+				"Offset": "0",
+				"Type": {
+					"TypeName": "",
+					"TypeSize": "0"
+				}
 			}
 		],
 		"Functions":[],
@@ -914,7 +922,7 @@
 				"Name": "players",
 				"Offset": "70",
 				"Type": {
-					"TypeName": "std::vector<Player*>",
+					"TypeName": "nuv::vector<Player*>",
 					"TypeSize": 24
 				}
 			},
@@ -922,7 +930,7 @@
 				"Name": "actors",
 				"Offset": "26E0",
 				"Type": {
-					"TypeName": "std::vector<Actor*>",
+					"TypeName": "nuv::vector<Actor*>",
 					"TypeSize": 24
 				}
 			}

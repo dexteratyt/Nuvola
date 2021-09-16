@@ -3,6 +3,7 @@
 #include "../../Utils/Math.h"
 #include "../../Utils/Utils.h"
 #include "../../Mem/Mem.h"
+#include "../../Utils/Nuv.h"
 struct GuiData {
 	/* Fields */
 	char padding_24[24];
