@@ -47,7 +47,7 @@ void init() {
 	//Doesnt work & idk why
 	//WebPanel::getInstance()->start(420);
 
-	//Lunity tick caller
+	//Nuvola tick caller
 	while(true) {
 		for(auto mod : *allMods) {
 			mod->OnNuvolaTick();

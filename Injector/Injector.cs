@@ -5,7 +5,7 @@ using System.Security.AccessControl;
 using System.Security.Principal;
 using System.Threading;
 
-namespace Lunity.Injector {
+namespace Nuvola.Injector {
 	public class Injector {
 
 		enum ArgState {
@@ -26,7 +26,7 @@ namespace Lunity.Injector {
 
 		public static void RunBackend(string[] args) {
 
-			Console.WriteLine("Hello from Lunity injector backend process");
+			Console.WriteLine("Hello from Nuvola injector backend process");
 
 			//Important values for what the program should do
 			ArgState currentState = ArgState.None;

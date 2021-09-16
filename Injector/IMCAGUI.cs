@@ -4,7 +4,7 @@
 using System;
 using System.Threading;
 
-namespace Lunity.Injector {
+namespace Nuvola.Injector {
 	public class IMCAGUI {
 		public static void Begin() {
 			Console.Clear();

@@ -1,4 +1,4 @@
-namespace Lunity.Injector {
+namespace Nuvola.Injector {
 	public class App {
 		public static void Main(string[] args) {
 			while(true) {

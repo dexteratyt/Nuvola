@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lunity.Injector
+namespace Nuvola.Injector
 {
     public class Win32
     {
