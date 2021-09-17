@@ -97,10 +97,23 @@ std::vector<Module*>* ModuleMgr::getAllModules() {
     return allModules;
 }
 
+std::string toLower(std::string in) {
+	std::string lower = "";
+	for(auto c : in) {
+		if(c <= 'Z'&& c >= 'A') {
+			lower += (c - ('Z'- 'z'));
+			continue;
+		}
+		lower += c;
+	}
+	return lower;
+}
+
 Module* ModuleMgr::findModule(std::string name) {
 	std::vector<Module*>* allModules = this->getAllModules();
 	for(auto mod : *allModules) {
-		if(mod->getName() == name) {
+		std::string modName = mod->getName();
+		if(toLower(modName) == toLower(name)) {
 			return mod;
 		}
 	}

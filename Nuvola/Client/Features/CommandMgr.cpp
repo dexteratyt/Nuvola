@@ -4,19 +4,22 @@
 
 #include "Commands/HelpCommand.h"
 #include "Commands/SwingCommand.h"
+#include "Commands/ToggleCommand.h"
 #include "Commands/VersionCommand.h"
 
 CommandMgr::CommandMgr() : Manager<Command>("CommandManager") {
     //Set instance
     instance = this;
     //Initialize commands
-	auto* helpCommand = new HelpCommand();
-	auto* swingCommand = new SwingCommand();
-	auto* versionCommand = new VersionCommand();
+	auto helpCommand = new HelpCommand();
+	auto swingCommand = new SwingCommand();
+	auto toggleCommand = new ToggleCommand();
+	auto versionCommand = new VersionCommand();
 
 	//Register commands
 	this->addItem(helpCommand);
 	this->addItem(swingCommand);
+	this->addItem(toggleCommand);
 	this->addItem(versionCommand);
 
 	EventHandler::registerListener(this);
@@ -69,7 +72,9 @@ void CommandMgr::parseAndInterpret(std::string message) {
 	
 	Command* cmd = this->findCommand(cmdStr);
 	if(cmd != nullptr) {
-		cmd->Execute(words);
+		if(!cmd->Execute(words)) {
+			cmd->DisplayMessage("&cExecution failed!");
+		}
 	} else {
 		//No command found
 	}
