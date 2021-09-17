@@ -4,6 +4,7 @@
 
 #include "Commands/HelpCommand.h"
 #include "Commands/SwingCommand.h"
+#include "Commands/VersionCommand.h"
 
 CommandMgr::CommandMgr() : Manager<Command>("CommandManager") {
     //Set instance
@@ -11,10 +12,12 @@ CommandMgr::CommandMgr() : Manager<Command>("CommandManager") {
     //Initialize commands
 	auto* helpCommand = new HelpCommand();
 	auto* swingCommand = new SwingCommand();
+	auto* versionCommand = new VersionCommand();
 
 	//Register commands
 	this->addItem(helpCommand);
 	this->addItem(swingCommand);
+	this->addItem(versionCommand);
 
 	EventHandler::registerListener(this);
 }
@@ -31,7 +34,7 @@ CommandMgr* CommandMgr::getInstance() {
 auto CommandMgr::findCommand(std::string name) -> Command* {
 	std::vector<Command*>* allCommands = this->getItems();
 	for(auto cmd : *allCommands) {
-		if(cmd->getName() == name) {
+		if(cmd->MatchName(name)) {
 			return cmd;
 		}
 	}

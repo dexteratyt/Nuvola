@@ -16,3 +16,7 @@ auto SwingCommand::Execute(std::vector<std::string> params) -> bool {
 
 	return true;
 };
+
+auto SwingCommand::GetDescription() -> std::string {
+	return "Arbitrarily swings your arm";
+}

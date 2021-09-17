@@ -8,6 +8,17 @@
 #include <gsl/gsl>
 #include <sstream>
 
+#define STRING_EXPAND(s) #s
+#define STRING(s) STRING_EXPAND(s)
+
+//Define the build ver if CMake failed to or it wasn't build with it
+#ifndef NUVOLA_BUILD_VERSION
+#define NUVOLA_BUILD_VERSION Unknown
+#endif
+#ifndef NUVOLA_BUILD_TAG
+#define NUVOLA_BUILD_TAG Alpha Build 1.0.0
+#endif
+
 #define LOG_FILE
 //#define LOG_CONSOLE
 #define LOG_GAME

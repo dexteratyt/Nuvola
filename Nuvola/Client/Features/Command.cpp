@@ -73,3 +73,22 @@ auto Command::Execute(std::vector<std::string> params) -> bool {
 auto Command::GetDescription() -> std::string {
 	return "No description provided";
 }
+auto Command::GetAliases() -> std::vector<std::string> {
+	return std::vector<std::string>();
+}
+auto Command::MatchName(std::string toMatch) -> bool {
+	//If the command name matches, perfect!
+	if(toMatch == this->getName()) {
+		return true;
+	}
+	//If not, check for aliases
+	std::vector<std::string> aliases = this->GetAliases();
+	for(auto alias : aliases) {
+		//If an alias matches, thats out command
+		if(alias == toMatch) {
+			return true;
+		}
+	}
+	//Otherwise this isnt us
+	return false;
+}

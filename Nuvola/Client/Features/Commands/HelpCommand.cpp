@@ -26,3 +26,7 @@ auto HelpCommand::Execute(std::vector<std::string> params) -> bool {
 
 	return true;
 };
+
+auto HelpCommand::GetDescription() -> std::string {
+	return "Display's all available Nuvola commands, as well as provides a description of what they each do";
+}

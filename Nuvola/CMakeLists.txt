@@ -14,6 +14,15 @@ target_sources(Nuvola PRIVATE
 	"main.cpp"
 )
 
+EXECUTE_PROCESS(
+      COMMAND git rev-parse --short HEAD
+      WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+      OUTPUT_VARIABLE "NUVOLA_BUILD_VERSION"
+      ERROR_QUIET
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+add_compile_definitions(NUVOLA_BUILD_VERSION=${NUVOLA_BUILD_VERSION})
+
 add_subdirectory(Client)
 add_subdirectory(Render)
 add_subdirectory(Utils)

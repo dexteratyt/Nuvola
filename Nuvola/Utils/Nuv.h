@@ -168,6 +168,7 @@ static_assert(sizeof(nuv::string) == 32, "nuv::string is misaligned!");
 			return true;
 		}
 	};
+static_assert(sizeof(vector<void*>)==24, "nuv::vector is misaligned!");
 }
 
 #endif /* NUVOLA_UTILS_NUV */

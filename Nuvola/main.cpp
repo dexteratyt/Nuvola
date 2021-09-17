@@ -25,7 +25,7 @@ void init() {
     freopen_s(&fDummy, "CONOUT$", "w", stdout);
 #endif
 
-	Utils::DebugF(std::string("Initialized Nuvola"));
+	Utils::DebugF(std::string("Initialized Nuvola - " STRING(NUVOLA_BUILD_VERSION)));
 
 	//Apply all patches
 	PatchManager::ApplyAll();
