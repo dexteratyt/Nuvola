@@ -12,6 +12,10 @@ public:
     explicit Manager(std::string name) : ManagedItem(name) {
         items = new std::vector<T*>();
     }
+	~Manager() {
+		items->clear();
+		delete items;
+	}
     //Add item
     void addItem(T* item) {
         items->push_back(item);
