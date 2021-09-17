@@ -72,6 +72,61 @@
 		"Virtuals": []
 	},
 	{
+		"ClassName": "Option",
+		"Extends": null,
+		"Fields":[],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "IntOption",
+		"Extends": "Option",
+		"Fields": [
+			{
+				"Name": "maximum",
+				"Offset": "10",
+				"Type": {
+					"TypeName": "int",
+					"TypeSize": 4
+				}
+			},
+			{
+				"Name": "value",
+				"Offset": "18",
+				"Type": {
+					"TypeName": "int",
+					"TypeSize": 4
+				}
+			},
+			{
+				"Name": "minimum",
+				"Offset": "20",
+				"Type": {
+					"TypeName": "int",
+					"TypeSize": 4
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
+		"ClassName": "Options",
+		"Extends": null,
+		"Fields":[
+			{
+				"Name": "cameraState",
+				"Offset": "28",
+				"Type": {
+					"TypeName": "class IntOption*",
+					"TypeSize": 8
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
 		"ClassName": "ClientInstance",
 		"Extends": null,
 		"Fields":[
@@ -109,7 +164,14 @@
 			}
 		],
 		"Functions": [],
-		"Virtuals": []
+		"Virtuals": [
+			{
+				"Name": "getOptions",
+				"Offset": "161",
+				"Parameters": [],
+				"Type": "class Options*"
+			}
+		]
 	},
 	{
 		"ClassName": "LoopbackPacketSender",

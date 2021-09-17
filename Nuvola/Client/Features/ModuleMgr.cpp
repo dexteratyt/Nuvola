@@ -3,9 +3,10 @@
 //Combat
 #include "Modules/Combat/Killaura.h"
 //Render
+#include "Modules/Render/ClickGui.h"
+#include "Modules/Render/Freelook.h"
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
-#include "Modules/Render/ClickGui.h"
 //Motion
 #include "Modules/Motion/Airjump.h"
 #include "Modules/Motion/TestFly.h"
@@ -41,9 +42,10 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Combat
 	combat->addItem(new Killaura());
     //Render
+	render->addItem(new ClickGui());
+	render->addItem(new Freelook());
 	render->addItem(new ModList());
 	render->addItem(new TabUI());
-	render->addItem(new ClickGui());
     //Motion
 	motion->addItem(new Airjump());
 	//motion->addItem(new TestFly());
