@@ -184,6 +184,12 @@
 				"Offset": "1",
 				"Parameters": [],
 				"Type": "int"
+			},
+			{
+				"Name": "getName",
+				"Offset": "2",
+				"Parameters":[],
+				"Type": "nuv::string"
 			}
 		]
 	},

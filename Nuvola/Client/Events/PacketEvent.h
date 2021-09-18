@@ -8,7 +8,9 @@
 class PacketEvent : public Event, public Cancellable {
 	Packet* packet;
 public:
-	PacketEvent(Packet* packet) : Event() {};
+	PacketEvent(Packet* packet) : Event() {
+		this->packet = packet;
+	};
 
 	auto GetPacket() -> Packet* {
 		return this->packet;

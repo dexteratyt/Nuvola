@@ -9,6 +9,7 @@ struct Packet {
 	/* Virtuals */
 	virtual void virt_pad_0() {};
 	virtual auto getId() -> int {};
+	virtual auto getName() -> nuv::string {};
 	/* Functions */
 };
 #endif
