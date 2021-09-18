@@ -174,8 +174,32 @@
 		]
 	},
 	{
+		"ClassName": "Packet",
+		"Extends": null,
+		"Fields":[],
+		"Functions":[],
+		"Virtuals":[
+			{
+				"Name": "getId",
+				"Offset": "1",
+				"Parameters": [],
+				"Type": "int"
+			}
+		]
+	},
+	{
+		"ClassName": "PlayerAuthInputPacket",
+		"Extends": "Packet",
+		"Fields":[],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
 		"ClassName": "LoopbackPacketSender",
 		"Extends": null,
+		"Includes":[
+			"Packet"
+		],
 		"Fields": [],
 		"Functions": [],
         "Virtuals": [
@@ -185,7 +209,7 @@
 				"Parameters": [
 					{
 						"Name": "packet",
-						"Type": "void*"
+						"Type": "Packet*"
 					}
 				],
 				"Type": "void"

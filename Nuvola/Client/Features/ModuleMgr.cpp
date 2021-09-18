@@ -13,6 +13,7 @@
 //Player
 #include "Modules/Player/NoSwing.h"
 //Misc
+#include "Modules/Misc/NoPacket.h"
 #include "Modules/Misc/Uninject.h"
 
 //Events
@@ -48,6 +49,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Player
 	player->addItem(new NoSwing());
     //Misc
+	misc->addItem(new NoPacket());
 	misc->addItem(new Uninject());
 
     //Register categories
