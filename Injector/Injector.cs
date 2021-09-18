@@ -32,7 +32,6 @@ namespace Nuvola.Injector {
 			ArgState currentState = ArgState.None;
 			Task task = Task.None;
 			string moduleName = "";
-			string processName = "";
 
 			//Parse the arguments
 			foreach(string arg in args) {
@@ -43,13 +42,7 @@ namespace Nuvola.Injector {
 					if(arg == "-u") {
 						currentState = ArgState.Uninject;
 					}
-					if(arg == "-n") {
-						currentState = ArgState.Name;
-					}
 					continue;
-				}
-				if(currentState == ArgState.Name) {
-					processName = arg;
 				}
 				if(currentState == ArgState.Inject || currentState == ArgState.Uninject) {
 					moduleName = arg;
@@ -70,7 +63,7 @@ namespace Nuvola.Injector {
 
 			if(task == Task.Inject) {
 				Console.WriteLine("Waiting for \""+processName+"\"...");
-				awaitProcess(processName);
+				awaitProcess("Minecraft.Windows");
 				Console.WriteLine("Process found");
 				Console.WriteLine("Applying ALL_APPLICATION_PACKAGES");
 				applyAppPackages(moduleName);
@@ -90,6 +83,10 @@ namespace Nuvola.Injector {
                 Process[] possiblilties = Process.GetProcessesByName(procName);
                 if (possiblilties.Length < 1)
                 {
+					Console.WriteLine("Opening minecraft...");
+                    Process.Start("minecraft://");
+                    Thread.Sleep(5000);
+					
 					if(tries > 30)  {
 						//Couldnt find process, let user know and crash
 						Console.WriteLine("Failed to find process \""+procName+"\"!");
