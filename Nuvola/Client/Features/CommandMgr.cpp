@@ -3,6 +3,7 @@
 #include "../Events/EventHandler.h"
 
 #include "Commands/HelpCommand.h"
+#include "Commands/PacketDebugCommand.h"
 #include "Commands/SwingCommand.h"
 #include "Commands/ToggleCommand.h"
 #include "Commands/VersionCommand.h"
@@ -12,12 +13,14 @@ CommandMgr::CommandMgr() : Manager<Command>("CommandManager") {
     instance = this;
     //Initialize commands
 	auto helpCommand = new HelpCommand();
+	auto packetDebugCommand = new PacketDebugCommand();
 	auto swingCommand = new SwingCommand();
 	auto toggleCommand = new ToggleCommand();
 	auto versionCommand = new VersionCommand();
 
 	//Register commands
 	this->addItem(helpCommand);
+	this->addItem(packetDebugCommand);
 	this->addItem(swingCommand);
 	this->addItem(toggleCommand);
 	this->addItem(versionCommand);
