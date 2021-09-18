@@ -16,45 +16,45 @@ Freelook::Freelook() : Module("Freelook") {
 
 int lastCameraState = 0;
 Vector2<float> lookingAngles;
-bool doFreelook = false;
 void Freelook::onActorRotateEvent(ActorRotateEvent& event) {
-	if(doFreelook) {
-		Actor* actor = event.GetActor();
-		ClientInstance* client = Utils::GetClientInstance();
-		LocalPlayer* player = client->clientPlayer;
-		if(player == actor) {
-			event.SetRotation(lookingAngles);
-		}
+	Actor* actor = event.GetActor();
+	ClientInstance* client = Utils::GetClientInstance();
+	LocalPlayer* player = client->clientPlayer;
+	if(player == actor) {
+		event.SetRotation(lookingAngles);
 	}
 }
-void Freelook::onKeyEvent(KeyEvent& event) {
-	if(event.GetAction() == KeyAction::RELEASED && event.GetKey() == VK_MENU) {
-		doFreelook = false;
-
-		ClientInstance* client = Utils::GetClientInstance();
-		Options* options = client->getOptions();
-		IntOption* cameraState = options->cameraState;
-
-		cameraState->value = lastCameraState;
-	} else {
-		doFreelook = true;
-
-		ClientInstance* client = Utils::GetClientInstance();
-		LocalPlayer* player = client->clientPlayer;
-		if(player) {
-			lookingAngles = player->lookingVec;
+void Freelook::onHotkeyCheckEvent(KeyEvent& event) {
+	if(event.GetKey() == VK_MENU) {
+		if(event.GetAction() == KeyAction::RELEASED) {
+			this->SetEnabled(false);
 		}
-		Options* options = client->getOptions();
-		IntOption* cameraState = options->cameraState;
-
-		lastCameraState = cameraState->value;
-		cameraState->value = 1;
+		if(event.GetAction() == KeyAction::PRESSED) {
+			this->SetEnabled(true);
+		}
 	}
 };
 
 void Freelook::OnEnable() {
 	EventHandler::registerListener(this);
+
+	ClientInstance* client = Utils::GetClientInstance();
+	LocalPlayer* player = client->clientPlayer;
+	if(player) {
+		lookingAngles = player->lookingVec;
+	}
+	Options* options = client->getOptions();
+	IntOption* cameraState = options->cameraState;
+
+	lastCameraState = cameraState->value;
+	cameraState->value = 1;
 }
 void Freelook::OnDisable() {
 	EventHandler::unregisterListener(this);
+
+	ClientInstance* client = Utils::GetClientInstance();
+	Options* options = client->getOptions();
+	IntOption* cameraState = options->cameraState;
+
+	cameraState->value = lastCameraState;
 }

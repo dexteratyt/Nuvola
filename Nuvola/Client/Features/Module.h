@@ -18,6 +18,7 @@ public:
     virtual void OnEnable();
     virtual void OnDisable();
 	virtual void OnTick();
+	virtual void onHotkeyCheckEvent(KeyEvent& event);
 	void OnNuvolaTick();
 	auto IsEnabled() -> bool;
 	void SetEnabled(bool enabled);

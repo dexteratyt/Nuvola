@@ -19,6 +19,13 @@ void Module::OnTick() {
 
 }
 
+void Module::onHotkeyCheckEvent(KeyEvent& event) {
+	if(event.GetAction() == KeyAction::PRESSED) {
+		if(this->GetHotkey() == event.GetKey()) {
+			this->Toggle();
+		}
+	}
+}
 
 void Module::OnNuvolaTick() {
 	if(enabled) {

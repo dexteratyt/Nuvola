@@ -10,7 +10,7 @@ public:
 	void OnDisable() override;
 
 	void onActorRotateEvent(ActorRotateEvent& event) override;
-	void onKeyEvent(KeyEvent& event) override;
+	void onHotkeyCheckEvent(KeyEvent& event) override;
 };
 
 #endif /* NUVOLA_CLIENT_FEATURES_MODULES_RENDER_FREELOOK */

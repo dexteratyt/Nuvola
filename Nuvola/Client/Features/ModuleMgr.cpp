@@ -19,13 +19,9 @@
 #include "../Events/EventHandler.h"
 
 void ModuleMgr::onKeyEvent(KeyEvent& event) {
-	if(event.GetAction() == KeyAction::PRESSED) {
-		ModuleMgr* mgr = ModuleMgr::getInstance();
-		for(auto mod : *mgr->getAllModules()) {
-			if(mod->GetHotkey() == event.GetKey()) {
-				mod->Toggle();
-			}
-		}
+	ModuleMgr* mgr = ModuleMgr::getInstance();
+	for(auto mod : *mgr->getAllModules()) {
+		mod->onHotkeyCheckEvent(event);
 	}
 }
 
