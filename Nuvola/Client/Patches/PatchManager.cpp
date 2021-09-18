@@ -11,6 +11,8 @@
 #include "Player/TickWorldHook.h"
 //Localplayer
 #include "LocalPlayer/SetYHeadRotHook.h"
+//LoopbackPacketSender
+#include "LoopbackPacketSender/SendToServerHook.h"
 //ClientInstance
 #include "ClientInstance/UpdateHook.h"
 //ClientInstanceScreenModel
@@ -42,6 +44,9 @@ void PatchManager::ApplyAll()
 
 	/* LocalPlayer patches */
 	PatchManager::ApplyPatch(new SetYHeadRotHook()); // This func has head & camera math
+
+	/* LoopbackPacketSender patches */
+	PatchManager::ApplyPatch(new SendToServerHook());
 
 	/* Actor patches */
 	PatchManager::ApplyPatch(new SetRotHook()); // This has for up & down rotation which is shared across the whole body, however only the head moves.

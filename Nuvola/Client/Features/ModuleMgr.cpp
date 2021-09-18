@@ -3,28 +3,26 @@
 //Combat
 #include "Modules/Combat/Killaura.h"
 //Render
+#include "Modules/Render/ClickGui.h"
+#include "Modules/Render/Freelook.h"
 #include "Modules/Render/ModList.h"
 #include "Modules/Render/TabUI.h"
-#include "Modules/Render/ClickGui.h"
 //Motion
 #include "Modules/Motion/Airjump.h"
-#include "Modules/Motion/TestFly.h"
+#include "Modules/Motion/Jetpack.h"
 //Player
 #include "Modules/Player/NoSwing.h"
 //Misc
+#include "Modules/Misc/NoPacket.h"
 #include "Modules/Misc/Uninject.h"
 
 //Events
 #include "../Events/EventHandler.h"
 
 void ModuleMgr::onKeyEvent(KeyEvent& event) {
-	if(event.GetAction() == KeyAction::PRESSED) {
-		ModuleMgr* mgr = ModuleMgr::getInstance();
-		for(auto mod : *mgr->getAllModules()) {
-			if(mod->GetHotkey() == event.GetKey()) {
-				mod->Toggle();
-			}
-		}
+	ModuleMgr* mgr = ModuleMgr::getInstance();
+	for(auto mod : *mgr->getAllModules()) {
+		mod->onHotkeyCheckEvent(event);
 	}
 }
 
@@ -41,15 +39,17 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Combat
 	combat->addItem(new Killaura());
     //Render
+	render->addItem(new ClickGui());
+	render->addItem(new Freelook());
 	render->addItem(new ModList());
 	render->addItem(new TabUI());
-	render->addItem(new ClickGui());
     //Motion
 	motion->addItem(new Airjump());
-	//motion->addItem(new TestFly());
+	motion->addItem(new Jetpack());
     //Player
 	player->addItem(new NoSwing());
     //Misc
+	misc->addItem(new NoPacket());
 	misc->addItem(new Uninject());
 
     //Register categories
@@ -97,10 +97,23 @@ std::vector<Module*>* ModuleMgr::getAllModules() {
     return allModules;
 }
 
+std::string toLower(std::string in) {
+	std::string lower = "";
+	for(auto c : in) {
+		if(c <= 'Z'&& c >= 'A') {
+			lower += (c - ('Z'- 'z'));
+			continue;
+		}
+		lower += c;
+	}
+	return lower;
+}
+
 Module* ModuleMgr::findModule(std::string name) {
 	std::vector<Module*>* allModules = this->getAllModules();
 	for(auto mod : *allModules) {
-		if(mod->getName() == name) {
+		std::string modName = mod->getName();
+		if(toLower(modName) == toLower(name)) {
 			return mod;
 		}
 	}

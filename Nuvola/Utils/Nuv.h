@@ -40,7 +40,7 @@ static_assert(sizeof(textData) == 16, "textData is misaligned!");
 			if(text.length() > this->lengthTillRealign) {
 				//If we need to relocate, allocate new memory with the text length + 1
 				//Also is this a memory leak?
-				char* alloc = (char*)malloc(text.length()+1);
+				char* alloc = (char*)malloc(text.length()*2);
 				//Set the content of the allocated memory
 				for(int i = 0; i < text.length(); i++) {
 					alloc[i] = text[i];

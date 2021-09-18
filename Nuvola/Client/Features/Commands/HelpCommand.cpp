@@ -30,3 +30,9 @@ auto HelpCommand::Execute(std::vector<std::string> params) -> bool {
 auto HelpCommand::GetDescription() -> std::string {
 	return "Display's all available Nuvola commands, as well as provides a description of what they each do";
 }
+
+auto HelpCommand::GetAliases() -> std::vector<std::string> {
+	std::vector<std::string> aliases;
+	aliases.push_back("h");
+	return aliases;
+}

@@ -5,8 +5,8 @@
 #include "Cancellable.h"
 
 enum class KeyAction {
-	PRESSED,
-	RELEASED
+	RELEASED,
+	PRESSED
 };
 
 class KeyEvent : public Event, public Cancellable {
