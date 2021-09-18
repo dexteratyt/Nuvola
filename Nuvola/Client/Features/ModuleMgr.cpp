@@ -9,7 +9,7 @@
 #include "Modules/Render/TabUI.h"
 //Motion
 #include "Modules/Motion/Airjump.h"
-#include "Modules/Motion/TestFly.h"
+#include "Modules/Motion/Jetpack.h"
 //Player
 #include "Modules/Player/NoSwing.h"
 //Misc
@@ -44,7 +44,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
 	render->addItem(new TabUI());
     //Motion
 	motion->addItem(new Airjump());
-	//motion->addItem(new TestFly());
+	motion->addItem(new Jetpack());
     //Player
 	player->addItem(new NoSwing());
     //Misc

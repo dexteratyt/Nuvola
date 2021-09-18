@@ -10,7 +10,7 @@
 #include "../../../Bridge/Options.h"
 #include "../../../Bridge/IntOption.h"
 
-Freelook::Freelook() : Module("Freelook") {
+Freelook::Freelook() : Module("Freelook", VK_MENU) {
 
 }
 
@@ -25,7 +25,7 @@ void Freelook::onActorRotateEvent(ActorRotateEvent& event) {
 	}
 }
 void Freelook::onHotkeyCheckEvent(KeyEvent& event) {
-	if(event.GetKey() == VK_MENU) {
+	if(event.GetKey() == this->GetHotkey()) {
 		if(event.GetAction() == KeyAction::RELEASED) {
 			this->SetEnabled(false);
 		}

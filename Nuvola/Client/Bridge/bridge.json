@@ -180,8 +180,8 @@
 		"Functions": [],
         "Virtuals": [
             {
-                "Name": "send",
-				"Offset": "1",
+                "Name": "sendToServer",
+				"Offset": "2",
 				"Parameters": [
 					{
 						"Name": "packet",

@@ -8,7 +8,8 @@ struct LoopbackPacketSender {
 	/* Fields */
 	/* Virtuals */
 	virtual void virt_pad_0() {};
-	virtual auto send(void* packet) -> void {};
+	virtual void virt_pad_1() {};
+	virtual auto sendToServer(void* packet) -> void {};
 	/* Functions */
 };
 #endif
