@@ -11,6 +11,7 @@
 #include "ChatEvent.h"
 #include "MobSwingEvent.h"
 #include "PacketEvent.h"
+#include "DXPresentEvent.h"
 
 class Listener {
 public:
@@ -24,6 +25,7 @@ public:
 	virtual void onChatEvent(ChatEvent& event) {};
 	virtual void onMobSwingEvent(MobSwingEvent& event) {};
 	virtual void onPacketEvent(PacketEvent& event) {};
+	virtual void onDXPresentEvent(DXPresentEvent& event) {};
 };
 
 #endif /* NUVOLA_CLIENT_EVENTS_LISTENER */

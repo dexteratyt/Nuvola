@@ -5,6 +5,7 @@ target_sources(Nuvola PRIVATE
 add_subdirectory(Actor)
 add_subdirectory(ClientInstance)
 add_subdirectory(ClientInstanceScreenModel)
+add_subdirectory(Dx12)
 add_subdirectory(Global)
 add_subdirectory(LocalPlayer)
 add_subdirectory(LoopbackPacketSender)
