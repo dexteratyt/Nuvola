@@ -12,7 +12,7 @@ echo 3) Clean project
 :: Reset the choice var
 set choice=
 :: Get input for choice var
-set /p choice=Make a selection:
+set /p choice=Make a selection: 
 if not '%choice%'=='' set choice=%choice:~0,1%
 :: Jump to respective code
 if '%choice%' == '1' goto build
