@@ -201,6 +201,46 @@
 		"Virtuals":[]
 	},
 	{
+		"ClassName": "MovePlayerPacket",
+		"Extends": "Packet",
+		"Fields": [
+			{
+				"Name": "actorRuntimeID",
+				"Offset": "30",
+				"Type": {
+					"TypeName": "size_t",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "pos",
+				"Offset": "38",
+				"Type": {
+					"TypeName": "Vector3<float>",
+					"TypeSize": 12
+				}
+			},
+			{
+				"Name": "lookingVec",
+				"Offset": "44",
+				"Type": {
+					"TypeName": "Vector2<float>",
+					"TypeSize": 8
+				}
+			},
+			{
+				"Name": "onGround",
+				"Offset": "51",
+				"Type": {
+					"TypeName": "bool",
+					"TypeSize": 1
+				}
+			}
+		],
+		"Functions":[],
+		"Virtuals":[]
+	},
+	{
 		"ClassName": "LoopbackPacketSender",
 		"Extends": null,
 		"Includes":[
@@ -359,6 +399,14 @@
 				"Type": {
 					"TypeName": "Vector3<float>",
 					"TypeSize": 12
+				}
+			},
+			{
+				"Name": "actorRuntimeID",
+				"Offset": "570",
+				"Type": {
+					"TypeName": "size_t",
+					"TypeSize": 8
 				}
 			}
         ],

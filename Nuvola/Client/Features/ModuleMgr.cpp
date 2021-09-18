@@ -13,6 +13,7 @@
 //Player
 #include "Modules/Player/NoSwing.h"
 //Misc
+#include "Modules/Misc/Disabler.h"
 #include "Modules/Misc/NoPacket.h"
 #include "Modules/Misc/Uninject.h"
 
@@ -49,6 +50,7 @@ ModuleMgr::ModuleMgr() : Manager<Category>("ModuleManager") {
     //Player
 	player->addItem(new NoSwing());
     //Misc
+	misc->addItem(new Disabler());
 	misc->addItem(new NoPacket());
 	misc->addItem(new Uninject());
 

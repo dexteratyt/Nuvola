@@ -3,7 +3,7 @@
 
 NoPacket::NoPacket() : Module("NoPacket") {};
 
-void NoPacket::onPacket(PacketEvent& event) {
+void NoPacket::onPacketEvent(PacketEvent& event) {
 	event.Cancel();
 }
 

@@ -1,8 +1,6 @@
 #ifndef NUVOLA_CLIENT_EVENTS_LISTENER
 #define NUVOLA_CLIENT_EVENTS_LISTENER
 
-#include "PacketListener.h"
-
 #include "Event.h"
 #include "KeyEvent.h"
 #include "MouseEvent.h"
@@ -12,8 +10,9 @@
 #include "ActorRotateEvent.h"
 #include "ChatEvent.h"
 #include "MobSwingEvent.h"
+#include "PacketEvent.h"
 
-class Listener : public PacketListener {
+class Listener {
 public:
 	virtual void onEvent(Event& event) {};
 	virtual void onKeyEvent(KeyEvent& event) {};
@@ -24,6 +23,7 @@ public:
 	virtual void onActorRotateEvent(ActorRotateEvent& event) {};
 	virtual void onChatEvent(ChatEvent& event) {};
 	virtual void onMobSwingEvent(MobSwingEvent& event) {};
+	virtual void onPacketEvent(PacketEvent& event) {};
 };
 
 #endif /* NUVOLA_CLIENT_EVENTS_LISTENER */

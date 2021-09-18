@@ -20,7 +20,7 @@ std::string int_to_hex( T i )
 
 bool resolveNext = false;
 int packetID;
-void PacketDebugCommand::onPacket(PacketEvent& event) {
+void PacketDebugCommand::onPacketEvent(PacketEvent& event) {
 	//If theres no task, don't do anything!
 	//if(currentTask == Task::NONE) { return; }
 

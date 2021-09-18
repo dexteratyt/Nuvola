@@ -8,19 +8,10 @@ void __fastcall SendToServerHook::SendToServerHookCallback_1_17_10_4(LoopbackPac
 	PacketEvent event(packet);
 	std::vector<Listener*> listeners = EventHandler::getListeners();
 	for(auto listener : listeners) {
-		listener->onPacket(event);
+		listener->onPacketEvent(event);
 	}
 	if(event.IsCancelled()) {
 		return;
-	}
-
-	switch(packet->getId()) {
-		case (int)PACKET_IDS::PlayerAuthInputPacket:
-			PlayerAuthInputPacketEvent event((PlayerAuthInputPacket*)packet);
-			for(auto listener : listeners) {
-				listener->onPlayerAuthInputPacket(event);
-			}
-			break;
 	}
 
 	PLH::FnCast(funcOriginal, &SendToServerHookCallback_1_17_10_4)(packetSender, packet);

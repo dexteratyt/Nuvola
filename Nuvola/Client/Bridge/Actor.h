@@ -24,6 +24,8 @@ struct Actor {
 	Vector3<float> position;
 	Vector3<float> oldPos;
 	Vector3<float> velocity;
+	char padding_1392[88];
+	size_t actorRuntimeID;
 	/* Virtuals */
 	virtual void virt_pad_0() {};
 	virtual void virt_pad_1() {};
