@@ -1,5 +1,5 @@
 #include "MinecraftRenderer.h"
-
+//i like tudou
 /* Private helper functions */
 auto MinecraftRenderer::getFont() -> class BitmapFont* {
 	return this->renderContext->clientInstance->minecraftGame->mcFontA;
